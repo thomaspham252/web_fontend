@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import {Link, useSearchParams} from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import productsData from "../../data/products.json";
 import "../../assets/css/Products.css";
 import ProductCard from "../../components/product/ProductCard";
@@ -62,17 +62,16 @@ const Products = () => {
                 <Link to="/home">Trang chủ</Link> <span>/</span>
                 <span className="current">Sản phẩm</span>
             </div>
-            {/* Sidebar */}
             <aside className="sidebar">
                 <h3>Danh mục sản phẩm</h3>
                 <ul>
                     {[
-                        {id: "all", label: "Tất cả"},
-                        {id: "tri-mun-khang-khuan", label: "Trị mụn & Kháng khuẩn"},
-                        {id: "duong-sang-mo-tham", label: "Dưỡng sáng & Mờ thâm"},
-                        {id: "duong-am-phuc-hoi", label: "Dưỡng ẩm & Phục hồi"},
-                        {id: "tay-te-bao-chet", label: "Tẩy tế bào chết"},
-                        {id: "thu-gian-spa", label: "Thư giãn & Spa"},
+                        { id: "all", label: "Tất cả" },
+                        { id: "tri-mun-khang-khuan", label: "Trị mụn & Kháng khuẩn" },
+                        { id: "duong-sang-mo-tham", label: "Dưỡng sáng & Mờ thâm" },
+                        { id: "duong-am-phuc-hoi", label: "Dưỡng ẩm & Phục hồi" },
+                        { id: "tay-te-bao-chet", label: "Tẩy tế bào chết" },
+                        { id: "thu-gian-spa", label: "Thư giãn & Spa" },
                     ].map((cat) => (
                         <li
                             key={cat.id}
@@ -87,11 +86,11 @@ const Products = () => {
                 <h3>Theo giá</h3>
                 <ul>
                     {[
-                        {id: "all", label: "Tất cả"},
-                        {id: "under100", label: "Dưới 100.000đ"},
-                        {id: "100-200", label: "100.000đ - 200.000đ"},
-                        {id: "200-300", label: "200.000đ - 300.000đ"},
-                        {id: "300-500", label: "300.000đ - 500.000đ"},
+                        { id: "all", label: "Tất cả" },
+                        { id: "under100", label: "Dưới 100.000đ" },
+                        { id: "100-200", label: "100.000đ - 200.000đ" },
+                        { id: "200-300", label: "200.000đ - 300.000đ" },
+                        { id: "300-500", label: "300.000đ - 500.000đ" },
                     ].map((price) => (
                         <li
                             key={price.id}
@@ -107,15 +106,15 @@ const Products = () => {
             {/* Products */}
             <section className="products-content">
                 <h3>TẤT CẢ SẢN PHẨM</h3>
-                <div style={{textAlign: "center", marginBottom: "20px", color: "#666"}}>
+                <div style={{ textAlign: "center", marginBottom: "20px", color: "#666" }}>
                     Tìm thấy {filteredProducts.length} sản phẩm
                 </div>
                 {filteredProducts.length === 0 ? (
-                    <p style={{textAlign: "center", marginTop: "20px"}}>Không tìm thấy sản phẩm nào.</p>
+                    <p style={{ textAlign: "center", marginTop: "20px" }}>Không tìm thấy sản phẩm nào.</p>
                 ) : (
                     <div className="products-grid">
                         {currentProducts.map((p) => (
-                            <ProductCard key={p.id} product={p}/>
+                            <ProductCard key={p.id} product={p} />
                         ))}
                     </div>
                 )}
@@ -130,7 +129,7 @@ const Products = () => {
                             «
                         </button>
 
-                        {Array.from({length: totalPages}).map((_, i) => (
+                        {Array.from({ length: totalPages }).map((_, i) => (
                             <button
                                 key={i}
                                 className={currentPage === i + 1 ? "active" : ""}
