@@ -7,7 +7,7 @@ import NewProduct from "../components/product/NewProduct";
 const Home = () => {
     return (
         <main>
-            <Banner />       {/* Banner  */}
+            <Banner />
             <HotDeals />     {/* Sản phẩm giảm giá */}
             <NewProduct />   {/* Sản phẩm mới */}
         </main>
