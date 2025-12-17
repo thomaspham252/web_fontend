@@ -9,7 +9,7 @@ const Home = () => {
         <main>
             <Banner />
             <HotDeals />
-            <NewProduct />   {/* Sản phẩm mới */}
+            <NewProduct />
         </main>
     );
 };
