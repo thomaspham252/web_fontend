@@ -8,7 +8,7 @@ const Home = () => {
     return (
         <main>
             <Banner />
-            <HotDeals />     {/* Sản phẩm giảm giá */}
+            <HotDeals />
             <NewProduct />   {/* Sản phẩm mới */}
         </main>
     );
