@@ -90,7 +90,6 @@ const ProductDetail = () => {
                     <p className="status">
                         <strong>Tình trạng:</strong> {product.status}
                     </p>
-                    {/* Đổi h1 thành h2 để tối ưu SEO */}
                     <h2>Xà phòng handmade {product.name} có công dụng gì? </h2>
                     <p className="description">{product.description}</p>
                     <div className="weight-select">
