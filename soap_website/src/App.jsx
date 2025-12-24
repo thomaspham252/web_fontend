@@ -30,7 +30,7 @@ function App() {
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
 
-                {/*Trang điều hướng trên menu  */}
+
                 <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<ContactPage />} />
