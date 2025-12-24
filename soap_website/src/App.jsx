@@ -35,7 +35,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<ContactPage />} />
 
-                {/*Trang đăng kí đăng nhập  */}
+
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
