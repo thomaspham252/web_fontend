@@ -40,7 +40,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
 
-                {/*Trang thông tin  */}
+
                 <Route path="/user" element={<User />} />
                 <Route path="/order/:id" element={<OrderDetail />} />
                 <Route path="/orders" element={<Orders />} />
