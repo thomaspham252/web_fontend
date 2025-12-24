@@ -22,7 +22,7 @@ function App() {
         <BrowserRouter>
             <Header />
             <Routes>
-                {/* Trang chủ */}
+
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
 
