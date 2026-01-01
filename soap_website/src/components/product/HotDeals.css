@@ -1,0 +1,93 @@
+.hot-deals {
+    padding: 20px;
+}
+
+.hot-deals h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.deals-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 card 1 hàng */
+    gap: 20px; /* khoảng cách giữa các card */
+}
+
+.deal-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 10px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.deal-card:hover {
+    transform: translateY(-5px);
+}
+
+.deal-card img {
+    width: 100%;
+    height: 200px;          /* khung ảnh cố định */
+    object-fit: contain;     /* giữ tỉ lệ ảnh, không crop */
+    margin-bottom: 10px;
+}
+
+.deal-card h3 {
+    font-size: 18px;
+    margin: 5px 0;
+    text-align: center;
+}
+
+.price {
+    margin-bottom: 10px;
+}
+
+.price .new {
+    font-weight: bold;
+    color: #e74c3c;
+    margin-right: 5px;
+}
+
+.price .old {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.deal-card button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.deal-card button:hover {
+    background-color: #2980b9;
+}
+
+/* Responsive: <1200px → 3 cột */
+@media (max-width: 1200px) {
+    .deals-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Responsive: <768px → 2 cột */
+@media (max-width: 768px) {
+    .deals-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Responsive: <480px → 1 cột */
+@media (max-width: 480px) {
+    .deals-container {
+        grid-template-columns: 1fr;
+    }
+}

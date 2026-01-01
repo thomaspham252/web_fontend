@@ -1,0 +1,66 @@
+.banner-container {
+    position: relative;
+    width: 100%;          /* chiếm toàn bộ chiều ngang */
+    height: 500px;        /* hoặc height tùy ý */
+    overflow: hidden;     /* ẩn phần vượt ra ngoài container */
+}
+
+.banner-img {
+    width: 100%;          /* full chiều ngang */
+    height: 100%;         /* full chiều cao container */
+    object-fit: cover;    /* ảnh lấp đầy, giữ tỉ lệ và crop nếu cần */
+    object-position: center; /* vị trí ảnh căn giữa */
+    transition: 0.5s ease-in-out;
+}
+
+
+/* Nút trái/phải */
+.banner-buttons button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 40px;
+    color: white;
+    background: rgba(0,0,0,0.3);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    user-select: none;
+}
+
+.banner-buttons .prev {
+    left: 20px;
+}
+
+.banner-buttons .next {
+    right: 20px;
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+.banner-text h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.banner-text p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.banner-text button {
+    padding: 10px 25px;
+    font-size: 18px;
+    background-color: #ffc107;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

@@ -1,0 +1,166 @@
+[
+  {
+    "id": 4,
+    "name": "Xà phòng Hoa Hồng",
+    "category": "Xà phòng thiên nhiên",
+    "img": "/assets/image/product/soap-rose.webp",
+    "status": "Còn hàng",
+    "weight": [
+      { "size": "100g", "price": 110000 },
+      { "size": "200g", "price": 200000 }
+    ],
+    "oldPrice": 140000,
+    "info": "Xà phòng hoa hồng handmade từ dầu thực vật thiên nhiên, giúp dưỡng ẩm, làm mềm da và thơm nhẹ nhàng cả ngày.",
+    "isHotDeal": true,
+    "isNew": true
+  },
+  {
+    "id": 5,
+    "name": "Xà phòng Lavender",
+    "category": "Xà phòng dưỡng ẩm",
+    "img": "/assets/image/product/soap-lavender.jpg",
+    "status": "Còn hàng",
+    "weight": [
+      { "size": "100g", "price": 120000 },
+      { "size": "200g", "price": 220000 }
+    ],
+    "oldPrice": 150000,
+    "info": "Xà phòng lavender handmade giúp thư giãn, tạo hương thơm dịu nhẹ, thích hợp tắm và chăm sóc da hàng ngày.",
+    "isHotDeal": true,
+    "isNew": true
+  },
+  {
+    "id": 6,
+    "name": "Xà phòng Tràm Trà",
+    "category": "Xà phòng trị mụn",
+    "img": "/assets/image/product/soap-tramtra.webp",
+    "status": "Còn hàng",
+    "weight": [
+      { "size": "100g", "price": 100000 }
+    ],
+    "oldPrice": 130000,
+    "info": "Xà phòng tràm trà giúp làm sạch da, ngừa mụn và kháng khuẩn nhẹ nhàng.",
+    "isHotDeal": true,
+    "isNew": false
+  },
+  {
+  "id": 7,
+  "name": "Xà phòng Cam Quýt",
+  "category": "Xà phòng thiên nhiên",
+  "img": "/assets/image/product/soap-orange.jpg",
+  "status": "Còn hàng",
+  "weight": [
+  { "size": "100g", "price": 105000 },
+  { "size": "200g", "price": 195000 }
+],
+  "oldPrice": 135000,
+  "info": "Xà phòng cam quýt handmade giúp tẩy tế bào chết nhẹ, mang lại làn da sáng mịn.",
+  "isHotDeal": true,
+  "isNew": true
+  },
+  {
+    "id": 8,
+    "name": "Xà phòng Chanh Sả",
+    "category": "Xà phòng thiên nhiên",
+    "img": "/assets/image/product/soap-lemon-grass.jpg",
+    "status": "Còn hàng",
+    "weight": [
+      { "size": "100g", "price": 108000 },
+      { "size": "200g", "price": 198000 }
+    ],
+    "oldPrice": 138000,
+    "info": "Xà phòng chanh sả giúp làm sạch và khử mùi, mang lại làn da thơm mát.",
+    "isHotDeal": true,
+    "isNew": true
+  },
+  {
+    "id": 9,
+    "name": "Xà phòng Trà Xanh",
+    "category": "Xà phòng dưỡng ẩm",
+    "img": "/assets/image/product/soap-green-tea.jpg",
+    "status": "Còn hàng",
+    "weight": [
+      { "size": "100g", "price": 115000 },
+      { "size": "200g", "price": 205000 }
+    ],
+    "oldPrice": 145000,
+    "info": "Xà phòng trà xanh giúp chống oxy hóa và dưỡng ẩm nhẹ nhàng cho da.",
+    "isHotDeal": true,
+    "isNew": true
+  },
+  {
+    "id": 10,
+    "name": "Xà phòng Mật Ong",
+    "category": "Xà phòng dưỡng ẩm",
+    "img": "/assets/image/product/soap-honey.jpg",
+    "status": "Còn hàng",
+    "weight": [
+      { "size": "100g", "price": 120000 },
+      { "size": "200g", "price": 210000 }
+    ],
+    "oldPrice": 150000,
+    "info": "Xà phòng mật ong handmade giúp dưỡng ẩm sâu và làm mềm da.",
+    "isHotDeal": true,
+    "isNew": true
+  },
+  {
+    "id": 11,
+    "name": "Xà phòng Bạc Hà",
+    "category": "Xà phòng trị mụn",
+    "img": "/assets/image/product/soap-mint.jpg",
+    "status": "Còn hàng",
+    "weight": [
+      { "size": "100g", "price": 110000 },
+      { "size": "200g", "price": 200000 }
+    ],
+    "oldPrice": 140000,
+    "info": "Xà phòng bạc hà giúp làm sạch sâu, giảm mụn và mang lại cảm giác mát lạnh.",
+    "isHotDeal": true,
+    "isNew": false
+  },
+  {
+    "id": 12,
+    "name": "Xà phòng Cà Phê",
+    "category": "Xà phòng tẩy tế bào chết",
+    "img": "/assets/image/product/soap-coffee.jpg",
+    "status": "Còn hàng",
+    "weight": [
+      { "size": "100g", "price": 125000 },
+      { "size": "200g", "price": 215000 }
+    ],
+    "oldPrice": 160000,
+    "info": "Xà phòng cà phê handmade giúp tẩy tế bào chết, kích thích tuần hoàn máu và da săn chắc.",
+    "isHotDeal": true,
+    "isNew": true
+  },
+  {
+    "id": 13,
+    "name": "Xà phòng Dừa",
+    "category": "Xà phòng dưỡng ẩm",
+    "img": "/assets/image/product/soap-coconut.jpg",
+    "status": "Còn hàng",
+    "weight": [
+      { "size": "100g", "price": 115000 },
+      { "size": "200g", "price": 205000 }
+    ],
+    "oldPrice": 145000,
+    "info": "Xà phòng dừa giúp dưỡng ẩm sâu, làm mềm và mịn da.",
+    "isHotDeal": true,
+    "isNew": true
+  },
+  {
+    "id": 14,
+    "name": "Xà phòng Oải Hương & Chanh",
+    "category": "Xà phòng thư giãn",
+    "img": "/assets/image/product/soap-lavender-lemon.webp",
+    "status": "Còn hàng",
+    "weight": [
+      { "size": "100g", "price": 130000 },
+      { "size": "200g", "price": 220000 }
+    ],
+    "oldPrice": 160000,
+    "info": "Xà phòng oải hương và chanh giúp thư giãn tinh thần, tạo mùi thơm dễ chịu.",
+    "isHotDeal": false,
+    "isNew": true
+  }
+]
