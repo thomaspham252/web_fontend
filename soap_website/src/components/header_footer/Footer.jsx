@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import '../assets/css/footer.css';
+import './footer.css';
 import { SiGooglemaps } from "react-icons/si";
 import { FaPhone } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";

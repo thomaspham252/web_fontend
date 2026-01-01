@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import '../assets/css/Header.css';
-import logo from '../assets/image/logo.jpg';
+import './Header.css';
+import logo from '../../assets/image/logo.jpg';
 import { FaShoppingBag } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 
