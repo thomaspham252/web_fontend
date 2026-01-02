@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import productsData from "../data/products.json";
 import "../assets/css/Products.css";
 
@@ -38,8 +40,10 @@ const Products = () => {
                 <div className="products-grid">
                     {currentProducts.map((p) => (
                         <div className="product-card" key={p.id}>
-                            <img src={p.img} alt={p.name}/>
-                            <h4>{p.name}</h4>
+                            <Link to={`/products/${p.id}`}>
+                                <img src={p.img} alt={p.name}/>
+                                <h4>{p.name}</h4>
+                            </Link>
                             <p className="price">
                                 <span className="new">
                                     {p.weight[0].price.toLocaleString()}₫
