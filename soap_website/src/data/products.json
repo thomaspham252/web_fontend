@@ -7,11 +7,13 @@
     "img": "/assets/image/product/soap-rose.webp",
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 110000 },
-      { "size": "200g", "price": 200000 }
+      { "size": "100g", "price": 110000,"oldPrice": 140000},
+      { "size": "200g", "price": 200000,"oldPrice": 230000}
     ],
-    "oldPrice": 140000,
-    "description": "Xà phòng hoa hồng handmade từ dầu thực vật thiên nhiên, giúp dưỡng ẩm, làm mềm da và thơm nhẹ nhàng cả ngày.",
+
+    "description": "Xà phòng hoa hồng handmade từ dầu thực vật thiên nhiên, giúp dưỡng ẩm, làm mềm da và thơm nhẹ nhàng cả ngày. Làm sáng mịn, căng và duy trì độ ẩm cho da.\nGiúp da tươi trẻ, chống lão hóa da, chống oxy hóa da.\nLàm sạch sâu, ngăn ngừa mụn và viêm da. \nLàm mượt mái tóc, ngăn ngừa bạc tóc.\nGiảm căng thẳng, giảm stress mệt mỏi.\nTinh thần vui vẻ, tươi mới, dễ chịu và thu hút, phục hồi năng lượng.\nNgủ tốt, tạo sự thoải mái, thư giãn và tăng cảm xúc. \nKhông bắt nắng, không gây nhăn và khô da theo thời gian, không tồn sư hóa chất trên da ảnh hưởng đến sức khỏe, nội tiết tố hoặc lão hóa da.",
+
+
     "usage": [
       "Làm ướt da và xà phòng",
       "Tạo bọt nhẹ nhàng",

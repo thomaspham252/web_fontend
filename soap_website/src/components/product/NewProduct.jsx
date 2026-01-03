@@ -1,6 +1,7 @@
 import React from "react";
 import productsData from "../../data/products.json";
 import "./NewProduct.css";
+import {Link} from "react-router-dom";
 
 const ProductNew = () => {
     const newProducts = productsData.filter((p) => p.isNew);
@@ -11,8 +12,10 @@ const ProductNew = () => {
             <div className="products-container">
                 {newProducts.map((product) => (
                     <div key={product.id} className="product-card">
-                        <img src={product.img} alt={product.name} />
-                        <h3>{product.name}</h3>
+                        <Link to={`/products/${product.id}`}>
+                            <img src={product.img} alt={product.name}/>
+                            <h4>{product.name}</h4>
+                        </Link>
                         <p className="price">
                             <span className="new">
                                 {product.weight[0].price.toLocaleString()}₫
