@@ -3,14 +3,17 @@ import Home from "./pages/Home";
 import Header from "./components/header_footer/Header";
 import Footer from "./components/header_footer/Footer";
 import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
 function App() {
     return (
         <BrowserRouter>
             <Header />
 
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<ProductDetail />} />
+
             </Routes>
 
             <Footer />

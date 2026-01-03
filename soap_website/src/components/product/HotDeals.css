@@ -25,6 +25,12 @@
     align-items: center;
     transition: transform 0.2s;
 }
+.deal-card a{
+    text-decoration: none;
+    text-align: center;
+    color: #000000;
+
+}
 
 .deal-card:hover {
     transform: translateY(-5px);

@@ -1,6 +1,7 @@
 import React from "react";
 import productsData from "../../data/products.json";
 import "./HotDeals.css";
+import {Link} from "react-router-dom";
 
 const HotDeals = () => {
     const hotDeals = productsData.filter((p) => p.isHotDeal);
@@ -11,8 +12,10 @@ const HotDeals = () => {
             <div className="deals-container">
                 {hotDeals.map((deal) => (
                     <div key={deal.id} className="deal-card">
-                        <img src={deal.img} alt={deal.name}/>
-                        <h3>{deal.name}</h3>
+                        <Link to={`/products/${deal.id}`}>
+                            <img src={deal.img} alt={deal.name}/>
+                            <h4>{deal.name}</h4>
+                        </Link>
                         <p className="price">
                             <span className="new">{deal.weight[0].price.toLocaleString()}₫</span>
                             {deal.oldPrice > 0 && (
