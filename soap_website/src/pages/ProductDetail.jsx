@@ -45,7 +45,7 @@ const ProductDetail = () => {
                         <div className="weight-options">
                             {product.weight.map((w, index) => (
                                 <button
-                                    key={index}
+                                    key={w.size}
                                     className={`weight-btn ${
                                         selectedWeight.size === w.size ? "active" : ""
                                     }`}
