@@ -5,6 +5,7 @@ import Footer from "./components/header_footer/Footer";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import TermsAndConditions from "./pages/TermsAndConditions";
+import About from "./pages/About";
 function App() {
     return (
         <BrowserRouter>
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
                 <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+                <Route path="/about" element={<About />} />
 
 
             </Routes>
