@@ -7,9 +7,10 @@ const ProductDetail = () => {
     const {id} = useParams();
     const product = productsData.find(p => p.id === Number(id));
     const [selectedWeight, setSelectedWeight] = useState(product.weight[0]);
+    const images = product.images?.length ? product.images : [product.img];
 
     const [quantity, setQuantity] = useState(1);
-
+    const [mainImage, setMainImage] = useState(images[0]);
     if (!product) {
         return <h2>Không tìm thấy sản phẩm</h2>;
     }
@@ -18,7 +19,18 @@ const ProductDetail = () => {
         <div className="product-detail-page">
             <div className="product-main">
                 <div className="product-image">
-                    <img src={product.img} alt={product.name}/>
+                    <img src={mainImage} className="main-image" alt={product.name}/>
+                    <div className="thumbnail-list">
+                        {images.map((img, index) => (
+                            <img
+                                key={index}
+                                src={img}
+                                alt=""
+                                className={`thumbnail ${mainImage === img ? "active" : ""}`}
+                                onClick={() => setMainImage(img)}
+                            />
+                        ))}
+                    </div>
                 </div>
 
                 <div className="product-info">

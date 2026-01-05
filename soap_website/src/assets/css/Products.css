@@ -81,7 +81,7 @@
 .product-card button {
     padding: 8px 16px;
     border: none;
-    background: #000;
+    background-color: #3498db;
     color: #fff;
     cursor: pointer;
 }

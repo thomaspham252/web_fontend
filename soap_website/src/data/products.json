@@ -5,6 +5,12 @@
     "category": "Xà phòng thiên nhiên",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-rose.webp",
+    "images": [
+      "/assets/image/product/soap-rose.webp",
+      "/assets/image/product/soap-lavender.jpg",
+      "/assets/image/product/soap-coffee.jpg",
+      "/assets/image/product/soap-orange.jpg"
+    ],
     "status": "Còn hàng",
     "weight": [
       { "size": "100g", "price": 110000,"oldPrice": 140000},

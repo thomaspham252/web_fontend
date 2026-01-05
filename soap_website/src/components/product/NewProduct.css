@@ -27,6 +27,7 @@
 }
 .product-card a{
     text-decoration: none;
+    text-align: center;
     color: #000000;
 
 }
@@ -64,7 +65,7 @@
 }
 
 .product-card button {
-    background-color: #2ecc71;
+    background-color: #3498db;
     color: white;
     border: none;
     padding: 8px 12px;
@@ -73,7 +74,7 @@
 }
 
 .product-card button:hover {
-    background-color: #27ae60;
+    background-color:  #2980b9;
 }
 
 /* Responsive */
