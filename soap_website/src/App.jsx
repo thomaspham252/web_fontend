@@ -6,6 +6,9 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import About from "./pages/About";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import User from "./pages/User";
 function App() {
     return (
         <BrowserRouter>
