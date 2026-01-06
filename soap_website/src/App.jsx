@@ -9,7 +9,7 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import User from "./pages/User";
-
+import ContactPage from "./pages/ContactPage";
 function App() {
     return (
         <BrowserRouter>
@@ -25,12 +25,13 @@ function App() {
                 <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
                 <Route path="/about" element={<About />} />
 
+                <Route path="/lien-he" element={<ContactPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/user" element={<User />} />
 
-            </Routes>
 
+            </Routes>
             <Footer />
         </BrowserRouter>
     );
