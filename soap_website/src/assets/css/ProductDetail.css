@@ -58,7 +58,7 @@
     margin-top: 0;
 }
 
-.price {
+.prices {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -67,14 +67,14 @@
 
 }
 
-.price .new {
+.prices .new {
     font-size: 22px;
     color: #c0392b;
     font-weight: bold;
     margin-right: 15px;
 }
 
-.price .old {
+.prices .old {
     text-decoration: line-through;
     color: #999;
 }

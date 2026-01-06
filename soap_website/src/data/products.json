@@ -13,25 +13,19 @@
     ],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 110000,"oldPrice": 140000},
-      { "size": "200g", "price": 200000,"oldPrice": 230000}
+      { "size": "100g", "price": 110000, "oldPrice": 140000 },
+      { "size": "200g", "price": 200000, "oldPrice": 230000 }
     ],
-
     "description": "Xà phòng hoa hồng handmade từ dầu thực vật thiên nhiên, giúp dưỡng ẩm, làm mềm da và thơm nhẹ nhàng cả ngày. Làm sáng mịn, căng và duy trì độ ẩm cho da.\nGiúp da tươi trẻ, chống lão hóa da, chống oxy hóa da.\nLàm sạch sâu, ngăn ngừa mụn và viêm da. \nLàm mượt mái tóc, ngăn ngừa bạc tóc.\nGiảm căng thẳng, giảm stress mệt mỏi.\nTinh thần vui vẻ, tươi mới, dễ chịu và thu hút, phục hồi năng lượng.\nNgủ tốt, tạo sự thoải mái, thư giãn và tăng cảm xúc. \nKhông bắt nắng, không gây nhăn và khô da theo thời gian, không tồn sư hóa chất trên da ảnh hưởng đến sức khỏe, nội tiết tố hoặc lão hóa da.",
-
-
     "usage": [
       "Làm ướt da và xà phòng",
       "Tạo bọt nhẹ nhàng",
       "Massage lên da",
       "Rửa sạch với nước"
     ],
-    "ingredients": "Tinh dầu hoa oải hương tươi, tinh dầu oải hương khô, nụ oải hương và một số tinh dầu thiên nhiên tinh khiết tăng hiệu quả dưỡng da, dầu thực vật tự nhiên ép lạnh giàu vitamin E: Tinh dầu dừa, dầu Oliu, dầu Tamanu, nước, muối NaOH.Cam kết các nguyên liệu 100% tự nhiên, không chứa: chất tạo màu, chất tẩy, hương hóa học, chất định hương, dầu khoáng, chất tạo bọt hoặc glyxerin nhân tạo và bất kỳ hóa chất nào gây tác dụng phụ.",
+    "ingredients": "Tinh dầu hoa oải hương tươi, tinh dầu oải hương khô, nụ oải hương và một số tinh dầu thiên nhiên tinh khiết tăng hiệu quả dưỡng da, dầu thực vật tự nhiên ép lạnh giàu vitamin E: Tinh dầu dừa, dầu Oliu, dầu Tamanu, nước, muối NaOH. Cam kết các nguyên liệu 100% tự nhiên.",
     "productionMethod": "Sản xuất thủ công theo quy trình xà phòng hóa lạnh (Cold Process), ủ và hoàn thiện trong 45 ngày trước khi xuất xưởng. Đạt tiêu chuẩn an toàn và đủ điều kiện xuất khẩu.",
-    "note": [
-      "Bảo quản nơi khô ráo",
-      "Tránh ánh nắng trực tiếp"
-    ],
+    "note": ["Bảo quản nơi khô ráo", "Tránh ánh nắng trực tiếp"],
     "origin": "Việt Nam",
     "expiry": "24 tháng",
     "isHotDeal": true,
@@ -43,13 +37,17 @@
     "category": "Xà phòng dưỡng ẩm",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-lavender.jpg",
+    "images": [
+      "/assets/image/product/soap-lavender.jpg",
+      "/assets/image/product/soap-rose.webp",
+      "/assets/image/product/soap-coffee.jpg"
+    ],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 120000 },
-      { "size": "200g", "price": 220000 }
+      { "size": "100g", "price": 120000, "oldPrice": 150000 },
+      { "size": "200g", "price": 220000, "oldPrice": 250000 }
     ],
-    "oldPrice": 150000,
-    "description": "Xà phòng Lavender handmade mang hương thơm thảo mộc dịu nhẹ, giúp thư giãn tinh thần và giảm căng thẳng sau ngày dài.",
+    "description": "Xà phòng Lavender handmade mang hương thơm thảo mộc dịu nhẹ, giúp thư giãn tinh thần và giảm căng thẳng sau ngày dài. Giúp làm sạch sâu, cân bằng độ ẩm và mang lại làn da mịn màng, khỏe mạnh tự nhiên.",
     "usage": ["Làm ướt da và xà phòng", "Tạo bọt nhẹ nhàng", "Massage lên da", "Rửa sạch với nước"],
     "ingredients": "Tinh dầu oải hương Pháp tinh khiết, nụ hoa oải hương khô, dầu dừa, dầu Oliu, dầu cám gạo, nước khoáng, muối NaOH. Không chất bảo quản và hương liệu nhân tạo.",
     "productionMethod": "Sản xuất thủ công theo quy trình xà phòng hóa lạnh (Cold Process), ủ trong 45 ngày để đảm bảo độ pH an toàn cho da nhạy cảm.",
@@ -65,10 +63,13 @@
     "category": "Xà phòng trị mụn",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-tramtra.webp",
+    "images": ["/assets/image/product/soap-tramtra.webp", "/assets/image/product/soap-mint.jpg"],
     "status": "Còn hàng",
-    "weight": [{ "size": "100g", "price": 100000 }],
-    "oldPrice": 130000,
-    "description": "Giải pháp thiên nhiên cho làn da mụn, giúp kháng khuẩn, kiềm dầu và làm dịu các nốt mụn sưng đỏ.",
+    "weight": [
+      { "size": "100g", "price": 100000, "oldPrice": 130000 },
+      { "size": "200g", "price": 180000, "oldPrice": 210000 }
+    ],
+    "description": "Giải pháp thiên nhiên cho làn da mụn, giúp kháng khuẩn, kiềm dầu và làm dịu các nốt mụn sưng đỏ. Phù hợp cho cả da mặt và mụn lưng.",
     "usage": ["Làm ướt da và xà phòng", "Tạo bọt nhẹ nhàng", "Massage kỹ vùng da bị mụn", "Rửa sạch với nước"],
     "ingredients": "Tinh dầu tràm trà (Tea Tree oil), bột lá tràm trà, dầu mù u, dầu dừa, dầu Oliu, nước, muối NaOH. Cam kết không chứa hóa chất trị mụn công nghiệp.",
     "productionMethod": "Sản xuất thủ công (Cold Process) giúp giữ nguyên dược tính kháng khuẩn của tinh dầu tràm trà.",
@@ -84,15 +85,15 @@
     "category": "Xà phòng thiên nhiên",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-orange.jpg",
+    "images": ["/assets/image/product/soap-orange.jpg", "/assets/image/product/soap-lemon-grass.jpg"],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 105000 },
-      { "size": "200g", "price": 195000 }
+      { "size": "100g", "price": 105000, "oldPrice": 135000 },
+      { "size": "200g", "price": 195000, "oldPrice": 225000 }
     ],
-    "oldPrice": 135000,
-    "description": "Hương thơm tươi mát từ vỏ cam quýt giúp nạp lại năng lượng, đồng thời cung cấp Vitamin C hỗ trợ làm sáng da.",
+    "description": "Hương thơm tươi mát từ vỏ cam quýt giúp nạp lại năng lượng, đồng thời cung cấp Vitamin C hỗ trợ làm sáng da và chống oxy hóa.",
     "usage": ["Làm ướt da và xà phòng", "Tạo bọt nhẹ nhàng", "Massage lên da", "Rửa sạch với nước"],
-    "ingredients": "Tinh dầu cam ngọt, tinh dầu vỏ quýt, vỏ cam xay nhuyễn, dầu hạt nho, dầu dừa, dầu Oliu, nước, muối NaOH. Giàu Vitamin C và chất chống oxy hóa.",
+    "ingredients": "Tinh dầu cam ngọt, tinh dầu vỏ quýt, vỏ cam xay nhuyễn, dầu hạt nho, dầu dừa, dầu Oliu, nước, muối NaOH.",
     "productionMethod": "Quy trình ép lạnh giúp giữ lại lượng Vitamin tự nhiên cao nhất từ vỏ cam quýt.",
     "note": ["Bảo quản nơi khô ráo", "Tránh ánh nắng trực tiếp"],
     "origin": "Việt Nam",
@@ -106,15 +107,15 @@
     "category": "Xà phòng thiên nhiên",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-lemon-grass.jpg",
+    "images": ["/assets/image/product/soap-lemon-grass.jpg", "/assets/image/product/soap-orange.jpg"],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 108000 },
-      { "size": "200g", "price": 198000 }
+      { "size": "100g", "price": 108000, "oldPrice": 138000 },
+      { "size": "200g", "price": 198000, "oldPrice": 228000 }
     ],
-    "oldPrice": 138000,
-    "description": "Làm sạch sâu, khử mùi cơ thể và xua đuổi côn trùng nhờ tinh dầu chanh sả nồng nàn.",
+    "description": "Làm sạch sâu, khử mùi cơ thể và xua đuổi côn trùng nhờ tinh dầu chanh sả nồng nàn. Tạo cảm giác sảng khoái như đang ở spa.",
     "usage": ["Làm ướt da và xà phòng", "Tạo bọt nhẹ nhàng", "Massage lên da", "Rửa sạch với nước"],
-    "ingredients": "Tinh dầu sả chanh, tinh dầu chanh tươi, bột lá sả, dầu hạt hướng dương, dầu dừa, dầu Oliu, nước, muối NaOH. 100% không hương liệu tổng hợp.",
+    "ingredients": "Tinh dầu sả chanh, tinh dầu chanh tươi, bột lá sả, dầu hạt hướng dương, dầu dừa, dầu Oliu, nước, muối NaOH.",
     "productionMethod": "Sản xuất thủ công theo mẻ nhỏ, ủ chín 45 ngày để đạt độ cứng và khả năng tạo bọt mịn tự nhiên.",
     "note": ["Bảo quản nơi thoáng mát", "Ngưng sử dụng nếu có dấu hiệu kích ứng tinh dầu"],
     "origin": "Việt Nam",
@@ -128,15 +129,15 @@
     "category": "Xà phòng dưỡng ẩm",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-green-tea.jpg",
+    "images": ["/assets/image/product/soap-green-tea.jpg"],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 115000 },
-      { "size": "200g", "price": 205000 }
+      { "size": "100g", "price": 115000, "oldPrice": 145000 },
+      { "size": "200g", "price": 205000, "oldPrice": 235000 }
     ],
-    "oldPrice": 145000,
-    "description": "Chiết xuất trà xanh giúp chống lão hóa, bảo vệ da trước tác động của môi trường và dưỡng da mịn màng.",
+    "description": "Chiết xuất trà xanh giúp chống lão hóa, bảo vệ da trước tác động của môi trường và dưỡng da mịn màng, làm dịu da cháy nắng.",
     "usage": ["Làm ướt da và xà phòng", "Tạo bọt nhẹ nhàng", "Massage lên da", "Rửa sạch với nước"],
-    "ingredients": "Bột trà xanh Thái Nguyên nguyên chất, tinh dầu trà xanh, dầu hạt mỡ (Shea butter), dầu dừa, dầu Oliu, nước muối NaOH. Không màu nhân tạo.",
+    "ingredients": "Bột trà xanh Thái Nguyên nguyên chất, tinh dầu trà xanh, dầu hạt mỡ (Shea butter), dầu dừa, dầu Oliu, nước muối NaOH.",
     "productionMethod": "Quy trình sản xuất lạnh (Cold Process) giữ trọn vẹn hoạt chất Polyphenol từ trà xanh.",
     "note": ["Bảo quản nơi khô ráo", "Tránh ánh nắng trực tiếp"],
     "origin": "Việt Nam",
@@ -150,17 +151,17 @@
     "category": "Xà phòng dưỡng ẩm",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-honey.jpg",
+    "images": ["/assets/image/product/soap-honey.jpg", "/assets/image/product/soap-turmeric-honey.jpg"],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 120000 },
-      { "size": "200g", "price": 210000 }
+      { "size": "100g", "price": 120000, "oldPrice": 150000 },
+      { "size": "200g", "price": 210000, "oldPrice": 240000 }
     ],
-    "oldPrice": 150000,
-    "description": "Nuôi dưỡng làn da khô với mật ong rừng nguyên chất, tạo màng ẩm tự nhiên giúp da luôn mềm mại.",
+    "description": "Nuôi dưỡng làn da khô với mật ong rừng nguyên chất, tạo màng ẩm tự nhiên giúp da luôn mềm mại và hỗ trợ kháng khuẩn nhẹ nhàng.",
     "usage": ["Làm ướt da và xà phòng", "Tạo bọt nhẹ nhàng", "Massage lên da", "Rửa sạch với nước"],
-    "ingredients": "Mật ong rừng tự nhiên, sáp ong, dầu hạnh nhân, dầu dừa, dầu Oliu, nước khoáng, muối NaOH. Phù hợp cho cả trẻ em và da nhạy cảm.",
+    "ingredients": "Mật ong rừng tự nhiên, sáp ong, dầu hạnh nhân, dầu dừa, dầu Oliu, nước khoáng, muối NaOH.",
     "productionMethod": "Thủ công hoàn toàn, không gia nhiệt cao để bảo vệ các enzyme quý giá trong mật ong.",
-    "note": ["Bảo quản nơi khô ráo", "Sản phẩm có độ dưỡng cao nên cần tránh nơi ẩm ướt"],
+    "note": ["Bảo quản nơi khô ráo", "Tránh nơi ẩm ướt"],
     "origin": "Việt Nam",
     "expiry": "24 tháng",
     "isHotDeal": true,
@@ -172,15 +173,15 @@
     "category": "Xà phòng trị mụn",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-mint.jpg",
+    "images": ["/assets/image/product/soap-mint.jpg", "/assets/image/product/soap-tramtra.webp"],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 110000 },
-      { "size": "200g", "price": 200000 }
+      { "size": "100g", "price": 110000, "oldPrice": 140000 },
+      { "size": "200g", "price": 200000, "oldPrice": 230000 }
     ],
-    "oldPrice": 140000,
-    "description": "Mang lại cảm giác mát lạnh tức thì, làm sạch sâu lỗ chân lông và hỗ trợ kiểm soát mụn lưng hiệu quả.",
+    "description": "Mang lại cảm giác mát lạnh tức thì, làm sạch sâu lỗ chân lông và hỗ trợ kiểm soát mụn lưng hiệu quả, giúp sảng khoái tinh thần.",
     "usage": ["Làm ướt da và xà phòng", "Tạo bọt nhẹ nhàng", "Massage lên da", "Rửa sạch với nước"],
-    "ingredients": "Tinh dầu bạc hà nguyên chất, lá bạc hà khô nghiền mịn, dầu thầu dầu, dầu dừa, dầu Oliu, nước, muối NaOH. Không chứa chất tạo màu xanh nhân tạo.",
+    "ingredients": "Tinh dầu bạc hà nguyên chất, lá bạc hà khô nghiền mịn, dầu thầu dầu, dầu dừa, dầu Oliu, nước, muối NaOH.",
     "productionMethod": "Sản xuất bằng phương pháp xà phòng hóa lạnh, đảm bảo tinh dầu bạc hà giữ được độ tinh khiết cao nhất.",
     "note": ["Cẩn trọng khi dùng cho vùng da mắt", "Bảo quản nơi khô ráo"],
     "origin": "Việt Nam",
@@ -194,17 +195,17 @@
     "category": "Xà phòng tẩy tế bào chết",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-coffee.jpg",
+    "images": ["/assets/image/product/soap-coffee.jpg", "/assets/image/product/soap-rose.webp"],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 125000 },
-      { "size": "200g", "price": 215000 }
+      { "size": "100g", "price": 125000, "oldPrice": 160000 },
+      { "size": "200g", "price": 215000, "oldPrice": 245000 }
     ],
-    "oldPrice": 160000,
-    "description": "Sử dụng bột cà phê nguyên chất giúp tẩy tế bào chết cơ học, làm mờ vết thâm và giúp da săn chắc hơn.",
+    "description": "Sử dụng bột cà phê nguyên chất giúp tẩy tế bào chết cơ học, làm mờ vết thâm và giúp da săn chắc hơn, lưu lại hương thơm quyến rũ.",
     "usage": ["Làm ướt da và xà phòng", "Xoa trực tiếp bánh xà phòng lên da để tẩy tế bào chết", "Massage nhẹ nhàng", "Rửa sạch với nước"],
-    "ingredients": "Bột cà phê Robusta, tinh dầu cà phê, dầu cám gạo, dầu dừa, dầu Oliu, nước, muối NaOH. Giàu Caffeine giúp tuần hoàn máu dưới da.",
-    "productionMethod": "Quy trình Cold Process kết hợp kỹ thuật trộn bột cà phê đều tay để tạo độ nhám lý tưởng cho việc massage.",
-    "note": ["Chỉ dùng cho cơ thể (Body)", "Nên dùng 2-3 lần/tuần nếu da mỏng"],
+    "ingredients": "Bột cà phê Robusta, tinh dầu cà phê, dầu cám gạo, dầu dừa, dầu Oliu, nước, muối NaOH.",
+    "productionMethod": "Quy trình Cold Process kết hợp kỹ thuật trộn bột cà phê đều tay.",
+    "note": ["Chỉ dùng cho cơ thể (Body)", "Nên dùng 2-3 lần/tuần"],
     "origin": "Việt Nam",
     "expiry": "24 tháng",
     "isHotDeal": true,
@@ -216,16 +217,16 @@
     "category": "Xà phòng dưỡng ẩm",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-coconut.jpg",
+    "images": ["/assets/image/product/soap-coconut.jpg"],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 115000 },
-      { "size": "200g", "price": 205000 }
+      { "size": "100g", "price": 115000, "oldPrice": 145000 },
+      { "size": "200g", "price": 205000, "oldPrice": 235000 }
     ],
-    "oldPrice": 145000,
-    "description": "Chiết xuất từ cốt dừa nguyên chất giúp làm sạch dịu nhẹ và cung cấp độ ẩm tối ưu cho làn da khô ráp.",
+    "description": "Chiết xuất từ cốt dừa nguyên chất giúp làm sạch dịu nhẹ và cung cấp độ ẩm tối ưu cho làn da khô ráp, giúp da sáng khỏe.",
     "usage": ["Làm ướt da và xà phòng", "Tạo bọt nhẹ nhàng", "Massage lên da", "Rửa sạch với nước"],
-    "ingredients": "Nước cốt dừa tươi, cơm dừa sấy khô, dầu dừa nguyên chất ép lạnh, dầu Oliu, nước, muối NaOH. 100% nguyên liệu từ dừa Bến Tre.",
-    "productionMethod": "Sản xuất thủ công theo quy trình xà phòng hóa lạnh, phơi bánh xà phòng trong phòng lạnh 45 ngày.",
+    "ingredients": "Nước cốt dừa tươi, cơm dừa sấy khô, dầu dừa nguyên chất ép lạnh, dầu Oliu, nước, muối NaOH.",
+    "productionMethod": "Sản xuất thủ công theo quy trình xà phòng hóa lạnh, phơi bánh xà phòng 45 ngày.",
     "note": ["Bảo quản nơi khô ráo", "Tránh ánh nắng trực tiếp"],
     "origin": "Việt Nam",
     "expiry": "24 tháng",
@@ -238,16 +239,16 @@
     "category": "Xà phòng thư giãn",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-lavender-lemon.png",
+    "images": ["/assets/image/product/soap-lavender-lemon.png"],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 130000 },
-      { "size": "200g", "price": 220000 }
+      { "size": "100g", "price": 130000, "oldPrice": 160000 },
+      { "size": "200g", "price": 220000, "oldPrice": 250000 }
     ],
-    "oldPrice": 160000,
-    "description": "Sự kết hợp hoàn hảo giữa hương hoa Oải Hương thanh tao và hương Chanh tươi mát giúp đánh thức giác quan.",
+    "description": "Sự kết hợp giữa hương hoa Oải Hương thanh tao và hương Chanh tươi mát giúp đánh thức giác quan và thư giãn sâu.",
     "usage": ["Làm ướt da và xà phòng", "Tạo bọt nhẹ nhàng", "Massage lên da", "Rửa sạch với nước"],
-    "ingredients": "Tinh dầu oải hương, tinh dầu chanh vàng, vỏ chanh bào, dầu Jojoba, dầu dừa, dầu Oliu, nước, muối NaOH. Cam kết không chứa dầu khoáng.",
-    "productionMethod": "Quy trình phối trộn tinh dầu kép (Double essential oil infusion) để hương thơm lưu lại lâu hơn trên da.",
+    "ingredients": "Tinh dầu oải hương, tinh dầu chanh vàng, vỏ chanh bào, dầu Jojoba, dầu dừa, dầu Oliu, nước, muối NaOH.",
+    "productionMethod": "Quy trình phối trộn tinh dầu kép (Double essential oil infusion).",
     "note": ["Bảo quản nơi khô ráo", "Tránh ánh nắng trực tiếp"],
     "origin": "Việt Nam",
     "expiry": "24 tháng",
@@ -260,17 +261,17 @@
     "category": "Xà phòng dưỡng da",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-turmeric-honey.jpg",
+    "images": ["/assets/image/product/soap-turmeric-honey.jpg", "/assets/image/product/soap-honey.jpg"],
     "status": "Còn hàng",
     "weight": [
-      { "size": "100g", "price": 118000 },
-      { "size": "200g", "price": 208000 }
+      { "size": "100g", "price": 118000, "oldPrice": 148000 },
+      { "size": "200g", "price": 208000, "oldPrice": 238000 }
     ],
-    "oldPrice": 148000,
-    "description": "Xà phòng nghệ mật ong giúp hỗ trợ mờ thâm, sáng da và phục hồi các tổn thương da sau mụn.",
+    "description": "Xà phòng nghệ mật ong giúp hỗ trợ mờ thâm, sáng da và phục hồi các tổn thương da sau mụn hiệu quả.",
     "usage": ["Làm ướt da và xà phòng", "Tạo bọt nhẹ nhàng", "Massage lên vùng da cần làm sáng", "Rửa sạch với nước"],
-    "ingredients": "Tinh bột nghệ nguyên chất, mật ong rừng, dầu gấc, dầu dừa, dầu Oliu, nước, muối NaOH. Không gây vàng da sau khi tắm.",
-    "productionMethod": "Sản xuất thủ công theo quy trình xà phòng hóa lạnh (Cold Process) trong 45 ngày, đủ tiêu chuẩn an toàn mỹ phẩm.",
-    "note": ["Bảo quản nơi khô ráo", "Kết hợp kem chống nắng khi ra ngoài để bảo vệ da"],
+    "ingredients": "Tinh bột nghệ nguyên chất, mật ong rừng, dầu gấc, dầu dừa, dầu Oliu, nước, muối NaOH.",
+    "productionMethod": "Sản xuất thủ công theo quy trình xà phòng hóa lạnh (Cold Process) trong 45 ngày.",
+    "note": ["Bảo quản nơi khô ráo", "Kết hợp kem chống nắng khi ra ngoài"],
     "origin": "Việt Nam",
     "expiry": "24 tháng",
     "isHotDeal": false,

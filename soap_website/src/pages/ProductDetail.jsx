@@ -35,7 +35,7 @@ const ProductDetail = () => {
 
                 <div className="product-info">
                     <h1>{product.name}</h1>
-                    <p className="price">
+                    <p className="prices">
                       <span className="new">
                         {selectedWeight.price.toLocaleString()}₫
                       </span>
