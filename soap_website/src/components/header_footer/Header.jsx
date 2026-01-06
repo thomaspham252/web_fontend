@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import './Header.css';
 import logo from '../../assets/image/logo.jpg';
@@ -7,6 +7,15 @@ import { FaSearch } from "react-icons/fa";
 
 
 function Header() {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
+
     return (
         <header className="header-container">
             <div className="top-header">
@@ -18,7 +27,17 @@ function Header() {
                     <span className="icon-search"><FaSearch /></span>
                 </div>
                 <div className="acc-cart">
-                    <div className="account"><Link to="/account">TÀI KHOẢN</Link></div>
+                    <div className="account">
+                        {user ? (
+                            <Link to="/user">Chào, {user.name}</Link>
+                        ) : (
+                            <div>
+                                <Link to="/login">Đăng nhập</Link>
+                                <span style={{ margin: '0 5px' }}>/</span>
+                                <Link to="/register">Đăng ký</Link>
+                            </div>
+                        )}
+                    </div>
                     <div className="cart">
                         <Link to="/cart">
                             <FaShoppingBag/>
