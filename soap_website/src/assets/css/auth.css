@@ -63,3 +63,56 @@
     text-align: center;
     margin-top: 15px;
 }
+
+
+
+/* Đường kẻ phân cách "Hoặc" */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: #888;
+    font-size: 14px;
+}
+.divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+.divider span {
+    padding: 0 10px;
+}
+
+/* Khu vực chứa nút Social */
+.social-login {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-social {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.btn-social:hover {
+    background-color: #f5f5f5;
+}
+
+/* Màu riêng cho từng hãng */
+.btn-google { color: #db4437; border-color: #db4437; }
+.btn-facebook { color: #4267B2; border-color: #4267B2; }
+
+.btn-social svg {
+    margin-right: 8px;
+    font-size: 18px;
+}
