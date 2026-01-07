@@ -1,29 +1,25 @@
-import React, {useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
-import {FaGoogle, FaFacebookF} from "react-icons/fa"; // Import thêm icon
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaGoogle, FaFacebookF, FaApple } from "react-icons/fa";
 import '../assets/css/auth.css';
 
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
 
-    // Hàm xử lý đăng nhập thường
+    // Hàm xử lý đăng nhập thường (Form Email)
     const handleLogin = (e) => {
         e.preventDefault();
-
-        // Tạo user giả lập từ form
         const user = {
-            name: "Khách hàng thân thiết", // Tạm để tên cố định
+            name: "Khách hàng thân thiết",
             email: email,
             loginType: 'email'
         };
-
         saveUserAndRedirect(user);
     };
 
-    // Hàm xử lý đăng nhập Social (Giả lập)
+    // Hàm xử lý đăng nhập Social (Google, FB, Apple)
     const handleSocialLogin = (platform) => {
-        // Giả lập dữ liệu mà Google/Facebook trả về
         let fakeUser = {};
 
         if (platform === 'google') {
@@ -38,6 +34,12 @@ const Login = () => {
                 email: "fb_user@yahoo.com",
                 loginType: 'facebook'
             };
+        } else if (platform === 'apple') {
+            fakeUser = {
+                name: "Người dùng Apple",
+                email: "apple_id@icloud.com",
+                loginType: 'apple'
+            };
         }
 
         alert(`Đang kết nối tới ${platform}... (Giả lập thành công)`);
@@ -47,13 +49,13 @@ const Login = () => {
     // Hàm chung để lưu và chuyển trang
     const saveUserAndRedirect = (userData) => {
         localStorage.setItem("user", JSON.stringify(userData));
-
         window.location.href = "/user";
     };
 
     return (
         <div className="auth-container">
             <h2>Đăng Nhập</h2>
+
             <form onSubmit={handleLogin}>
                 <div className="form-group">
                     <label>Email:</label>
@@ -71,11 +73,11 @@ const Login = () => {
                 <button type="submit" className="btn-auth">Đăng Nhập</button>
             </form>
 
-
             <div className="divider">
                 <span>Hoặc đăng nhập bằng</span>
             </div>
 
+            
             <div className="social-login">
                 <button
                     type="button"
@@ -92,8 +94,15 @@ const Login = () => {
                 >
                     <FaFacebookF/> Facebook
                 </button>
-            </div>
 
+                <button
+                    type="button"
+                    className="btn-social btn-apple"
+                    onClick={() => handleSocialLogin('apple')}
+                >
+                    <FaApple/> Apple
+                </button>
+            </div>
 
             <p style={{marginTop: '20px'}}>
                 Chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
