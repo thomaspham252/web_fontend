@@ -36,8 +36,8 @@ function Footer() {
                         <p>DỊCH VỤ KHÁCH HÀNG</p>
                     </div>
                     <div className="contend">
-                        <p><Link to="/">Điểu khoản mua hàng</Link></p>
-                        <p><Link to="/">Điều khoản sử dụng</Link></p>
+                        <p><Link to="/terms-and-conditions">Điểu khoản mua hàng</Link></p>
+                        <p><Link to="/terms-and-conditions">Điều khoản sử dụng</Link></p>
                         <p><Link to="/">Câu hỏi thường gặp</Link></p>
                     </div>
                 </div>
