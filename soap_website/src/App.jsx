@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import User from "./pages/User";
 import ContactPage from "./pages/ContactPage";
+import Payment from "./pages/Payment";
 function App() {
     return (
         <BrowserRouter>
@@ -24,14 +25,13 @@ function App() {
                 <Route path="/products/:id" element={<ProductDetail />} />
                 <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
                 <Route path="/about" element={<About />} />
-
                 <Route path="/lien-he" element={<ContactPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/user" element={<User />} />
-
-
+                <Route path="/payment" element={<Payment />} />
             </Routes>
+
             <Footer />
         </BrowserRouter>
     );

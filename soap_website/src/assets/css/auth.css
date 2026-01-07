@@ -29,7 +29,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Để padding không làm vỡ layout */
+    box-sizing: border-box;
 }
 
 .btn-auth {
@@ -63,3 +63,92 @@
     text-align: center;
     margin-top: 15px;
 }
+
+
+
+/* Đường kẻ phân cách "Hoặc" */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: #888;
+    font-size: 14px;
+}
+.divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+.divider span {
+    padding: 0 10px;
+}
+
+/* Khu vực chứa nút Social */
+.social-login {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-social {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.btn-social:hover {
+    background-color: #f5f5f5;
+}
+
+
+.btn-google { color: #db4437; border-color: #db4437; }
+.btn-facebook { color: #4267B2; border-color: #4267B2; }
+
+.btn-social svg {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+
+
+.social-login {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-social {
+    /* Code cũ giữ nguyên */
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+    min-width: 100px; /* Thêm độ rộng tối thiểu cho đẹp */
+}
+
+.btn-social:hover {
+    background-color: #f5f5f5;
+}
+
+
+.btn-google { color: #db4437; border-color: #db4437; }
+.btn-facebook { color: #4267B2; border-color: #4267B2; }
+
+/* --- THÊM DÒNG NÀY CHO APPLE --- */
+.btn-apple { color: #000000; border-color: #000000; }
