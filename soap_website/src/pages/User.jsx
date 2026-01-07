@@ -1,31 +1,40 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
 import '../assets/css/auth.css';
 
 const User = () => {
-    const navigate = useNavigate();
-    // Giả lập dữ liệu user
-    const user = {
-        name: "Nguyễn Văn A",
-        email: "nguyenvana@example.com",
-        phone: "0901234567"
-    };
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        } else {
+            window.location.href = "/login";
+        }
+    }, []);
 
     const handleLogout = () => {
-        // Xử lý đăng xuất (xóa token, v.v.)
-        alert("Đã đăng xuất!");
-        navigate('/login');
+
+        localStorage.removeItem("user");
+
+
+        window.location.href = "/login";
     };
+
+    if (!user) return <div style={{textAlign: "center", marginTop: "50px"}}>Đang xử lý...</div>;
 
     return (
         <div className="auth-container">
             <h2>Thông tin tài khoản</h2>
-            <div className="user-info">
+            <div className="user-info" style={{textAlign: 'left', margin: '20px 0'}}>
                 <p><strong>Họ tên:</strong> {user.name}</p>
                 <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>SĐT:</strong> {user.phone}</p>
+                <p><strong>Loại tài khoản:</strong> {user.loginType === 'email' ? 'Thường' : user.loginType}</p>
             </div>
-            <button onClick={handleLogout} className="btn-logout">Đăng Xuất</button>
+
+            <button onClick={handleLogout} className="btn-logout">
+                Đăng Xuất
+            </button>
         </div>
     );
 };
