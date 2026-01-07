@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import productsData from "../data/products.json";
 import "../assets/css/ProductDetail.css";
 import NewProduct from "../components/product/NewProduct";
+import { addToCart } from "../utils/cartUtils";
 const ProductDetail = () => {
     const {id} = useParams();
     const product = productsData.find(p => p.id === Number(id));
@@ -84,7 +85,10 @@ const ProductDetail = () => {
                     </div>
 
 
-                    <button className="buy-now">
+                    <button
+                        className="buy-now"
+                        onClick={() => addToCart(product, selectedWeight, quantity)}
+                    >
                         <span className="txt-main">MUA NGAY VỚI GIÁ {selectedWeight.price.toLocaleString()}₫</span>
                         <span className="txt-add">Đặt mua giao hàng tận nơi</span>
                     </button>
