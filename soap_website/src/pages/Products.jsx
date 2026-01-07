@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-
+import { addToCart } from "../utils/cartUtils";
 import productsData from "../data/products.json";
 import "../assets/css/Products.css";
 
@@ -129,7 +129,9 @@ const Products = () => {
                                      </span>
                                 )}
                             </p>
-                            <button>Mua ngay</button>
+                            <button onClick={() => addToCart(p, p.weight[0], 1)}>
+                                Mua ngay
+                            </button>
                         </div>
                     ))}
                 </div>
