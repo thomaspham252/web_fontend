@@ -48,7 +48,7 @@ const Login = () => {
 
     // Hàm chung để lưu và chuyển trang
     const saveUserAndRedirect = (userData) => {
-        localStorage.setItem("user", JSON.stringify(userData));
+        sessionStorage.setItem("user", JSON.stringify(userData));
         window.location.href = "/user";
     };
 
@@ -77,7 +77,7 @@ const Login = () => {
                 <span>Hoặc đăng nhập bằng</span>
             </div>
 
-            
+
             <div className="social-login">
                 <button
                     type="button"
