@@ -24,10 +24,10 @@ function Footer() {
                         <p>LIÊN KẾT NHANH</p>
                     </div>
                     <div className="contend">
-                        <p><Link to="/">Trang chủ</Link></p>
-                        <p><Link to="/">Sản phẩm </Link></p>
-                        <p><Link to="/">Giới thiệu</Link></p>
-                        <p><Link to="/">Liên hệ</Link></p>
+                        <p><Link to="/home">Trang chủ</Link></p>
+                        <p><Link to="/products">Sản phẩm </Link></p>
+                        <p><Link to="/about">Giới thiệu</Link></p>
+                        <p><Link to="/contact">Liên hệ</Link></p>
                     </div>
                 </div>
 

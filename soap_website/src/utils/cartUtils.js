@@ -20,4 +20,10 @@ export const addToCart = (product, selectedWeight, quantity = 1) => {
     }
 
     localStorage.setItem("cart_guest", JSON.stringify(cart));
+    window.dispatchEvent(new Event("cartUpdated"));
+};
+
+export const getCartCount = () => {
+    const cart = JSON.parse(localStorage.getItem("cart_guest")) || [];
+    return cart.reduce((sum, item) => sum + item.quantity, 0);
 };

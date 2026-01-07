@@ -2,7 +2,7 @@ import React from "react";
 import productsData from "../../data/products.json";
 import "./NewProduct.css";
 import {Link} from "react-router-dom";
-
+import {addToCart} from "../../utils/cartUtils";
 const ProductNew = () => {
     const newProducts = productsData.filter((p) => p.isNew);
 
@@ -26,7 +26,7 @@ const ProductNew = () => {
                                 </span>
                             )}
                         </p>
-                        <button>Mua Ngay</button>
+                        <button onClick={()=>addToCart(product,product.weight[0],1)}>Mua Ngay</button>
                     </div>
                 ))}
             </div>

@@ -2,7 +2,7 @@ import React from "react";
 import productsData from "../../data/products.json";
 import "./HotDeals.css";
 import {Link} from "react-router-dom";
-
+import {addToCart} from "../../utils/cartUtils";
 const HotDeals = () => {
     const hotDeals = productsData.filter((p) => p.isHotDeal);
 
@@ -22,7 +22,7 @@ const HotDeals = () => {
                                 <span className="old">{deal.oldPrice.toLocaleString()}₫</span>
                             )}
                         </p>
-                        <button>Mua Ngay</button>
+                        <button onClick={()=>addToCart(deal,deal.weight[0],1)}>Mua Ngay</button>
                     </div>
                 ))}
             </div>
