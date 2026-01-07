@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
-
 import '../assets/css/auth.css';
 
 const User = () => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem("user");
+
+        const storedUser = sessionStorage.getItem("user");
+
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         } else {
+
             window.location.href = "/login";
         }
     }, []);
 
     const handleLogout = () => {
 
-        localStorage.removeItem("user");
-
+        sessionStorage.removeItem("user");
 
         window.location.href = "/login";
     };
