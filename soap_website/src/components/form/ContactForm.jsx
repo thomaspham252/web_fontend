@@ -14,10 +14,23 @@ const ContactForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form gửi đi:", form);
-        alert("Cảm ơn bạn! Chúng tôi sẽ liên hệ sớm.");
-        setForm({ name: "", email: "", phone: "", message: "" });
+
+        fetch("http://localhost:3001/contacts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(form),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                alert("Gửi thành công!");
+                setForm({ name: "", email: "", phone: "", message: "" });
+            })
+            .catch((err) => {
+                console.error(err);
+                alert("Gửi thất bại!");
+            });
     };
+
 
     return (
         <form className="contact-form" onSubmit={handleSubmit}>
