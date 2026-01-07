@@ -2,18 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import './Header.css';
 import logo from '../../assets/image/logo.jpg';
-import { FaShoppingBag } from "react-icons/fa";
+import { BsCart2 } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
-
+import {getCartCount} from "../../utils/cartUtils";
 
 function Header() {
     const [user, setUser] = useState(null);
+    const [cartCount, setCartCount] = useState(0);
 
+    const updateCartCount = () => {
+        setCartCount(getCartCount());
+    };
     useEffect(() => {
         const storedUser = sessionStorage.getItem("user");
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
+        updateCartCount();
+        window.addEventListener("cartUpdated", updateCartCount);
+        return () => {
+            window.removeEventListener("cartUpdated", updateCartCount);
+        };
     }, []);
 
     return (
@@ -39,8 +48,9 @@ function Header() {
                         )}
                     </div>
                     <div className="cart">
-                        <Link to="/cart">
-                            <FaShoppingBag/>
+                        <Link to="/cart" className="cart-icon">
+                            <BsCart2/>
+                            {cartCount > 0 && <span className="badge">{cartCount}</span>}
                         </Link>
                     </div>
 
