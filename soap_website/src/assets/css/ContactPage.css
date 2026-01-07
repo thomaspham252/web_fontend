@@ -1,0 +1,31 @@
+.contact-page {
+    padding: 20px 20px;
+    background-color: white;
+    border-top: 1px solid black;
+    margin-top: 10px;
+}
+
+.contact-page h1 {
+    text-align: center;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: center;
+}
+
+
+.contact-left {
+    width: 100%;
+    max-width: 800px;
+}
+
+.contact-left h2 {
+    text-align: center;
+}
+
+.contact-left p {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #555;
+}
