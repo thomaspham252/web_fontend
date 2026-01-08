@@ -20,17 +20,24 @@ const User = () => {
 
     if (!user) return <div style={{textAlign: "center", marginTop: "50px"}}>Đang tải...</div>;
 
+
+    const defaultAvatarUrl = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
     return (
         <div className="auth-container">
             <h2>Hồ sơ cá nhân</h2>
 
             <div style={{textAlign: 'center', margin: '20px 0'}}>
                 <img
-                    src={user.avatar && user.avatar !== 'default.jpg'
-                        ? require(`../assets/image/${user.avatar}`)
-                        : "https://via.placeholder.com/150"}
+                    src={defaultAvatarUrl}
                     alt="Avatar"
-                    style={{width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover'}}
+                    style={{
+                        width: '100px',
+                        height: '100px',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        border: '2px solid #ddd'
+                    }}
                 />
             </div>
 
