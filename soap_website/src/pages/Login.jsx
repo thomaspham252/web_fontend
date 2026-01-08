@@ -2,51 +2,54 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaFacebookF, FaApple } from "react-icons/fa";
 import '../assets/css/auth.css';
+import listUsers from '../data/users.json';
 
 const Login = () => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
 
-    // Hàm xử lý đăng nhập thường (Form Email)
-    const handleLogin = (e) => {
-        e.preventDefault();
-        const user = {
-            name: "Khách hàng thân thiết",
-            email: email,
-            loginType: 'email'
-        };
-        saveUserAndRedirect(user);
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+        if (errorMessage) setErrorMessage('');
     };
 
-    // Hàm xử lý đăng nhập Social (Google, FB, Apple)
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        const foundUser = listUsers.find(u =>
+            u.email === formData.email && u.password === formData.password
+        );
+
+        if (foundUser) {
+            const { password, ...userSafe } = foundUser;
+            saveUserAndRedirect(userSafe);
+        } else {
+            setErrorMessage("Email hoặc mật khẩu không chính xác!");
+        }
+    };
+
     const handleSocialLogin = (platform) => {
         let fakeUser = {};
-
         if (platform === 'google') {
-            fakeUser = {
-                name: "Người dùng Google",
-                email: "google_user@gmail.com",
-                loginType: 'google'
-            };
+            fakeUser = { name: "Người dùng Google", email: "google@gmail.com", loginType: 'google' };
         } else if (platform === 'facebook') {
-            fakeUser = {
-                name: "Người dùng Facebook",
-                email: "fb_user@yahoo.com",
-                loginType: 'facebook'
-            };
+            fakeUser = { name: "Người dùng Facebook", email: "fb@yahoo.com", loginType: 'facebook' };
         } else if (platform === 'apple') {
-            fakeUser = {
-                name: "Người dùng Apple",
-                email: "apple_id@icloud.com",
-                loginType: 'apple'
-            };
+            fakeUser = { name: "Người dùng Apple", email: "apple@icloud.com", loginType: 'apple' };
         }
-
-        alert(`Đang kết nối tới ${platform}... (Giả lập thành công)`);
+        alert(`Đang kết nối tới ${platform}...`);
         saveUserAndRedirect(fakeUser);
     };
 
-    // Hàm chung để lưu và chuyển trang
     const saveUserAndRedirect = (userData) => {
         sessionStorage.setItem("user", JSON.stringify(userData));
         window.location.href = "/user";
@@ -56,19 +59,28 @@ const Login = () => {
         <div className="auth-container">
             <h2>Đăng Nhập</h2>
 
+            {errorMessage && <p style={{color: 'red', marginBottom: '10px'}}>{errorMessage}</p>}
+
             <form onSubmit={handleLogin}>
                 <div className="form-group">
                     <label>Email:</label>
                     <input
                         type="email"
+                        name="email"
                         required
-                        placeholder="Nhập email của bạn"
-                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Ví dụ: user@gmail.com"
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="form-group">
                     <label>Mật khẩu:</label>
-                    <input type="password" required placeholder="Nhập mật khẩu"/>
+                    <input
+                        type="password"
+                        name="password"
+                        required
+                        placeholder="Nhập mật khẩu"
+                        onChange={handleChange}
+                    />
                 </div>
                 <button type="submit" className="btn-auth">Đăng Nhập</button>
             </form>
@@ -77,29 +89,14 @@ const Login = () => {
                 <span>Hoặc đăng nhập bằng</span>
             </div>
 
-
             <div className="social-login">
-                <button
-                    type="button"
-                    className="btn-social btn-google"
-                    onClick={() => handleSocialLogin('google')}
-                >
+                <button type="button" className="btn-social btn-google" onClick={() => handleSocialLogin('google')}>
                     <FaGoogle/> Google
                 </button>
-
-                <button
-                    type="button"
-                    className="btn-social btn-facebook"
-                    onClick={() => handleSocialLogin('facebook')}
-                >
+                <button type="button" className="btn-social btn-facebook" onClick={() => handleSocialLogin('facebook')}>
                     <FaFacebookF/> Facebook
                 </button>
-
-                <button
-                    type="button"
-                    className="btn-social btn-apple"
-                    onClick={() => handleSocialLogin('apple')}
-                >
+                <button type="button" className="btn-social btn-apple" onClick={() => handleSocialLogin('apple')}>
                     <FaApple/> Apple
                 </button>
             </div>
