@@ -15,9 +15,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently \"npm run react\" \"npm run server\"",
+    "start": "concurrently \"npm run react\" \"npm run server\" \"npm run orders\"",
     "react": "react-scripts start",
     "server": "json-server --watch src/data/contacts-data.json --port 3001",
+    "orders": "json-server --watch src/data/orders.json --port 3002",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -39,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }

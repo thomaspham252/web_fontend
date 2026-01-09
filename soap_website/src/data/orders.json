@@ -1,0 +1,40 @@
+{
+  "orders": [
+    {
+      "id": "20755627-e6c9-4d81-b500-ea2475b5232e",
+      "user_id": 1,
+      "product_id": [
+        2
+      ],
+      "total": 270000,
+      "created_at": "21:20:14 9/1/2026",
+      "status": "pending",
+      "customer_info": {
+        "fullName": "Nguyễn Văn A",
+        "phone": "0867294219",
+        "gmail": "huutien2303@gmail.com",
+        "address": "NLU",
+        "discountCode": ""
+      },
+      "payment_method": "banking"
+    },
+    {
+      "id": "18e4d0b9-6e14-4eaf-b540-518ee2221686",
+      "user_id": 1,
+      "product_id": [
+        7
+      ],
+      "total": 270000,
+      "created_at": "23:02:23 9/1/2026",
+      "status": "pending",
+      "customer_info": {
+        "fullName": "Nguyễn Văn A",
+        "phone": "0867294219",
+        "gmail": "huutien2303@gmail.com",
+        "address": "NLU",
+        "discountCode": ""
+      },
+      "payment_method": "cod"
+    }
+  ]
+}

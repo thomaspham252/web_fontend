@@ -1,8 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import '../assets/css/Payment.css';
 import qrCodeImg from '../assets/image/qr.jpg';
 
 const Payment = () => {
+    const [cartItems, setCartItems] = useState([]);
+    const navigate = useNavigate();
+    const [currentUser, setCurrentUser] = useState(null);
+
     const [formData, setFormData] = useState({
         fullName: '',
         phone: '',
@@ -11,24 +16,91 @@ const Payment = () => {
         discountCode: ''
     });
 
-    // State quản lý phương thức thanh toán (Mặc định là COD)
     const [paymentMethod, setPaymentMethod] = useState('cod');
+
+    useEffect(() => {
+        const userStr = sessionStorage.getItem("user");
+
+        if (!userStr) {
+            alert("Bạn cần đăng nhập để thanh toán!");
+            navigate('/login');
+            return;
+        }
+
+        const userObj = JSON.parse(userStr);
+        setCurrentUser(userObj);
+
+        setFormData(prev => ({
+            ...prev,
+            fullName: userObj.name || '',
+        }));
+
+        const savedCart = JSON.parse(localStorage.getItem("cart_guest")) || [];
+        setCartItems(savedCart);
+    }, [navigate]);
+
+    const tempPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const shippingFee = 30000;
+    const finalPrice = tempPrice + shippingFee;
+
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat("vi-VN").format(amount) + "₫";
+    };
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setFormData({...formData, [name]: value});
     };
 
-    // Hàm xử lý khi thay đổi phương thức thanh toán
     const handlePaymentChange = (e) => {
         setPaymentMethod(e.target.value);
+    };
+
+    const handleCheckout = async () => {
+        // ... (Giữ nguyên phần validate form) ...
+        if (!formData.fullName || !formData.phone || !formData.address) {
+            alert("Vui lòng điền đầy đủ thông tin giao hàng!");
+            return;
+        }
+
+        // Tạo dữ liệu đơn hàng
+        const newOrder = {
+            id: crypto.randomUUID(),
+            // --- QUAN TRỌNG: Lấy ID từ user trong Session Storage ---
+            user_id: currentUser ? currentUser.id : "unknown",
+            product_id: cartItems.map(item => item.id),
+            total: finalPrice,
+            created_at: new Date().toLocaleString("vi-VN"),
+            status: "pending",
+            customer_info: formData,
+            payment_method: paymentMethod
+        };
+
+        try {
+            // Gửi lên server (dùng port 3001 như bạn đã đổi)
+            const response = await fetch('http://localhost:3002/orders', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newOrder),
+            });
+
+            if (response.ok) {
+                alert("Đặt hàng thành công!");
+                localStorage.removeItem("cart_guest");
+                navigate('/home');
+            } else {
+                alert("Lỗi server: Không lưu được đơn hàng.");
+            }
+        } catch (error) {
+            console.error("Lỗi:", error);
+            alert("Không kết nối được server (Kiểm tra xem json-server chạy chưa?)");
+        }
     };
 
     return (
         <div className="payment-container">
             <div className="payment-wrapper">
 
-                {/* CỘT TRÁI: THÔNG TIN GIAO HÀNG */}
                 <div className="main-content">
                     <div className="header">
                         <h1>Thanh toán</h1>
@@ -80,7 +152,7 @@ const Payment = () => {
                             />
                         </div>
 
-                        {/* --- PHƯƠNG THỨC THANH TOÁN --- */}
+                        {/* Phương thức thanh toán */}
                         <div className="payment-methods-section">
                             <h2>Phương thức thanh toán</h2>
                             <div className="payment-options">
@@ -117,7 +189,6 @@ const Payment = () => {
                                         <span className="option-label">Chuyển khoản qua mã QR</span>
                                     </div>
 
-                                    {/* Hiển thị mã QR nếu chọn banking */}
                                     {paymentMethod === 'banking' && (
                                         <div className="option-content qr-content">
                                             <p>Vui lòng quét mã QR dưới đây để thanh toán:</p>
@@ -127,7 +198,9 @@ const Payment = () => {
                                                 className="qr-image"
                                             />
                                             <div className="bank-note">
-                                                <p>Nội dung chuyển khoản: <b>HỌ TÊN + SĐT</b></p>
+                                                <p>Nội dung chuyển
+                                                    khoản: <b>{formData.fullName || "HỌ TÊN"} + {formData.phone || "SĐT"}</b>
+                                                </p>
                                             </div>
                                         </div>
                                     )}
@@ -135,50 +208,50 @@ const Payment = () => {
 
                             </div>
                         </div>
-                        {/* --- KẾT THÚC PHẦN PHƯƠNG THỨC THANH TOÁN --- */}
 
                         <div className="form-footer">
-                            <button type="button" className="btn-continue">
-                                {paymentMethod === 'cod' ? 'Hoàn tất đơn hàng' : 'Đã chuyển khoản'}
+                            <button type="button" className="btn-continue" onClick={handleCheckout}>
+                                {paymentMethod === 'cod' ? `Hoàn tất đơn hàng - ${formatCurrency(finalPrice)}` : 'Tôi đã chuyển khoản'}
                             </button>
                         </div>
                     </form>
                 </div>
-                {/* --- CỘT PHẢI (SIDEBAR - GIỎ HÀNG) --- */}
+
                 <div className="sidebar-content">
                     <div className="product-list">
 
-                        {/* SẢN PHẨM MẪU (Dữ liệu tĩnh) */}
-                        <div className="product-item">
-                            {/* Khung ảnh + Số lượng */}
-                            <div className="product-image-wrapper">
-                                <div className="product-thumbnail">
-                                    {/* Thay link ảnh thật của bạn vào src bên dưới */}
-                                    <img src="https://placehold.co/150x200/1a4d2e/fff?text=Book" alt="Sách Aroma"/>
-                                </div>
-                                {/* Số lượng nằm đè lên góc */}
-                                <span className="product-qty">1</span>
-                            </div>
+                        {cartItems.length === 0 ? (
+                            <p style={{textAlign: 'center', color: '#666'}}>Chưa có sản phẩm nào</p>
+                        ) : (
+                            cartItems.map((item) => (
+                                <div className="product-item" key={item.key || item.id}>
+                                    <div className="product-image-wrapper">
+                                        <div className="product-thumbnail">
+                                            <img src={item.img} alt={item.name}/>
+                                        </div>
+                                        <span className="product-qty">{item.quantity}</span>
+                                    </div>
 
-                            {/* Tên + Giá */}
-                            <div className="product-info">
-                                <h3 className="product-name">Sách Aromarketing – Marketing Hương Thơm (Tập 1)</h3>
-                                <div className="product-price">180,000₫</div>
-                            </div>
-                        </div>
-                        {/* HẾT SẢN PHẨM MẪU */}
+                                    <div className="product-info">
+                                        <h3 className="product-name">{item.name}</h3>
+                                        <div className="product-price">
+                                            {formatCurrency(item.price * item.quantity)}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        )}
 
                     </div>
 
-                    {/* Phần tính tiền (Tĩnh) */}
                     <div className="pricing-section">
                         <div className="price-row">
                             <span>Tạm tính</span>
-                            <span>180,000₫</span>
+                            <span>{formatCurrency(tempPrice)}</span>
                         </div>
                         <div className="price-row">
                             <span>Phí vận chuyển</span>
-                            <span>—</span>
+                            <span>{shippingFee === 0 ? "—" : formatCurrency(shippingFee)}</span>
                         </div>
                     </div>
 
@@ -186,7 +259,7 @@ const Payment = () => {
                         <span className="total-label">Tổng cộng</span>
                         <div className="total-value">
                             <span className="currency">VND</span>
-                            <span className="amount">180,000₫</span>
+                            <span className="amount">{formatCurrency(finalPrice)}</span>
                         </div>
                     </div>
                 </div>
