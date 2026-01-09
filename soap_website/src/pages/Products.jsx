@@ -123,9 +123,9 @@ const Products = () => {
                                 <span className="new">
                                     {p.weight[0].price.toLocaleString()}₫
                                 </span>
-                                {p.oldPrice > 0 && (
+                                {p.weight[0].oldPrice > 0 && (
                                     <span className="old">
-                                    {p.oldPrice.toLocaleString()}₫
+                                    {p.weight[0].oldPrice.toLocaleString()}₫
                                      </span>
                                 )}
                             </p>
