@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Xà phòng Hoa Hồng",
-    "category": "Xà phòng thiên nhiên",
+    "category": "xa-phong-thien-nhien",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-rose.webp",
     "images": [
@@ -34,7 +34,7 @@
   {
     "id": 2,
     "name": "Xà phòng Lavender",
-    "category": "Xà phòng dưỡng ẩm",
+    "category": "duong-am",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-lavender.jpg",
     "images": [
@@ -60,7 +60,7 @@
   {
     "id": 3,
     "name": "Xà phòng Tràm Trà",
-    "category": "Xà phòng trị mụn",
+    "category": "tri-mun",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-tramtra.webp",
     "images": ["/assets/image/product/soap-tramtra.webp", "/assets/image/product/soap-mint.jpg"],
@@ -82,7 +82,7 @@
   {
     "id": 4,
     "name": "Xà phòng Cam Quýt",
-    "category": "Xà phòng thiên nhiên",
+    "category": "xa-phong-thien-nhien",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-orange.jpg",
     "images": ["/assets/image/product/soap-orange.jpg", "/assets/image/product/soap-lemon-grass.jpg"],
@@ -104,7 +104,7 @@
   {
     "id": 5,
     "name": "Xà phòng Chanh Sả",
-    "category": "Xà phòng thiên nhiên",
+    "category": "xa-phong-thien-nhien",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-lemon-grass.jpg",
     "images": ["/assets/image/product/soap-lemon-grass.jpg", "/assets/image/product/soap-orange.jpg"],
@@ -126,7 +126,7 @@
   {
     "id": 6,
     "name": "Xà phòng Trà Xanh",
-    "category": "Xà phòng dưỡng ẩm",
+    "category": "duong-am",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-green-tea.jpg",
     "images": ["/assets/image/product/soap-green-tea.jpg"],
@@ -148,7 +148,7 @@
   {
     "id": 7,
     "name": "Xà phòng Mật Ong",
-    "category": "Xà phòng dưỡng ẩm",
+    "category": "duong-am",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-honey.jpg",
     "images": ["/assets/image/product/soap-honey.jpg", "/assets/image/product/soap-turmeric-honey.jpg"],
@@ -170,7 +170,7 @@
   {
     "id": 8,
     "name": "Xà phòng Bạc Hà",
-    "category": "Xà phòng trị mụn",
+    "category": "tri-mun",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-mint.jpg",
     "images": ["/assets/image/product/soap-mint.jpg", "/assets/image/product/soap-tramtra.webp"],
@@ -214,7 +214,7 @@
   {
     "id": 10,
     "name": "Xà phòng Dừa",
-    "category": "Xà phòng dưỡng ẩm",
+    "category": "duong-am",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-coconut.jpg",
     "images": ["/assets/image/product/soap-coconut.jpg"],
@@ -258,7 +258,7 @@
   {
     "id": 12,
     "name": "Xà phòng Nghệ Mật Ong",
-    "category": "Xà phòng dưỡng da",
+    "category": "duong-am",
     "brand": "Sản phẩm độc quyền của HandMadeSoap",
     "img": "/assets/image/product/soap-turmeric-honey.jpg",
     "images": ["/assets/image/product/soap-turmeric-honey.jpg", "/assets/image/product/soap-honey.jpg"],
