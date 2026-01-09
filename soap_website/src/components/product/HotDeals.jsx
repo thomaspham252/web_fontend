@@ -18,8 +18,8 @@ const HotDeals = () => {
                         </Link>
                         <p className="price">
                             <span className="new">{deal.weight[0].price.toLocaleString()}₫</span>
-                            {deal.oldPrice > 0 && (
-                                <span className="old">{deal.oldPrice.toLocaleString()}₫</span>
+                            {deal.weight[0].oldPrice > 0  && (
+                                <span className="old">{deal.weight[0].oldPrice.toLocaleString()}₫</span>
                             )}
                         </p>
                         <button onClick={()=>addToCart(deal,deal.weight[0],1)}>Mua Ngay</button>

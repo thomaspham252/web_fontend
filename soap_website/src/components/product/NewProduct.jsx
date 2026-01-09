@@ -20,9 +20,9 @@ const ProductNew = () => {
                             <span className="new">
                                 {product.weight[0].price.toLocaleString()}₫
                             </span>
-                            {product.oldPrice > 0 && (
+                            {product.weight[0].oldPrice > 0 && (
                                 <span className="old">
-                                    {product.oldPrice.toLocaleString()}₫
+                                    {product.weight[0].oldPrice.toLocaleString()}₫
                                 </span>
                             )}
                         </p>
