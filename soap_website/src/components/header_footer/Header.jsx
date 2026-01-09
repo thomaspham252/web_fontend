@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './Header.css';
 import logo from '../../assets/image/logo.jpg';
 import { BsCart2 } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
-import {getCartCount} from "../../utils/cartUtils";
+import { getCartCount } from "../../utils/cartUtils";
 
 function Header() {
     const [user, setUser] = useState(null);
     const [cartCount, setCartCount] = useState(0);
+    const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
 
     const updateCartCount = () => {
         setCartCount(getCartCount());
@@ -25,16 +27,39 @@ function Header() {
         };
     }, []);
 
+    // Xử lý tìm kiếm
+    const handleSearch = () => {
+        if (searchTerm.trim()) {
+            navigate(`/products?search=${encodeURIComponent(searchTerm.trim())}`);
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
+
     return (
         <header className="header-container">
             <div className="top-header">
                 <div className="logo">
-                    <Link to="/home"> <img src={logo} alt="Logo"/></Link>
+                    <Link to="/home"> <img src={logo} alt="Logo" /></Link>
                 </div>
                 <div className="search">
-                    <input className="input-type"  type="text" placeholder="Tìm sản phẩm yêu thích..."/>
-                    <span className="icon-search"><FaSearch /></span>
+                    <input
+                        className="input-type"
+                        type="text"
+                        placeholder="Tìm sản phẩm yêu thích..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                    />
+                    <span className="icon-search" onClick={handleSearch} style={{ cursor: 'pointer' }}>
+                        <FaSearch />
+                    </span>
                 </div>
+                {/* ... rest of the component ... */}
                 <div className="acc-cart">
                     <div className="account">
                         {user ? (
@@ -49,7 +74,7 @@ function Header() {
                     </div>
                     <div className="cart">
                         <Link to="/cart" className="cart-icon">
-                            <BsCart2/>
+                            <BsCart2 />
                             {cartCount > 0 && <span className="badge">{cartCount}</span>}
                         </Link>
                     </div>

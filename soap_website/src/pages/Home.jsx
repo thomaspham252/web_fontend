@@ -6,13 +6,11 @@ import NewProduct from "../components/product/NewProduct";
 
 const Home = () => {
     return (
-        <div>
-            <main>
-                <Banner />       {/* Banner  */}
-                <HotDeals />     {/* Sản phẩm giảm giá */}
-                <NewProduct />   {/* Sản phẩm mới */}
-            </main>
-        </div>
+        <main>
+            <Banner />       {/* Banner  */}
+            <HotDeals />     {/* Sản phẩm giảm giá */}
+            <NewProduct />   {/* Sản phẩm mới */}
+        </main>
     );
 };
 

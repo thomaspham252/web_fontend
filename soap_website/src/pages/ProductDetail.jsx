@@ -1,26 +1,38 @@
-import React, {useState} from "react";
-import {useParams} from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import productsData from "../data/products.json";
 import "../assets/css/ProductDetail.css";
 import NewProduct from "../components/product/NewProduct";
 import { addToCart } from "../utils/cartUtils";
-const ProductDetail = () => {
-    const {id} = useParams();
-    const product = productsData.find(p => p.id === Number(id));
-    const [selectedWeight, setSelectedWeight] = useState(product.weight[0]);
-    const images = product.images?.length ? product.images : [product.img];
+import { formatCurrency } from "../utils/currencyUtils";
 
+const ProductDetail = () => {
+    const { id } = useParams();
+    const product = productsData.find(p => p.id === Number(id));
+
+    const [selectedWeight, setSelectedWeight] = useState(product ? product.weight[0] : null);
     const [quantity, setQuantity] = useState(1);
-    const [mainImage, setMainImage] = useState(images[0]);
+
+    const defaultImage = product ? (product.images?.length ? product.images[0] : product.img) : "";
+    const [mainImage, setMainImage] = useState(defaultImage);
+
     if (!product) {
-        return <h2>Không tìm thấy sản phẩm</h2>;
+        return (
+            <div style={{ textAlign: "center", padding: "50px 20px" }}>
+                <h2>Không tìm thấy sản phẩm</h2>
+                <p>Sản phẩm bạn tìm kiếm có thể đã bị xóa hoặc đường dẫn không đúng.</p>
+                <Link to="/products" className="btn-back">Quay lại danh sách sản phẩm</Link>
+            </div>
+        );
     }
+
+    const images = product.images?.length ? product.images : [product.img];
 
     return (
         <div className="product-detail-page">
             <div className="product-main">
                 <div className="product-image">
-                    <img src={mainImage} className="main-image" alt={product.name}/>
+                    <img src={mainImage} className="main-image" alt={product.name} />
                     <div className="thumbnail-list">
                         {images.map((img, index) => (
                             <img
@@ -37,14 +49,14 @@ const ProductDetail = () => {
                 <div className="product-info">
                     <h1>{product.name}</h1>
                     <p className="prices">
-                      <span className="new">
-                        {selectedWeight.price.toLocaleString()}₫
-                      </span>
+                        <span className="new">
+                            {formatCurrency(selectedWeight.price)}
+                        </span>
 
-                        {selectedWeight.oldPrice && (
+                        {selectedWeight.oldPrice > 0 && (
                             <span className="old">
-                        {selectedWeight.oldPrice.toLocaleString()}₫
-                      </span>
+                                {formatCurrency(selectedWeight.oldPrice)}
+                            </span>
                         )}
                     </p>
 
@@ -59,9 +71,8 @@ const ProductDetail = () => {
                             {product.weight.map((w, index) => (
                                 <button
                                     key={w.size}
-                                    className={`weight-btn ${
-                                        selectedWeight.size === w.size ? "active" : ""
-                                    }`}
+                                    className={`weight-btn ${selectedWeight.size === w.size ? "active" : ""
+                                        }`}
                                     onClick={() => setSelectedWeight(w)}
                                 >
                                     {w.size}
@@ -80,7 +91,7 @@ const ProductDetail = () => {
                                 value={quantity}
                                 readOnly
                             />
-                            <button className="qty-btn"onClick={() => setQuantity(q => q + 1)}>+</button>
+                            <button className="qty-btn" onClick={() => setQuantity(q => q + 1)}>+</button>
                         </div>
                     </div>
 
@@ -89,7 +100,7 @@ const ProductDetail = () => {
                         className="buy-now"
                         onClick={() => addToCart(product, selectedWeight, quantity)}
                     >
-                        <span className="txt-main">MUA NGAY VỚI GIÁ {selectedWeight.price.toLocaleString()}₫</span>
+                        <span className="txt-main">MUA NGAY VỚI GIÁ {formatCurrency(selectedWeight.price)}</span>
                         <span className="txt-add">Đặt mua giao hàng tận nơi</span>
                     </button>
                 </div>
@@ -103,11 +114,11 @@ const ProductDetail = () => {
                     Đóng gói bằng hộp giấy cao cấp không bọc nilon.
                 </p>
                 <p>
-                    <strong>Thành phần:</strong><br/>
+                    <strong>Thành phần:</strong><br />
                     {product.ingredients}
                 </p>
                 <p>
-                    <strong>Phương pháp sản xuất:</strong><br/>
+                    <strong>Phương pháp sản xuất:</strong><br />
                     {product.productionMethod}
                 </p>
                 <h2>Cách sử dụng xà phòng</h2>

@@ -25,6 +25,7 @@ const HotDeals = () => {
                         <button onClick={()=>addToCart(deal,deal.weight[0],1)}>Mua Ngay</button>
                     </div>
                 ))}
+
             </div>
         </section>
     );

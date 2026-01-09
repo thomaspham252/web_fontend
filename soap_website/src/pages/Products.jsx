@@ -1,167 +1,144 @@
-import React, { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { addToCart } from "../utils/cartUtils";
+import React, { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import productsData from "../data/products.json";
 import "../assets/css/Products.css";
+import ProductCard from "../components/product/ProductCard";
 
 const Products = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [selectedCategory, setSelectedCategory] = useState("all");
-    const [selectedPrice, setSelectedPrice] = useState("all");
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const currentPage = parseInt(searchParams.get("page") || "1", 10);
+    const selectedCategory = searchParams.get("category") || "all";
+    const selectedPrice = searchParams.get("price") || "all";
 
     const productsPerPage = 8;
+
     const filteredProducts = useMemo(() => {
         return productsData.filter((p) => {
             const price = p.weight[0].price;
+            const searchTerm = searchParams.get("search") || "";
 
             const matchCategory =
                 selectedCategory === "all" || p.category === selectedCategory;
 
-            const matchPrice =
-                selectedPrice === "all" ||
-                (selectedPrice === "under100" && price < 100000) ||
-                (selectedPrice === "100-200" && price >= 100000 && price <= 200000) ||
-                (selectedPrice === "200-300" && price > 200000 && price <= 300000) ||
-                (selectedPrice === "300-500" && price > 300000 && price <= 500000);
+            let matchPrice = true;
+            if (selectedPrice === "under100") matchPrice = price < 100000;
+            else if (selectedPrice === "100-200") matchPrice = price >= 100000 && price <= 200000;
+            else if (selectedPrice === "200-300") matchPrice = price > 200000 && price <= 300000;
+            else if (selectedPrice === "300-500") matchPrice = price > 300000 && price <= 500000;
 
-            return matchCategory && matchPrice;
+            const matchSearch = searchTerm === "" ||
+                p.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+            return matchCategory && matchPrice && matchSearch;
         });
-    }, [selectedCategory, selectedPrice]);
-    //phân trang
+    }, [selectedCategory, selectedPrice, searchParams]);
+
+
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
     const indexOfLast = currentPage * productsPerPage;
     const indexOfFirst = indexOfLast - productsPerPage;
     const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
 
-    const handleCategoryChange = (cat) => {
-        setSelectedCategory(cat);
-        setCurrentPage(1);
+
+    const updateFilter = (key, value) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set(key, value);
+        newParams.set("page", "1");
+        setSearchParams(newParams);
     };
 
-    const handlePriceChange = (price) => {
-        setSelectedPrice(price);
-        setCurrentPage(1);
+    const handleCategoryChange = (cat) => updateFilter("category", cat);
+    const handlePriceChange = (price) => updateFilter("price", price);
+    const handlePageChange = (page) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set("page", page.toString());
+        setSearchParams(newParams);
     };
+
     return (
         <div className="products-page">
             {/* Sidebar */}
             <aside className="sidebar">
                 <h3>Danh mục sản phẩm</h3>
                 <ul>
-                    <li
-                        className={selectedCategory === "all" ? "active" : ""}
-                        onClick={() => handleCategoryChange("all")}
-                    >
-                        Tất cả
-                    </li>
-                    <li
-                        className={selectedCategory === "xa-phong-thien-nhien" ? "active" : ""}
-                        onClick={() => handleCategoryChange("xa-phong-thien-nhien")}
-                    >
-                        Xà phòng thiên nhiên
-                    </li>
-                    <li
-                        className={selectedCategory === "duong-am" ? "active" : ""}
-                        onClick={() => handleCategoryChange("duong-am")}
-                    >
-                        Xà phòng dưỡng ẩm
-                    </li>
-                    <li
-                        className={selectedCategory === "tri-mun" ? "active" : ""}
-                        onClick={() => handleCategoryChange("tri-mun")}
-                    >
-                        Xà phòng trị mụn
-                    </li>
+                    {[
+                        { id: "all", label: "Tất cả" },
+                        { id: "xa-phong-thien-nhien", label: "Xà phòng thiên nhiên" },
+                        { id: "duong-am", label: "Xà phòng dưỡng ẩm" },
+                        { id: "tri-mun", label: "Xà phòng trị mụn" },
+                    ].map((cat) => (
+                        <li
+                            key={cat.id}
+                            className={selectedCategory === cat.id ? "active" : ""}
+                            onClick={() => handleCategoryChange(cat.id)}
+                        >
+                            {cat.label}
+                        </li>
+                    ))}
                 </ul>
 
                 <h3>Theo giá</h3>
                 <ul>
-                    <li
-                        className={selectedPrice === "all" ? "active" : ""}
-                        onClick={() => handlePriceChange("all")}
-                    >
-                        Tất cả
-                    </li>
-                    <li
-                        className={selectedPrice === "under100" ? "active" : ""}
-                        onClick={() => handlePriceChange("under100")}
-                    >
-                        Dưới 100.000đ
-                    </li>
-                    <li
-                        className={selectedPrice === "100-200" ? "active" : ""}
-                        onClick={() => handlePriceChange("100-200")}
-                    >
-                        100.000đ - 200.000đ
-                    </li>
-                    <li
-                        className={selectedPrice === "200-300" ? "active" : ""}
-                        onClick={() => handlePriceChange("200-300")}
-                    >
-                        200.000đ - 300.000đ
-                    </li>
-                    <li
-                        className={selectedPrice === "300-500" ? "active" : ""}
-                        onClick={() => handlePriceChange("300-500")}
-                    >
-                        300.000đ - 500.000đ
-                    </li>
+                    {[
+                        { id: "all", label: "Tất cả" },
+                        { id: "under100", label: "Dưới 100.000đ" },
+                        { id: "100-200", label: "100.000đ - 200.000đ" },
+                        { id: "200-300", label: "200.000đ - 300.000đ" },
+                        { id: "300-500", label: "300.000đ - 500.000đ" },
+                    ].map((price) => (
+                        <li
+                            key={price.id}
+                            className={selectedPrice === price.id ? "active" : ""}
+                            onClick={() => handlePriceChange(price.id)}
+                        >
+                            {price.label}
+                        </li>
+                    ))}
                 </ul>
             </aside>
 
             {/* Products */}
             <section className="products-content">
                 <h3>TẤT CẢ SẢN PHẨM</h3>
-                <div className="products-grid">
-                    {currentProducts.map((p) => (
-                        <div className="product-card" key={p.id}>
-                            <Link to={`/products/${p.id}`}>
-                                <img src={p.img} alt={p.name}/>
-                                <h4>{p.name}</h4>
-                            </Link>
-                            <p className="price">
-                                <span className="new">
-                                    {p.weight[0].price.toLocaleString()}₫
-                                </span>
-                                {p.weight[0].oldPrice > 0 && (
-                                    <span className="old">
-                                    {p.weight[0].oldPrice.toLocaleString()}₫
-                                     </span>
-                                )}
-                            </p>
-                            <button onClick={() => addToCart(p, p.weight[0], 1)}>
-                                Mua ngay
-                            </button>
-                        </div>
-                    ))}
-                </div>
+                {filteredProducts.length === 0 ? (
+                    <p style={{ textAlign: "center", marginTop: "20px" }}>Không tìm thấy sản phẩm nào.</p>
+                ) : (
+                    <div className="products-grid">
+                        {currentProducts.map((p) => (
+                            <ProductCard key={p.id} product={p} />
+                        ))}
+                    </div>
+                )}
 
                 {/* Pagination */}
-                <div className="pagination">
-                    <button
-                        disabled={currentPage === 1}
-                        onClick={() => setCurrentPage(currentPage - 1)}
-                    >
-                        «
-                    </button>
-
-                    {Array.from({length: totalPages}).map((_, i) => (
+                {totalPages > 1 && (
+                    <div className="pagination">
                         <button
-                            key={i}
-                            className={currentPage === i + 1 ? "active" : ""}
-                            onClick={() => setCurrentPage(i + 1)}
+                            disabled={currentPage === 1}
+                            onClick={() => handlePageChange(currentPage - 1)}
                         >
-                            {i + 1}
+                            «
                         </button>
-                    ))}
 
-                    <button
-                        disabled={currentPage === totalPages}
-                        onClick={() => setCurrentPage(currentPage + 1)}
-                    >
-                        »
-                    </button>
-                </div>
+                        {Array.from({ length: totalPages }).map((_, i) => (
+                            <button
+                                key={i}
+                                className={currentPage === i + 1 ? "active" : ""}
+                                onClick={() => handlePageChange(i + 1)}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+
+                        <button
+                            disabled={currentPage === totalPages}
+                            onClick={() => handlePageChange(currentPage + 1)}
+                        >
+                            »
+                        </button>
+                    </div>
+                )}
             </section>
         </div>
     );
