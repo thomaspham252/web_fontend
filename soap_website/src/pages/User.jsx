@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../assets/css/auth.css';
+import UserInfo from '../components/personal_page/UserInfo';
+import Orders from '../components/personal_page/Orders';
 
 const User = () => {
     const [user, setUser] = useState(null);
@@ -20,36 +22,30 @@ const User = () => {
 
     if (!user) return <div style={{textAlign: "center", marginTop: "50px"}}>Đang tải...</div>;
 
-
-    const defaultAvatarUrl = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-
     return (
-        <div className="auth-container">
-            <h2>Hồ sơ cá nhân</h2>
+        <div className="container" style={{maxWidth: '1200px', margin: '30px auto', padding: '0 15px'}}>
 
-            <div style={{textAlign: 'center', margin: '20px 0'}}>
-                <img
-                    src={defaultAvatarUrl}
-                    alt="Avatar"
-                    style={{
-                        width: '100px',
-                        height: '100px',
-                        borderRadius: '50%',
-                        objectFit: 'cover',
-                        border: '2px solid #ddd'
-                    }}
-                />
+            {/* Header Phần User */}
+            <div style={{marginBottom: '30px'}}>
+                <h1 style={{fontSize: '24px', textTransform: 'uppercase', marginBottom: '5px'}}>Xin Chào Quí Khách</h1>
+                <p style={{fontSize: '16px', fontStyle: 'italic', color: '#666'}}>{user.name}</p>
             </div>
 
-            <div className="user-info" style={{textAlign: 'left', margin: '20px 0'}}>
-                <p><strong>Họ tên:</strong> {user.name}</p>
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Loại tài khoản:</strong> {user.loginType === 'email' ? 'Thành viên' : user.loginType}</p>
-            </div>
 
-            <button onClick={handleLogout} className="btn-logout">
-                Đăng Xuất
-            </button>
+            <div style={{display: 'flex', flexWrap: 'wrap', gap: '30px'}}>
+
+                {/* Cột Đơn hàng */}
+                <div style={{flex: '2', minWidth: '300px'}}>
+                    <Orders />
+                </div>
+
+                {/* Cột  Thông tin cá nhân */}
+                <div style={{flex: '1', minWidth: '250px'}}>
+                    <UserInfo user={user} />
+
+                </div>
+
+            </div>
         </div>
     );
 };

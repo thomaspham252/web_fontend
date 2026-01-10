@@ -1,26 +1,30 @@
 [
   {
     "id": 1,
-    "name": "Nguyễn Văn A",
-    "email": "user@gmail.com",
-    "password": "123",
+    "name": "Phạm Tiền",
+    "email": "tien@gmail.com",
+    "password": "124",
     "loginType": "email",
-    "avatar": "default.jpg"
+    "phone": "0323532523",
+    "address": "3235325325, Huyện Cái Bè, Vietnam"
   },
   {
     "id": 2,
-    "name": "Admin Hệ Thống",
-    "email": "admin@gmail.com",
-    "password": "admin",
+    "name": "Pham Linh",
+    "email": "linh@gmail.com",
+    "password": "123",
     "loginType": "email",
-    "avatar": "admin.jpg"
+    "phone": "0323532523",
+    "address": "3235325326, Huyện Châu Thành, Vietnam"
   },
   {
     "id": 3,
-    "name": "Trần Thị B",
-    "email": "student@nlu.edu.vn",
+    "name": "Pham Thoại",
+    "email": "test@gmail.com",
     "password": "123",
     "loginType": "email",
-    "avatar": "default.jpg"
+    "phone": "0323532523",
+    "address": "3235325328, Huyện Châu Thành, Vietnam"
   }
+
 ]
