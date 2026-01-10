@@ -15,6 +15,7 @@ import Cart from "./pages/Cart";
 import orders from "./components/personal_page/Orders";
 import OrderDetail from "./pages/OrderDetail";
 import Orders from "./components/personal_page/Orders";
+import AddressBook from './components/personal_page/AddressBook';
 
 function App() {
     return (
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/order/:id" element={<OrderDetail />} />
                 <Route path="/orders" element={<Orders />} />
+                <Route path="/user/addresses" element={<AddressBook />} />
 
             </Routes>
 
