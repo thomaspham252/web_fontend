@@ -63,7 +63,6 @@ const Payment = () => {
             return;
         }
 
-        // Tạo dữ liệu đơn hàng
         const newOrder = {
             id: crypto.randomUUID(),
             // --- QUAN TRỌNG: Lấy ID từ user trong Session Storage ---
@@ -77,7 +76,6 @@ const Payment = () => {
         };
 
         try {
-            // Gửi lên server (dùng port 3001 như bạn đã đổi)
             const response = await fetch('http://localhost:3002/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
