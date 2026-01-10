@@ -12,6 +12,9 @@ import User from "./pages/User";
 import ContactPage from "./pages/ContactPage";
 import Payment from "./pages/Payment";
 import Cart from "./pages/Cart";
+import orders from "./components/personal_page/Orders";
+import OrderDetail from "./pages/OrderDetail";
+import Orders from "./components/personal_page/Orders";
 
 function App() {
     return (
@@ -31,6 +34,8 @@ function App() {
                 <Route path="/user" element={<User />} />
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/order/:id" element={<OrderDetail />} />
+                <Route path="/orders" element={<Orders />} />
 
             </Routes>
 
