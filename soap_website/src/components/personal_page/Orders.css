@@ -1,0 +1,52 @@
+.recent-orders-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.orders-table th {
+    text-align: left;
+    padding: 12px 8px;
+    border-bottom: 1px solid #eee;
+    color: #666;
+    font-weight: 600;
+}
+
+.orders-table td {
+    padding: 16px 8px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    vertical-align: middle;
+}
+
+.status-pending {
+    font-style: italic;
+    color: #888;
+}
+
+.detail-link {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.detail-link:hover {
+    color: #333;
+    text-decoration: underline;
+}
