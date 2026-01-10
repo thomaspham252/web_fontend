@@ -1,68 +1,164 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaArrowLeft, FaPlus, FaPen, FaMapMarkerAlt } from "react-icons/fa";
+import { FaArrowLeft, FaPlus, FaPen, FaMapMarkerAlt, FaCheckCircle } from "react-icons/fa";
 import './AddressBook.css';
 
 const AddressBook = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [editMode, setEditMode] = useState('edit');
 
-    const [formData, setFormData] = useState({
+    // editIndex: 0 (Mặc định), 1 (Địa chỉ 1), 2 (Địa chỉ 2)
+    const [editIndex, setEditIndex] = useState(0);
+    const [notification, setNotification] = useState(null);
+
+    // --- API ĐỊA CHÍNH ---
+    const [provinces, setProvinces] = useState([]);
+    const [districts, setDistricts] = useState([]);
+    const [wards, setWards] = useState([]);
+
+    const [selectedProvince, setSelectedProvince] = useState("");
+    const [selectedDistrict, setSelectedDistrict] = useState("");
+    const [selectedWard, setSelectedWard] = useState("");
+
+    const [specificAddress, setSpecificAddress] = useState("");
+
+    const [contactInfo, setContactInfo] = useState({
         name: '',
-        address: '',
         phone: ''
     });
 
     useEffect(() => {
         const storedUser = sessionStorage.getItem("user");
         if (storedUser) {
-            const parsedUser = JSON.parse(storedUser);
+            let parsedUser = JSON.parse(storedUser);
+            if (!parsedUser.list_addresses) {
+                parsedUser.list_addresses = [];
+            }
             setUser(parsedUser);
         } else {
             navigate("/login");
         }
+
+        fetch('https://provinces.open-api.vn/api/?depth=1')
+            .then(response => response.json())
+            .then(data => setProvinces(data))
+            .catch(err => console.error("Lỗi tải tỉnh thành:", err));
+
     }, [navigate]);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const handleProvinceChange = (e) => {
+        const provinceCode = e.target.value;
+        setSelectedProvince(provinceCode);
+        setSelectedDistrict("");
+        setSelectedWard("");
+        setWards([]);
+
+        if (provinceCode) {
+            fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
+                .then(res => res.json())
+                .then(data => setDistricts(data.districts));
+        } else {
+            setDistricts([]);
+        }
     };
 
-    const handleClickEdit = () => {
-        setEditMode('edit');
-        setFormData({
-            name: user.name || '',
-            address: user.address || '',
-            phone: user.phone || ''
-        });
+    const handleDistrictChange = (e) => {
+        const districtCode = e.target.value;
+        setSelectedDistrict(districtCode);
+        setSelectedWard("");
+
+        if (districtCode) {
+            fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`)
+                .then(res => res.json())
+                .then(data => setWards(data.wards));
+        } else {
+            setWards([]);
+        }
+    };
+
+    const handleContactChange = (e) => {
+        setContactInfo({ ...contactInfo, [e.target.name]: e.target.value });
+    };
+
+    const handleOpenEdit = (index) => {
+        setEditIndex(index);
+
+        const currentData = user.list_addresses && user.list_addresses[index];
+
+        if (currentData) {
+            setContactInfo({
+                name: currentData.name || '',
+                phone: currentData.phone || ''
+            });
+            setSpecificAddress("");
+            setSelectedProvince("");
+        } else {
+            setContactInfo({ name: '', phone: '' });
+            setSpecificAddress("");
+            setSelectedProvince("");
+        }
+
         setIsEditing(true);
     };
 
-    const handleClickAdd = () => {
-        setEditMode('add');
-        setFormData({
-            name: '',
-            address: '',
-            phone: ''
-        });
-        setIsEditing(true);
+    const showToast = (message) => {
+        setNotification(message);
+        setTimeout(() => setNotification(null), 3000);
     };
 
     const handleSave = () => {
         if (!user) return;
 
-        const updatedUser = { ...user, ...formData };
+        const pName = provinces.find(p => p.code == selectedProvince)?.name || "";
+        const dName = districts.find(d => d.code == selectedDistrict)?.name || "";
+        const wName = wards.find(w => w.code == selectedWard)?.name || "";
+
+        if (!pName || !dName || !wName || !specificAddress) {
+            alert("Vui lòng chọn đầy đủ địa chỉ!");
+            return;
+        }
+
+        const fullAddress = `${specificAddress}, ${wName}, ${dName}, ${pName}`;
+
+        const newAddressObj = {
+            name: contactInfo.name,
+            phone: contactInfo.phone,
+            address: fullAddress
+        };
+
+        const updatedList = [...(user.list_addresses || [])];
+
+        updatedList[editIndex] = newAddressObj;
+
+        const updatedUser = {
+            ...user,
+            list_addresses: updatedList
+        };
+
         sessionStorage.setItem("user", JSON.stringify(updatedUser));
         setUser(updatedUser);
         setIsEditing(false);
-        alert(editMode === 'edit' ? "Cập nhật thành công!" : "Thêm địa chỉ mới thành công!");
+        showToast("Lưu địa chỉ thành công!");
+    };
+
+    const getAddressData = (index) => {
+        if (user && user.list_addresses && user.list_addresses[index]) {
+            return user.list_addresses[index];
+        }
+        return null;
     };
 
     if (!user) return <div>Đang tải...</div>;
 
     return (
         <div className="address-book-container">
+            {notification && (
+                <div className="custom-toast">
+                    <FaCheckCircle style={{marginRight: '10px', fontSize: '18px'}}/>
+                    {notification}
+                </div>
+            )}
 
             {!isEditing && (
                 <div className="top-nav">
@@ -79,39 +175,70 @@ const AddressBook = () => {
                 {isEditing ? (
                     <div className="edit-form">
                         <h4 style={{marginBottom: '20px', textTransform: 'uppercase', borderBottom: '1px solid #eee', paddingBottom: '10px'}}>
-                            {editMode === 'edit' ? 'Chỉnh sửa địa chỉ' : 'Thêm địa chỉ mới'}
+                            {getAddressData(editIndex) ? 'Chỉnh sửa địa chỉ' : 'Thêm địa chỉ mới'}
                         </h4>
 
-                        <div className="form-group">
-                            <label>Họ và tên người nhận:</label>
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                placeholder="Ví dụ: Nguyễn Văn A"
-                            />
+                        <div className="form-row-2">
+                            <div className="form-group">
+                                <label>Họ và tên:</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={contactInfo.name}
+                                    onChange={handleContactChange}
+                                    placeholder="Ví dụ: Nguyễn Văn A"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Số điện thoại:</label>
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    value={contactInfo.phone}
+                                    onChange={handleContactChange}
+                                    placeholder="Nhập SĐT..."
+                                />
+                            </div>
                         </div>
 
                         <div className="form-group">
-                            <label>Số điện thoại:</label>
-                            <input
-                                type="text"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                placeholder="Nhập số điện thoại liên hệ"
-                            />
+                            <label>Tỉnh / Thành phố:</label>
+                            <select value={selectedProvince} onChange={handleProvinceChange} className="form-select">
+                                <option value="">-- Chọn Tỉnh/Thành --</option>
+                                {provinces.map(p => (
+                                    <option key={p.code} value={p.code}>{p.name}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="form-row-2">
+                            <div className="form-group">
+                                <label>Quận / Huyện:</label>
+                                <select value={selectedDistrict} onChange={handleDistrictChange} className="form-select" disabled={!selectedProvince}>
+                                    <option value="">-- Chọn Quận/Huyện --</option>
+                                    {districts.map(d => (
+                                        <option key={d.code} value={d.code}>{d.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Phường / Xã:</label>
+                                <select value={selectedWard} onChange={(e) => setSelectedWard(e.target.value)} className="form-select" disabled={!selectedDistrict}>
+                                    <option value="">-- Chọn Phường/Xã --</option>
+                                    {wards.map(w => (
+                                        <option key={w.code} value={w.code}>{w.name}</option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
 
                         <div className="form-group">
-                            <label>Địa chỉ nhận hàng:</label>
+                            <label>Địa chỉ cụ thể:</label>
                             <input
                                 type="text"
-                                name="address"
-                                value={formData.address}
-                                onChange={handleChange}
-                                placeholder="Số nhà, đường, phường/xã..."
+                                value={specificAddress}
+                                onChange={(e) => setSpecificAddress(e.target.value)}
+                                placeholder="Số nhà, tên đường, ấp/thôn..."
                             />
                         </div>
 
@@ -122,45 +249,84 @@ const AddressBook = () => {
                     </div>
                 ) : (
                     <div className="address-grid-layout">
-                        <div className="address-box filled">
-                            <div className="box-header">
-                                <span className="badge-default">Mặc định</span>
-                                <button className="icon-btn" onClick={handleClickEdit}>
-                                    <FaPen />
-                                </button>
-                            </div>
-                            <div className="box-content">
-                                <strong>{user.name}</strong>
-                                <p>{user.address || "Chưa cập nhật địa chỉ"}</p>
-                                <p>{user.phone || "Chưa cập nhật SĐT"}</p>
-                            </div>
-                        </div>
 
-                        <div className="address-box empty">
-                            <div className="box-header">
-                                <span className="badge-name">ĐỊA CHỈ 1</span>
+                        {getAddressData(0) ? (
+                            <div className="address-box filled">
+                                <div className="box-header">
+                                    <span className="badge-default">Mặc định</span>
+                                    <button className="icon-btn" onClick={() => handleOpenEdit(0)}>
+                                        <FaPen />
+                                    </button>
+                                </div>
+                                <div className="box-content">
+                                    <strong>{getAddressData(0).name}</strong>
+                                    <p>{getAddressData(0).address}</p>
+                                    <p>{getAddressData(0).phone}</p>
+                                </div>
                             </div>
-                            <div className="box-content-empty">
-                                <FaMapMarkerAlt className="empty-icon"/>
-                                <p>Chưa thiết lập</p>
-                                <button className="btn-mini-add" onClick={handleClickAdd}>
-                                    <FaPlus /> Thêm
-                                </button>
+                        ) : (
+                            <div className="address-box empty">
+                                <div className="box-header"><span className="badge-name">MẶC ĐỊNH</span></div>
+                                <div className="box-content-empty">
+                                    <FaMapMarkerAlt className="empty-icon"/>
+                                    <p>Chưa thiết lập</p>
+                                    <button className="btn-mini-add" onClick={() => handleOpenEdit(0)}><FaPlus /> Thêm</button>
+                                </div>
                             </div>
-                        </div>
+                        )}
 
-                        <div className="address-box empty">
-                            <div className="box-header">
-                                <span className="badge-name">ĐỊA CHỈ 2</span>
+                        {/* --- Ô ĐỊA CHỈ 1 (INDEX 1) --- */}
+                        {getAddressData(1) ? (
+                            <div className="address-box filled">
+                                <div className="box-header">
+                                    <span className="badge-name">ĐỊA CHỈ 1</span>
+                                    <button className="icon-btn" onClick={() => handleOpenEdit(1)}>
+                                        <FaPen />
+                                    </button>
+                                </div>
+                                <div className="box-content">
+                                    <strong>{getAddressData(1).name}</strong>
+                                    <p>{getAddressData(1).address}</p>
+                                    <p>{getAddressData(1).phone}</p>
+                                </div>
                             </div>
-                            <div className="box-content-empty">
-                                <FaMapMarkerAlt className="empty-icon"/>
-                                <p>Chưa thiết lập</p>
-                                <button className="btn-mini-add" onClick={handleClickAdd}>
-                                    <FaPlus /> Thêm
-                                </button>
+                        ) : (
+                            <div className="address-box empty">
+                                <div className="box-header"><span className="badge-name">ĐỊA CHỈ 1</span></div>
+                                <div className="box-content-empty">
+                                    <FaMapMarkerAlt className="empty-icon"/>
+                                    <p>Chưa thiết lập</p>
+                                    <button className="btn-mini-add" onClick={() => handleOpenEdit(1)}><FaPlus /> Thêm</button>
+                                </div>
                             </div>
-                        </div>
+                        )}
+
+                        {/* --- Ô ĐỊA CHỈ 2 (INDEX 2) --- */}
+                        {getAddressData(2) ? (
+                            <div className="address-box filled">
+                                <div className="box-header">
+                                    <span className="badge-name">ĐỊA CHỈ 2</span>
+                                    <button className="icon-btn" onClick={() => handleOpenEdit(2)}>
+                                        <FaPen />
+                                    </button>
+                                </div>
+                                <div className="box-content">
+                                    <strong>{getAddressData(2).name}</strong>
+                                    <p>{getAddressData(2).address}</p>
+                                    <p>{getAddressData(2).phone}</p>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="address-box empty">
+                                <div className="box-header"><span className="badge-name">ĐỊA CHỈ 2</span></div>
+                                <div className="box-content-empty">
+                                    <FaMapMarkerAlt className="empty-icon"/>
+                                    <p>Chưa thiết lập</p>
+                                    <button className="btn-mini-add" onClick={() => handleOpenEdit(2)}><FaPlus /> Thêm</button>
+                                </div>
+                            </div>
+                        )}
+
                     </div>
                 )}
             </div>

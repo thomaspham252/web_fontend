@@ -35,7 +35,7 @@
 .btn-auth {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #2F6A58;
     color: white;
     border: none;
     border-radius: 4px;
@@ -45,7 +45,7 @@
 }
 
 .btn-auth:hover {
-    background-color: #0056b3;
+    background-color: #025002;
 }
 
 .btn-logout {
