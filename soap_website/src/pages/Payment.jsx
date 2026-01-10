@@ -57,7 +57,6 @@ const Payment = () => {
     };
 
     const handleCheckout = async () => {
-        // ... (Giữ nguyên phần validate form) ...
         if (!formData.fullName || !formData.phone || !formData.address) {
             alert("Vui lòng điền đầy đủ thông tin giao hàng!");
             return;
@@ -65,9 +64,16 @@ const Payment = () => {
 
         const newOrder = {
             id: crypto.randomUUID(),
-            // --- QUAN TRỌNG: Lấy ID từ user trong Session Storage ---
             user_id: currentUser ? currentUser.id : "unknown",
-            product_id: cartItems.map(item => item.id),
+            items: cartItems.map(item => ({
+                product_id: item.id,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                img: item.img
+            })),
+            subtotal: tempPrice,
+            shipping_fee: shippingFee,
             total: finalPrice,
             created_at: new Date().toLocaleString("vi-VN"),
             status: "pending",
@@ -78,7 +84,7 @@ const Payment = () => {
         try {
             const response = await fetch('http://localhost:3002/orders', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(newOrder),
             });
 
