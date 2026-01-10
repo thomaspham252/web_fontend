@@ -1,26 +1,44 @@
 [
   {
     "id": 1,
-    "name": "Nguyễn Văn A",
-    "email": "user@gmail.com",
-    "password": "123",
+    "name": "Phạm Tiền",
+    "email": "pham.tien.dev@gmail.com",
+    "password": "124",
     "loginType": "email",
-    "avatar": "default.jpg"
+    "list_addresses": [
+      {
+        "name": "Phạm Tiền",
+        "phone": "0981567890",
+        "address": "Số 15, Đường Hùng Vương, Thị trấn Cái Bè, Huyện Cái Bè, Tiền Giang"
+      }
+    ]
   },
   {
     "id": 2,
-    "name": "Admin Hệ Thống",
-    "email": "admin@gmail.com",
-    "password": "admin",
+    "name": "Pham Linh",
+    "email": "linh.pham2003@gmail.com",
+    "password": "123",
     "loginType": "email",
-    "avatar": "admin.jpg"
+    "list_addresses": [
+      {
+        "name": "Pham Linh",
+        "phone": "0912345678",
+        "address": "45A, Ấp Phước Thạnh, Xã Tam Phước, Huyện Châu Thành, Bến Tre"
+      }
+    ]
   },
   {
     "id": 3,
-    "name": "Trần Thị B",
-    "email": "student@nlu.edu.vn",
+    "name": "Pham Thoại",
+    "email": "thoai.norules@gmail.com",
     "password": "123",
     "loginType": "email",
-    "avatar": "default.jpg"
+    "list_addresses": [
+      {
+        "name": "Pham Thoại",
+        "phone": "0909112233",
+        "address": "89, Quốc lộ 1A, Xã Long An, Huyện Châu Thành, Tiền Giang"
+      }
+    ]
   }
 ]

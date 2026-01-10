@@ -28,7 +28,7 @@
   width: 100%;
   height: 55px;
   background-color: #f7f9fa;
-  padding: 0 40px 0 16px; /* chừa chỗ icon */
+  padding: 0 40px 0 16px;
   outline: none;
   border-radius: 20px;
 }
@@ -110,7 +110,7 @@
 }
 
 .nav-list li {
-  flex: 1;              /* ⭐ tản đều */
+  flex: 1;
   text-align: center;
 }
 
@@ -140,4 +140,71 @@
 .nav-list li a:hover {
   color: #2e8b57;
   border-bottom: 2px solid #2e8b57;
+}
+
+
+/* --- CSS TÀI KHOẢN --- */
+.account-container {
+    position: relative;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+
+.account-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 1px solid #eee;
+    z-index: 1000;
+    border-radius: 4px;
+    padding: 10px 0;
+}
+
+
+.account-container:hover .account-dropdown {
+    display: block;
+}
+
+
+.account-dropdown::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: transparent transparent white transparent;
+}
+
+.dropdown-item {
+    padding: 10px 15px;
+    font-size: 13px;
+    color: #333;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.dropdown-item.greeting {
+    font-weight: bold;
+    color: #444;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-item.logout-btn {
+    cursor: pointer;
+    color: #666;
+    transition: 0.2s;
+    text-transform: uppercase;
+}
+
+.dropdown-item.logout-btn:hover {
+    background-color: #f9f9f9;
+    color: #d32f2f;
 }
