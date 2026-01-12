@@ -91,6 +91,7 @@ const Payment = () => {
             if (response.ok) {
                 alert("Đặt hàng thành công!");
                 localStorage.removeItem("cart_guest");
+                window.dispatchEvent(new Event("cartUpdated"))
                 navigate('/home');
             } else {
                 alert("Lỗi server: Không lưu được đơn hàng.");
