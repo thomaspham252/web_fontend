@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import '../assets/css/auth.css';
-import UserInfo from '../components/personal_page/UserInfo';
-import Orders from '../components/personal_page/Orders';
+import '../../assets/css/auth.css';
+import UserInfo from '../../components/personal_page/UserInfo';
+import Orders from '../../components/personal_page/Orders';
 
 const User = () => {
     const [user, setUser] = useState(null);

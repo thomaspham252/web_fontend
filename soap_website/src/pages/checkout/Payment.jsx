@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import '../assets/css/Payment.css';
-import qrCodeImg from '../assets/image/qr.jpg';
+import '../../assets/css/Payment.css';
+import qrCodeImg from '../../assets/image/qr.jpg';
 
 const Payment = () => {
     const [cartItems, setCartItems] = useState([]);

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, Link} from 'react-router-dom';
-import '../assets/css/OrderDetail.css';
+import '../../assets/css/OrderDetail.css';
 
 const OrderDetail = () => {
     const {id} = useParams(); // Lấy ID từ URL (vd: /order/123 -> id = 123)

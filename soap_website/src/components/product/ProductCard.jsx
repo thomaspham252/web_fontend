@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import { addToCart } from '../../utils/cartUtils';
 
 const ProductCard = ({ product }) => {
-    // Lấy thông tin giá của trọng lượng đầu tiên (mặc định)
     const defaultWeight = product.weight[0];
-
     return (
         <div className="product-card">
             <Link to={`/products/${product.id}`}>

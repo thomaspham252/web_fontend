@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import productsData from "../data/products.json";
-import "../assets/css/Products.css";
-import ProductCard from "../components/product/ProductCard";
+import productsData from "../../data/products.json";
+import "../../assets/css/Products.css";
+import ProductCard from "../../components/product/ProductCard";
 
 const Products = () => {
     const [searchParams, setSearchParams] = useSearchParams();

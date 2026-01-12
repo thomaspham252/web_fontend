@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaFacebookF, FaApple } from "react-icons/fa";
-import '../assets/css/auth.css';
-import listUsers from '../data/users.json';
+import '../../assets/css/auth.css';
+import listUsers from '../../data/users.json';
 
 const Login = () => {
     const navigate = useNavigate();

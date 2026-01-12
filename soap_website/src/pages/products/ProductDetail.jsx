@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import { useParams, Link } from "react-router-dom";
-import productsData from "../data/products.json";
-import "../assets/css/ProductDetail.css";
-import NewProduct from "../components/product/NewProduct";
-import { addToCart } from "../utils/cartUtils";
-import { formatCurrency } from "../utils/currencyUtils";
+import productsData from "../../data/products.json";
+import "../../assets/css/ProductDetail.css";
+import NewProduct from "../../components/product/NewProduct";
+import { addToCart } from "../../utils/cartUtils";
+import { formatCurrency } from "../../utils/currencyUtils";
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -15,6 +15,18 @@ const ProductDetail = () => {
 
     const defaultImage = product ? (product.images?.length ? product.images[0] : product.img) : "";
     const [mainImage, setMainImage] = useState(defaultImage);
+
+    useEffect(() => {
+        if (product) {
+            const img = product.images?.length
+                ? product.images[0]
+                : product.img;
+
+            setMainImage(img);
+            setSelectedWeight(product.weight[0]);
+            setQuantity(1);
+        }
+    }, [id, product]);
 
     if (!product) {
         return (
