@@ -24,6 +24,7 @@ function App() {
 
             <Routes>
                 {/* Trang chủ */}
+                <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
