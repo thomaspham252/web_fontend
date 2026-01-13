@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaFacebookF, FaApple } from "react-icons/fa";
 import '../../assets/css/auth.css';
-import listUsers from '../../data/users.json';
+
+const API_URL = "https://69666b85f6de16bde44d599c.mockapi.io/users";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -22,44 +23,56 @@ const Login = () => {
         if (errorMessage) setErrorMessage('');
     };
 
+    // LOGIC ĐĂNG NHẬP(DÙNG API)
     const handleLogin = (e) => {
         e.preventDefault();
 
-        const foundUser = listUsers.find(u =>
-            u.email === formData.email && u.password === formData.password
-        );
+        // Gọi MockAPI để tìm email
+        fetch(`${API_URL}?email=${formData.email}`)
+            .then(res => res.json())
+            .then(users => {
+                if (users.length === 0) {
+                    setErrorMessage("Email này chưa được đăng ký!");
+                } else {
+                    const foundUser = users[0];
 
-        if (foundUser) {
-            const { password, ...userSafe } = foundUser;
-            saveUserAndRedirect(userSafe);
-        } else {
-            setErrorMessage("Email hoặc mật khẩu không chính xác!");
-        }
+                    if (foundUser.password == formData.password) {
+                        saveUserAndRedirect(foundUser);
+                    } else {
+                        setErrorMessage("Mật khẩu không chính xác!");
+                    }
+                }
+            })
+            .catch(err => {
+                console.error("Lỗi:", err);
+                setErrorMessage("Lỗi kết nối Server! Vui lòng thử lại.");
+            });
     };
 
     const handleSocialLogin = (platform) => {
         let fakeUser = {};
         if (platform === 'google') {
-            fakeUser = { name: "Người dùng Google", email: "google@gmail.com", loginType: 'google' };
+            fakeUser = { name: "Người dùng Google", email: "google@gmail.com", loginType: 'google', list_addresses: [] };
         } else if (platform === 'facebook') {
-            fakeUser = { name: "Người dùng Facebook", email: "fb@yahoo.com", loginType: 'facebook' };
+            fakeUser = { name: "Người dùng Facebook", email: "fb@yahoo.com", loginType: 'facebook', list_addresses: [] };
         } else if (platform === 'apple') {
-            fakeUser = { name: "Người dùng Apple", email: "apple@icloud.com", loginType: 'apple' };
+            fakeUser = { name: "Người dùng Apple", email: "apple@icloud.com", loginType: 'apple', list_addresses: [] };
         }
-        alert(`Đang kết nối tới ${platform}...`);
+        alert(`Đang kết nối tới ${platform}... (Giả lập)`);
         saveUserAndRedirect(fakeUser);
     };
 
     const saveUserAndRedirect = (userData) => {
         sessionStorage.setItem("user", JSON.stringify(userData));
-        window.location.href = "/user";
+
+        navigate("/user");
     };
 
     return (
         <div className="auth-container">
             <h2>Đăng Nhập</h2>
 
-            {errorMessage && <p style={{color: 'red', marginBottom: '10px'}}>{errorMessage}</p>}
+            {errorMessage && <p style={{color: 'red', marginBottom: '10px', textAlign: 'center'}}>{errorMessage}</p>}
 
             <form onSubmit={handleLogin}>
                 <div className="form-group">

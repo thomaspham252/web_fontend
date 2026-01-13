@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaPlus, FaPen, FaMapMarkerAlt, FaCheckCircle } from "react-icons/fa";
 import './AddressBook.css';
 
+const API_URL = "https://69666b85f6de16bde44d599c.mockapi.io/users";
+
 const AddressBook = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
@@ -12,7 +14,7 @@ const AddressBook = () => {
     const [editIndex, setEditIndex] = useState(0);
     const [notification, setNotification] = useState(null);
 
-    // --- API ĐỊA CHÍNH ---
+    // API ĐỊA CHÍNH
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
@@ -91,6 +93,7 @@ const AddressBook = () => {
                 name: currentData.name || '',
                 phone: currentData.phone || ''
             });
+
             setSpecificAddress("");
             setSelectedProvince("");
         } else {
@@ -107,8 +110,10 @@ const AddressBook = () => {
         setTimeout(() => setNotification(null), 3000);
     };
 
+
     const handleSave = () => {
         if (!user) return;
+
 
         const pName = provinces.find(p => p.code == selectedProvince)?.name || "";
         const dName = districts.find(d => d.code == selectedDistrict)?.name || "";
@@ -131,15 +136,35 @@ const AddressBook = () => {
 
         updatedList[editIndex] = newAddressObj;
 
+        // Tạo object User mới chuẩn bị gửi lên Server
         const updatedUser = {
             ...user,
             list_addresses: updatedList
         };
 
-        sessionStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser);
-        setIsEditing(false);
-        showToast("Lưu địa chỉ thành công!");
+        // GỌI API PUT ĐỂ CẬP NHẬT
+        fetch(`${API_URL}/${user.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedUser),
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Lỗi lưu dữ liệu");
+                return res.json();
+            })
+            .then(data => {
+                // Lưu thành công trên Server mới lưu vào Session
+                sessionStorage.setItem("user", JSON.stringify(data));
+                setUser(data);
+                setIsEditing(false);
+                showToast("Lưu địa chỉ lên hệ thống thành công!");
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Có lỗi xảy ra khi kết nối tới máy chủ. Vui lòng thử lại!");
+            });
     };
 
     const getAddressData = (index) => {
@@ -249,7 +274,7 @@ const AddressBook = () => {
                     </div>
                 ) : (
                     <div className="address-grid-layout">
-
+                        {/* --- Ô MẶC ĐỊNH (INDEX 0) --- */}
                         {getAddressData(0) ? (
                             <div className="address-box filled">
                                 <div className="box-header">
@@ -326,7 +351,6 @@ const AddressBook = () => {
                                 </div>
                             </div>
                         )}
-
                     </div>
                 )}
             </div>
@@ -335,3 +359,4 @@ const AddressBook = () => {
 };
 
 export default AddressBook;
+// test
