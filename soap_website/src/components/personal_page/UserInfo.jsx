@@ -6,9 +6,9 @@ import './UserInfo.css';
 const UserInfo = ({ user }) => {
     const navigate = useNavigate();
 
-    const defaultData = (user.list_addresses && user.list_addresses.length > 0)
-        ? user.list_addresses[0]
-        : user;
+    const addressList = user?.list_addresses || [];
+
+    const defaultData = (addressList.length > 0) ? addressList[0] : user;
 
     return (
         <div className="user-info-card">
@@ -16,17 +16,17 @@ const UserInfo = ({ user }) => {
 
             <div className="info-item">
                 <FaUser className="info-icon" />
-                <span>{defaultData.name || user.name}</span>
+                <span>{defaultData?.name || user?.name || "Chưa cập nhật tên"}</span>
             </div>
 
             <div className="info-item">
                 <FaMapMarkerAlt className="info-icon" />
-                <span>{defaultData.address || "Chưa cập nhật địa chỉ"}</span>
+                <span>{defaultData?.address || "Chưa cập nhật địa chỉ"}</span>
             </div>
 
             <div className="info-item">
                 <FaPhoneAlt className="info-icon" />
-                <span>{defaultData.phone || "Chưa cập nhật SĐT"}</span>
+                <span>{defaultData?.phone || "Chưa cập nhật SĐT"}</span>
             </div>
 
             <button
@@ -34,7 +34,8 @@ const UserInfo = ({ user }) => {
                 onClick={() => navigate('/user/addresses')}
             >
                 <FaAddressBook style={{marginRight: '8px'}}/>
-                SỔ ĐỊA CHỈ
+                {/* Hiển thị số lượng địa chỉ đang có */}
+                SỔ ĐỊA CHỈ ({addressList.length})
             </button>
         </div>
     );
