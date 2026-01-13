@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/css/auth.css';
-import listUsers from '../data/users.json';
+const API_URL = "https://69666b85f6de16bde44d599c.mockapi.io/users";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -26,52 +26,103 @@ const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault();
 
+        // Validate mật khẩu
         if (formData.password !== formData.confirmPassword) {
             setError("Mật khẩu nhập lại không khớp!");
             return;
         }
 
-        const isExist = listUsers.some(u => u.email === formData.email);
-        if (isExist) {
-            setError("Email này đã được sử dụng!");
-            return;
-        }
+        // Bước 1: Kiểm tra xem email đã tồn tại trên MockAPI chưa
+        fetch(`${API_URL}?email=${formData.email}`)
+            .then(res => res.json())
+            .then(existingUsers => {
+                if (existingUsers.length > 0) {
+                    setError("Email này đã được sử dụng! Vui lòng chọn email khác.");
+                } else {
+                    // Bước 2: Nếu chưa tồn tại, tạo user mới
+                    const newUser = {
+                        name: formData.name,
+                        email: formData.email,
+                        password: formData.password,
+                        phone: "",
+                        address: "",
+                        list_addresses: [],
+                        loginType: 'email',
+                        avatar: 'default.jpg'
+                    };
 
-        const newUser = {
-            name: formData.name,
-            email: formData.email,
-            loginType: 'email',
-            avatar: 'default.jpg'
-        };
-
-        sessionStorage.setItem("user", JSON.stringify(newUser));
-
-        alert("Đăng ký thành công! Bạn đã được tự động đăng nhập.");
-        window.location.href = "/user";
+                    // Gửi lệnh POST để lưu vào API
+                    fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newUser)
+                    })
+                        .then(res => {
+                            if (res.ok) {
+                                alert("Đăng ký thành công! Vui lòng đăng nhập.");
+                                navigate("/login");
+                            } else {
+                                setError("Có lỗi xảy ra khi tạo tài khoản.");
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            setError("Lỗi kết nối Server.");
+                        });
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                setError("Lỗi kiểm tra email.");
+            });
     };
 
     return (
         <div className="auth-container">
             <h2>Đăng Ký Tài Khoản</h2>
 
-            {error && <p style={{color: 'red', marginBottom: '10px'}}>{error}</p>}
+            {error && <p style={{color: 'red', marginBottom: '10px', textAlign: 'center'}}>{error}</p>}
 
             <form onSubmit={handleRegister}>
                 <div className="form-group">
                     <label>Họ tên:</label>
-                    <input type="text" name="name" required onChange={handleChange} />
+                    <input
+                        type="text"
+                        name="name"
+                        required
+                        placeholder="Nguyễn Văn A"
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="form-group">
                     <label>Email:</label>
-                    <input type="email" name="email" required onChange={handleChange} />
+                    <input
+                        type="email"
+                        name="email"
+                        required
+                        placeholder="email@example.com"
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="form-group">
                     <label>Mật khẩu:</label>
-                    <input type="password" name="password" required onChange={handleChange} />
+                    <input
+                        type="password"
+                        name="password"
+                        required
+                        placeholder="Tối thiểu 6 ký tự"
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="form-group">
                     <label>Nhập lại mật khẩu:</label>
-                    <input type="password" name="confirmPassword" required onChange={handleChange} />
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        required
+                        placeholder="Nhập lại mật khẩu trên"
+                        onChange={handleChange}
+                    />
                 </div>
                 <button type="submit" className="btn-auth">Đăng Ký</button>
             </form>
