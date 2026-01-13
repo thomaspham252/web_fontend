@@ -23,11 +23,8 @@ const Login = () => {
         if (errorMessage) setErrorMessage('');
     };
 
-    // LOGIC ĐĂNG NHẬP(DÙNG API)
     const handleLogin = (e) => {
         e.preventDefault();
-
-        // Gọi MockAPI để tìm email
         fetch(`${API_URL}?email=${formData.email}`)
             .then(res => res.json())
             .then(users => {
@@ -35,9 +32,9 @@ const Login = () => {
                     setErrorMessage("Email này chưa được đăng ký!");
                 } else {
                     const foundUser = users[0];
-
                     if (foundUser.password == formData.password) {
-                        saveUserAndRedirect(foundUser);
+                        sessionStorage.setItem("user", JSON.stringify(foundUser));
+                        navigate("/user");
                     } else {
                         setErrorMessage("Mật khẩu không chính xác!");
                     }
@@ -45,27 +42,16 @@ const Login = () => {
             })
             .catch(err => {
                 console.error("Lỗi:", err);
-                setErrorMessage("Lỗi kết nối Server! Vui lòng thử lại.");
+                setErrorMessage("Lỗi kết nối Server!");
             });
     };
 
-    const handleSocialLogin = (platform) => {
-        let fakeUser = {};
-        if (platform === 'google') {
-            fakeUser = { name: "Người dùng Google", email: "google@gmail.com", loginType: 'google', list_addresses: [] };
-        } else if (platform === 'facebook') {
-            fakeUser = { name: "Người dùng Facebook", email: "fb@yahoo.com", loginType: 'facebook', list_addresses: [] };
-        } else if (platform === 'apple') {
-            fakeUser = { name: "Người dùng Apple", email: "apple@icloud.com", loginType: 'apple', list_addresses: [] };
-        }
-        alert(`Đang kết nối tới ${platform}... (Giả lập)`);
-        saveUserAndRedirect(fakeUser);
-    };
-
-    const saveUserAndRedirect = (userData) => {
-        sessionStorage.setItem("user", JSON.stringify(userData));
-
-        navigate("/user");
+    const linkStyle = {
+        textDecoration: 'none',
+        color: '#333',
+        fontWeight: '500',
+        fontSize: '0.95rem',
+        cursor: 'pointer'
     };
 
     return (
@@ -103,20 +89,27 @@ const Login = () => {
             </div>
 
             <div className="social-login">
-                <button type="button" className="btn-social btn-google" onClick={() => handleSocialLogin('google')}>
-                    <FaGoogle/> Google
-                </button>
-                <button type="button" className="btn-social btn-facebook" onClick={() => handleSocialLogin('facebook')}>
-                    <FaFacebookF/> Facebook
-                </button>
-                <button type="button" className="btn-social btn-apple" onClick={() => handleSocialLogin('apple')}>
-                    <FaApple/> Apple
-                </button>
+
+                <button type="button" className="btn-social btn-google"><FaGoogle/> Google</button>
+                <button type="button" className="btn-social btn-facebook"><FaFacebookF/> Facebook</button>
+                <button type="button" className="btn-social btn-apple"><FaApple/> Apple</button>
             </div>
 
-            <p style={{marginTop: '20px'}}>
-                Chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
-            </p>
+            <div style={{
+                marginTop: '25px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+            }}>
+
+                <span style={linkStyle} title="Tính năng đang phát triển">
+                    Quên mật khẩu?
+                </span>
+
+                <Link to="/register" style={linkStyle}>
+                    Đăng ký ngay
+                </Link>
+            </div>
         </div>
     );
 };
