@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/css/auth.css';
-import UserInfo from '../components/personal_page/UserInfo';
-import Orders from '../components/personal_page/Orders';
-
+import '../../assets/css/auth.css';
+import UserInfo from '../../components/personal_page/UserInfo';
+import Orders from '../../components/personal_page/Orders';
 // Link API
 const API_URL = "https://69666b85f6de16bde44d599c.mockapi.io/users";
 

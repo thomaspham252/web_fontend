@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaFacebookF, FaApple } from "react-icons/fa";
-import '../assets/css/auth.css';
+import '../../assets/css/auth.css';
 
 const API_URL = "https://69666b85f6de16bde44d599c.mockapi.io/users";
 
