@@ -1,19 +1,25 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../assets/css/Payment.css';
 import qrCodeImg from '../../assets/image/qr.jpg';
+import { FaMapMarkerAlt, FaCheckCircle, FaPen } from "react-icons/fa";
+
+// LINK MOCKAPI
+const ORDER_API_URL = "https://69666b85f6de16bde44d599c.mockapi.io/orders";
 
 const Payment = () => {
     const [cartItems, setCartItems] = useState([]);
     const navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState(null);
+    const [savedAddresses, setSavedAddresses] = useState([]);
+    const [selectedAddressIndex, setSelectedAddressIndex] = useState(0);
 
     const [formData, setFormData] = useState({
         fullName: '',
         phone: '',
         gmail: '',
         address: '',
-        discountCode: ''
+        note: ''
     });
 
     const [paymentMethod, setPaymentMethod] = useState('cod');
@@ -30,14 +36,47 @@ const Payment = () => {
         const userObj = JSON.parse(userStr);
         setCurrentUser(userObj);
 
-        setFormData(prev => ({
-            ...prev,
-            fullName: userObj.name || '',
-        }));
+        // LOGIC LẤY DANH SÁCH ĐỊA CHỈ
+        const addresses = userObj.list_addresses || [];
+        setSavedAddresses(addresses);
+
+        // Tự động điền
+        if (addresses.length > 0) {
+            const defaultAddr = addresses[0];
+            setFormData({
+                fullName: defaultAddr.name || userObj.name,
+                phone: defaultAddr.phone || userObj.phone || '',
+                gmail: userObj.email || '',
+                address: defaultAddr.address || '',
+                note: ''
+            });
+        } else {
+            setFormData({
+                fullName: userObj.name || '',
+                phone: userObj.phone || '',
+                gmail: userObj.email || '',
+                address: userObj.address || '',
+                note: ''
+            });
+        }
 
         const savedCart = JSON.parse(localStorage.getItem("cart_guest")) || [];
         setCartItems(savedCart);
     }, [navigate]);
+
+    const handleSelectAddress = (index) => {
+        setSelectedAddressIndex(index);
+        const selectedAddr = savedAddresses[index];
+
+        if (selectedAddr) {
+            setFormData(prev => ({
+                ...prev,
+                fullName: selectedAddr.name,
+                phone: selectedAddr.phone,
+                address: selectedAddr.address
+            }));
+        }
+    };
 
     const tempPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const shippingFee = 30000;
@@ -48,8 +87,8 @@ const Payment = () => {
     };
 
     const handleInputChange = (e) => {
-        const {name, value} = e.target;
-        setFormData({...formData, [name]: value});
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
     const handlePaymentChange = (e) => {
@@ -63,7 +102,6 @@ const Payment = () => {
         }
 
         const newOrder = {
-            id: crypto.randomUUID(),
             user_id: currentUser ? currentUser.id : "unknown",
             items: cartItems.map(item => ({
                 product_id: item.id,
@@ -82,23 +120,23 @@ const Payment = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:3002/orders', {
+            const response = await fetch(ORDER_API_URL, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newOrder),
             });
 
             if (response.ok) {
-                alert("Đặt hàng thành công!");
+                alert("Đặt hàng thành công! Cảm ơn bạn đã mua sắm.");
                 localStorage.removeItem("cart_guest");
-                window.dispatchEvent(new Event("cartUpdated"))
+                window.dispatchEvent(new Event("cartUpdated"));
                 navigate('/home');
             } else {
                 alert("Lỗi server: Không lưu được đơn hàng.");
             }
         } catch (error) {
             console.error("Lỗi:", error);
-            alert("Không kết nối được server (Kiểm tra xem json-server chạy chưa?)");
+            alert("Lỗi kết nối server. Vui lòng thử lại sau.");
         }
     };
 
@@ -111,12 +149,67 @@ const Payment = () => {
                         <h1>Thanh toán</h1>
                     </div>
 
+                    {/* HIỂN THỊ DANH SÁCH ĐỊA CHỈ */}
+                    {savedAddresses.length > 0 && (
+                        <div className="saved-addresses-section" style={{marginBottom: '20px'}}>
+                            <h3 style={{fontSize: '16px', marginBottom: '10px', color: '#2F6A58'}}>
+                                <FaMapMarkerAlt style={{marginRight:'5px'}}/> Chọn địa chỉ nhận hàng
+                            </h3>
+                            <div className="address-options" style={{display: 'flex', gap: '10px', flexWrap: 'wrap'}}>
+                                {savedAddresses.map((addr, index) => (
+                                    <div
+                                        key={index}
+                                        onClick={() => handleSelectAddress(index)}
+                                        style={{
+                                            position: 'relative', // Quan trọng: làm mốc cho icon bút
+                                            border: selectedAddressIndex === index ? '2px solid #2F6A58' : '1px solid #ddd',
+                                            padding: '10px',
+                                            borderRadius: '8px',
+                                            cursor: 'pointer',
+                                            backgroundColor: selectedAddressIndex === index ? '#f0f9f4' : '#fff',
+                                            flex: '1 1 45%',
+                                            fontSize: '13px'
+                                        }}
+                                    >
+                                        {/* ICON SỬA ĐỊA CHỈ */}
+                                        <FaPen
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                navigate('/user');
+                                            }}
+                                            style={{
+                                                position: 'absolute',
+                                                top: '8px',
+                                                right: '8px',
+                                                fontSize: '12px',
+                                                color: '#666',
+                                                padding: '2px'
+                                            }}
+                                            title="Chỉnh sửa địa chỉ này"
+                                            onMouseOver={(e) => e.target.style.color = '#2F6A58'}
+                                            onMouseOut={(e) => e.target.style.color = '#666'}
+                                        />
+
+                                        <div style={{fontWeight: 'bold', marginBottom: '3px', paddingRight: '20px'}}>
+                                            {index === 0 ? "Mặc định: " : `Địa chỉ ${index}: `} {addr.name}
+                                        </div>
+                                        <div>{addr.phone}</div>
+                                        <div style={{color: '#666', fontSize: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                                            {addr.address}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                     <div className="section-header">
                         <h2>Thông tin giao hàng</h2>
                     </div>
 
                     <form className="shipping-form">
                         <div className="form-group">
+                            <label style={{fontSize: '12px', color:'#666', marginBottom:'4px', display:'block'}}>Họ và tên</label>
                             <input
                                 type="text"
                                 name="fullName"
@@ -128,41 +221,33 @@ const Payment = () => {
                         </div>
 
                         <div className="form-group">
+                            <label style={{fontSize: '12px', color:'#666', marginBottom:'4px', display:'block'}}>Số điện thoại</label>
                             <input
                                 type="text"
                                 name="phone"
                                 className="form-control"
                                 placeholder="Số điện thoại"
+                                value={formData.phone}
                                 onChange={handleInputChange}
                             />
                         </div>
 
                         <div className="form-group">
+                            <label style={{fontSize: '12px', color:'#666', marginBottom:'4px', display:'block'}}>Email (để nhận thông báo)</label>
                             <input
                                 type="text"
                                 name="gmail"
                                 className="form-control"
                                 placeholder="Gmail"
+                                value={formData.gmail}
                                 onChange={handleInputChange}
                             />
                         </div>
 
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                name="address"
-                                className="form-control"
-                                placeholder="Địa chỉ"
-                                onChange={handleInputChange}
-                            />
-                        </div>
 
-                        {/* Phương thức thanh toán */}
                         <div className="payment-methods-section">
                             <h2>Phương thức thanh toán</h2>
                             <div className="payment-options">
-
-                                {/* Method 1: Ship COD */}
                                 <label className={`payment-option ${paymentMethod === 'cod' ? 'active' : ''}`}>
                                     <div className="option-header">
                                         <input
@@ -181,7 +266,6 @@ const Payment = () => {
                                     )}
                                 </label>
 
-                                {/* Method 2: Chuyển khoản QR */}
                                 <label className={`payment-option ${paymentMethod === 'banking' ? 'active' : ''}`}>
                                     <div className="option-header">
                                         <input
@@ -203,14 +287,13 @@ const Payment = () => {
                                                 className="qr-image"
                                             />
                                             <div className="bank-note">
-                                                <p>Nội dung chuyển
-                                                    khoản: <b>{formData.fullName || "HỌ TÊN"} + {formData.phone || "SĐT"}</b>
+                                                <p>Nội dung chuyển khoản: <br/>
+                                                    <b>{formData.fullName || "TEN"} {formData.phone || "SDT"}</b>
                                                 </p>
                                             </div>
                                         </div>
                                     )}
                                 </label>
-
                             </div>
                         </div>
 
@@ -224,19 +307,17 @@ const Payment = () => {
 
                 <div className="sidebar-content">
                     <div className="product-list">
-
                         {cartItems.length === 0 ? (
-                            <p style={{textAlign: 'center', color: '#666'}}>Chưa có sản phẩm nào</p>
+                            <p style={{ textAlign: 'center', color: '#666' }}>Chưa có sản phẩm nào</p>
                         ) : (
                             cartItems.map((item) => (
                                 <div className="product-item" key={item.key || item.id}>
                                     <div className="product-image-wrapper">
                                         <div className="product-thumbnail">
-                                            <img src={item.img} alt={item.name}/>
+                                            <img src={item.img} alt={item.name} />
                                         </div>
                                         <span className="product-qty">{item.quantity}</span>
                                     </div>
-
                                     <div className="product-info">
                                         <h3 className="product-name">{item.name}</h3>
                                         <div className="product-price">
@@ -246,9 +327,7 @@ const Payment = () => {
                                 </div>
                             ))
                         )}
-
                     </div>
-
                     <div className="pricing-section">
                         <div className="price-row">
                             <span>Tạm tính</span>
@@ -259,7 +338,6 @@ const Payment = () => {
                             <span>{shippingFee === 0 ? "—" : formatCurrency(shippingFee)}</span>
                         </div>
                     </div>
-
                     <div className="total-section">
                         <span className="total-label">Tổng cộng</span>
                         <div className="total-value">
