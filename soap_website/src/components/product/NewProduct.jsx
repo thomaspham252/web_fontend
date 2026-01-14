@@ -1,8 +1,8 @@
 import React from "react";
 import productsData from "../../data/products.json";
 import "./NewProduct.css";
-import {Link} from "react-router-dom";
-import {addToCart} from "../../utils/cartUtils";
+import ProductCard from "./ProductCard";
+
 const ProductNew = () => {
     const newProducts = productsData.filter((p) => p.isNew);
 
@@ -11,23 +11,7 @@ const ProductNew = () => {
             <h2>SẢN PHẨM MỚI</h2>
             <div className="products-container">
                 {newProducts.map((product) => (
-                    <div key={product.id} className="product-card">
-                        <Link to={`/products/${product.id}`}>
-                            <img src={product.img} alt={product.name}/>
-                            <h4>{product.name}</h4>
-                        </Link>
-                        <p className="price">
-                            <span className="new">
-                                {product.weight[0].price.toLocaleString()}₫
-                            </span>
-                            {product.weight[0].oldPrice > 0 && (
-                                <span className="old">
-                                    {product.weight[0].oldPrice.toLocaleString()}₫
-                                </span>
-                            )}
-                        </p>
-                        <button onClick={()=>addToCart(product,product.weight[0],1)}>Mua Ngay</button>
-                    </div>
+                    <ProductCard key={product.id} product={product} />
                 ))}
             </div>
         </section>

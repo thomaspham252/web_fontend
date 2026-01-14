@@ -101,6 +101,9 @@ const Products = () => {
             {/* Products */}
             <section className="products-content">
                 <h3>TẤT CẢ SẢN PHẨM</h3>
+                <div style={{ textAlign: "center", marginBottom: "20px", color: "#666" }}>
+                    Tìm thấy {filteredProducts.length} sản phẩm
+                </div>
                 {filteredProducts.length === 0 ? (
                     <p style={{ textAlign: "center", marginTop: "20px" }}>Không tìm thấy sản phẩm nào.</p>
                 ) : (
