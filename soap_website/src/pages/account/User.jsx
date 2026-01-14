@@ -59,19 +59,6 @@ const User = () => {
                     <p style={{fontSize: '16px', fontStyle: 'italic', color: '#666'}}>{user.name}</p>
                 </div>
 
-                <button
-                    onClick={handleLogout}
-                    style={{
-                        padding: '8px 15px',
-                        backgroundColor: '#dc3545',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer'
-                    }}
-                >
-                    Đăng xuất
-                </button>
             </div>
 
             <div style={{display: 'flex', flexWrap: 'wrap', gap: '30px'}}>

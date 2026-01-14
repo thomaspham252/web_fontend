@@ -27,32 +27,51 @@ const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault();
 
-        // Validate mật khẩu
+        const cleanEmail = formData.email.trim();
+        const cleanName = formData.name.trim();
+
+        // 1. Kiểm tra mật khẩu khớp
         if (formData.password !== formData.confirmPassword) {
             setError("Mật khẩu nhập lại không khớp!");
             return;
         }
 
-        // Bước 1: Kiểm tra xem email đã tồn tại trên MockAPI chưa
-        fetch(`${API_URL}?email=${formData.email}`)
-            .then(res => res.json())
-            .then(existingUsers => {
-                if (existingUsers.length > 0) {
+        // 2.  KIỂM TRA ĐUÔI EMAIL
+        if (!cleanEmail.toLowerCase().endsWith("@gmail.com")) {
+            setError("Vui lòng sử dụng email có đuôi @gmail.com");
+            return;
+        }
+
+
+        // 3. Fetch toàn bộ user về để kiểm tra trùng lặp
+        fetch(API_URL)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Không thể kết nối đến danh sách User");
+                }
+                return res.json();
+            })
+            .then(users => {
+                const isDuplicate = users.some(user => user.email === cleanEmail);
+
+                if (isDuplicate) {
                     setError("Email này đã được sử dụng! Vui lòng chọn email khác.");
                 } else {
-                    // Bước 2: Nếu chưa tồn tại, tạo user mới
+                    // Tạo user mới
                     const newUser = {
-                        name: formData.name,
-                        email: formData.email,
+                        name: cleanName,
+                        email: cleanEmail,
                         password: formData.password,
                         phone: "",
                         address: "",
                         list_addresses: [],
                         loginType: 'email',
-                        avatar: 'default.jpg'
+                        avatar: 'default.jpg',
+                        role: 'user',
+                        createdAt: new Date().toISOString()
                     };
 
-                    // Gửi lệnh POST để lưu vào API
+                    // Gửi lệnh POST
                     fetch(API_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -63,18 +82,18 @@ const Register = () => {
                                 alert("Đăng ký thành công! Vui lòng đăng nhập.");
                                 navigate("/login");
                             } else {
-                                setError("Có lỗi xảy ra khi tạo tài khoản.");
+                                setError("Lỗi Server: Không thể tạo tài khoản.");
                             }
                         })
                         .catch(err => {
-                            console.error(err);
-                            setError("Lỗi kết nối Server.");
+                            console.error("Post Error:", err);
+                            setError("Lỗi kết nối khi tạo tài khoản.");
                         });
                 }
             })
             .catch(err => {
-                console.error(err);
-                setError("Lỗi kiểm tra email.");
+                console.error("Fetch Error:", err); // Xem lỗi cụ thể ở Console (F12)
+                setError("Lỗi kết nối Server khi tải dữ liệu.");
             });
     };
 
@@ -86,22 +105,22 @@ const Register = () => {
 
             <form onSubmit={handleRegister}>
                 <div className="form-group">
-                    <label>Họ tên:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        required
-                        placeholder="Nguyễn Văn A"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="form-group">
                     <label>Email:</label>
                     <input
                         type="email"
                         name="email"
                         required
-                        placeholder="email@example.com"
+                        placeholder="example@gmail.com"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Họ tên:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        required
+                        placeholder=""
                         onChange={handleChange}
                     />
                 </div>
@@ -111,7 +130,7 @@ const Register = () => {
                         type="password"
                         name="password"
                         required
-                        placeholder="Tối thiểu 6 ký tự"
+                        placeholder=""
                         onChange={handleChange}
                     />
                 </div>
@@ -121,7 +140,7 @@ const Register = () => {
                         type="password"
                         name="confirmPassword"
                         required
-                        placeholder="Nhập lại mật khẩu trên"
+                        placeholder=""
                         onChange={handleChange}
                     />
                 </div>

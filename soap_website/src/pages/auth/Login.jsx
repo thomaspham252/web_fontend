@@ -20,11 +20,20 @@ const Login = () => {
             ...formData,
             [e.target.name]: e.target.value
         });
+        // Xóa lỗi khi người dùng bắt đầu nhập lại
         if (errorMessage) setErrorMessage('');
     };
 
     const handleLogin = (e) => {
         e.preventDefault();
+
+        // KIỂM TRA ĐUÔI EMAIL @GMAIL.COM ---
+        const emailInput = formData.email.trim().toLowerCase();
+        if (!emailInput.endsWith("@gmail.com")) {
+            setErrorMessage("Vui lòng sử dụng email có đuôi @gmail.com");
+            return;
+        }
+
         fetch(`${API_URL}?email=${formData.email}`)
             .then(res => res.json())
             .then(users => {
@@ -34,6 +43,10 @@ const Login = () => {
                     const foundUser = users[0];
                     if (foundUser.password == formData.password) {
                         sessionStorage.setItem("user", JSON.stringify(foundUser));
+
+                        // Dispatch event để Header nhận biết và re-render
+                        window.dispatchEvent(new Event("userLogin"));
+
                         navigate("/user");
                     } else {
                         setErrorMessage("Mật khẩu không chính xác!");
@@ -58,7 +71,8 @@ const Login = () => {
         <div className="auth-container">
             <h2>Đăng Nhập</h2>
 
-            {errorMessage && <p style={{color: 'red', marginBottom: '10px', textAlign: 'center'}}>{errorMessage}</p>}
+            {/* Hiển thị lỗi (bao gồm lỗi sai đuôi gmail) */}
+            {errorMessage && <p style={{color: 'red', marginBottom: '10px', textAlign: 'center', fontSize: '14px'}}>{errorMessage}</p>}
 
             <form onSubmit={handleLogin}>
                 <div className="form-group">
@@ -67,7 +81,7 @@ const Login = () => {
                         type="email"
                         name="email"
                         required
-                        placeholder="Ví dụ: user@gmail.com"
+                        placeholder="example@gmail.com"
                         onChange={handleChange}
                     />
                 </div>
@@ -77,7 +91,7 @@ const Login = () => {
                         type="password"
                         name="password"
                         required
-                        placeholder="Nhập mật khẩu"
+                        placeholder=""
                         onChange={handleChange}
                     />
                 </div>
@@ -89,7 +103,6 @@ const Login = () => {
             </div>
 
             <div className="social-login">
-
                 <button type="button" className="btn-social btn-google"><FaGoogle/> Google</button>
                 <button type="button" className="btn-social btn-facebook"><FaFacebookF/> Facebook</button>
                 <button type="button" className="btn-social btn-apple"><FaApple/> Apple</button>
@@ -101,10 +114,9 @@ const Login = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center'
             }}>
-
-                <span style={linkStyle} title="Tính năng đang phát triển">
+                <Link to="/forgot-password" style={linkStyle}>
                     Quên mật khẩu?
-                </span>
+                </Link>
 
                 <Link to="/register" style={linkStyle}>
                     Đăng ký ngay

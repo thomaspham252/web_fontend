@@ -15,6 +15,7 @@ import Cart from "./pages/checkout/Cart";
 import OrderDetail from "./pages/account/OrderDetail";
 import Orders from "./components/personal_page/Orders";
 import AddressBook from './components/personal_page/AddressBook';
+import ForgotPassword from './pages/auth/ForgotPassword';
 
 function App() {
     return (
@@ -37,6 +38,7 @@ function App() {
                 {/*Trang đăng kí đăng nhập  */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
 
                 {/*Trang thông tin  */}
                 <Route path="/user" element={<User />} />
