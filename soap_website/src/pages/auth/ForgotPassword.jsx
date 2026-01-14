@@ -31,11 +31,21 @@ const ForgotPassword = () => {
         setError('');
         setMessage('');
 
-        fetch(`${API_URL}?email=${email}`)
+
+        const emailInput = email.trim().toLowerCase();
+        if (!emailInput.endsWith("@gmail.com")) {
+            setError("Vui lòng sử dụng email có đuôi @gmail.com");
+            return;
+        }
+
+
+        fetch(`${API_URL}?email=${emailInput}`)
             .then(res => res.json())
             .then(users => {
-                if (users.length > 0) {
-                    setFoundUser(users[0]);
+                const exactUser = users.find(u => u.email.toLowerCase() === emailInput);
+
+                if (exactUser) {
+                    setFoundUser(exactUser);
                     setStep(2);
                     setMessage('Email hợp lệ. Vui lòng đặt lại mật khẩu mới.');
                 } else {
@@ -89,7 +99,7 @@ const ForgotPassword = () => {
         <div className="auth-container">
             <h2>{step === 1 ? "Quên Mật Khẩu" : "Đặt Lại Mật Khẩu"}</h2>
 
-            {error && <p style={{color: 'red', marginBottom: '10px', textAlign: 'center'}}>{error}</p>}
+            {error && <p style={{color: 'red', marginBottom: '10px', textAlign: 'center', fontSize: '14px'}}>{error}</p>}
             {message && <p style={{color: 'green', marginBottom: '10px', textAlign: 'center'}}>{message}</p>}
 
             {step === 1 ? (
@@ -102,9 +112,12 @@ const ForgotPassword = () => {
                         <input
                             type="email"
                             required
-                            placeholder="Nhập email của bạn"
+                            placeholder="example@gmail.com"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                if(error) setError(''); // Xóa lỗi khi bắt đầu gõ lại
+                            }}
                         />
                     </div>
                     <button type="submit" className="btn-auth">Tiếp tục</button>
@@ -139,7 +152,7 @@ const ForgotPassword = () => {
 
                     <button
                         type="button"
-                        onClick={() => {setStep(1); setError('');}}
+                        onClick={() => {setStep(1); setError(''); setMessage('');}}
                         style={{
                             width: '100%', padding: '10px', marginTop: '10px',
                             background: '#ccc', border: 'none', borderRadius: '4px', cursor: 'pointer'

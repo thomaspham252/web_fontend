@@ -9,8 +9,6 @@ const AddressBook = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-
-    // editIndex: 0 (Mặc định), 1 (Địa chỉ khác)
     const [editIndex, setEditIndex] = useState(0);
     const [notification, setNotification] = useState(null);
 
@@ -69,7 +67,17 @@ const AddressBook = () => {
     };
 
     const handleContactChange = (e) => {
-        setContactInfo({ ...contactInfo, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+
+        if (name === 'phone') {
+            const numericValue = value.replace(/\D/g, '');
+
+            if (numericValue.length <= 10) {
+                setContactInfo({ ...contactInfo, [name]: numericValue });
+            }
+        } else {
+            setContactInfo({ ...contactInfo, [name]: value });
+        }
     };
 
     const handleOpenEdit = (index) => {
@@ -77,13 +85,11 @@ const AddressBook = () => {
         const currentData = user.list_addresses && user.list_addresses[index];
 
         if (index === 0) {
-            // CASE 1: ĐỊA CHỈ MẶC ĐỊNH
             setContactInfo({
                 name: user.name,
                 phone: (currentData && currentData.phone) || user.phone || ''
             });
         } else {
-            // CASE 2: ĐỊA CHỈ KHÁC
             if (currentData) {
                 setContactInfo({
                     name: currentData.name || '',
@@ -93,7 +99,6 @@ const AddressBook = () => {
                 setContactInfo({ name: '', phone: '' });
             }
         }
-
         setSpecificAddress("");
         setSelectedProvince("");
         setSelectedDistrict("");
@@ -110,7 +115,6 @@ const AddressBook = () => {
     const handleSave = () => {
         if (!user) return;
 
-        // Validate
         const pName = provinces.find(p => p.code == selectedProvince)?.name || "";
         const dName = districts.find(d => d.code == selectedDistrict)?.name || "";
         const wName = wards.find(w => w.code == selectedWard)?.name || "";
@@ -125,8 +129,12 @@ const AddressBook = () => {
             return;
         }
 
-        const fullAddress = `${specificAddress}, ${wName}, ${dName}, ${pName}`;
+        if (contactInfo.phone.length > 10) {
+            alert("Số điện thoại");
+            return;
+        }
 
+        const fullAddress = `${specificAddress}, ${wName}, ${dName}, ${pName}`;
         const newAddressObj = {
             name: contactInfo.name,
             phone: contactInfo.phone,
@@ -134,17 +142,15 @@ const AddressBook = () => {
         };
 
         const updatedList = [...(user.list_addresses || [])];
-
         updatedList[editIndex] = newAddressObj;
 
-        // --- XỬ LÝ LOGIC CẬP NHẬT USER ---
         let updatedUser = { ...user, list_addresses: updatedList };
 
         if (editIndex === 0) {
             updatedUser.phone = contactInfo.phone;
             updatedUser.address = fullAddress;
         }
-        // Call API
+
         fetch(`${API_URL}/${user.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -159,8 +165,6 @@ const AddressBook = () => {
                 setUser(data);
                 setIsEditing(false);
                 showToast("Lưu địa chỉ thành công!");
-
-                // Dispatch event để các component khác (nếu có) cập nhật lại
                 window.dispatchEvent(new Event("userLogin"));
             })
             .catch(err => {
@@ -208,7 +212,6 @@ const AddressBook = () => {
                         <div className="form-row-2">
                             <div className="form-group">
                                 <label>Họ và tên:</label>
-                                {/* LOGIC QUAN TRỌNG: Disable nếu là Index 0 */}
                                 <input
                                     type="text"
                                     name="name"
@@ -223,7 +226,14 @@ const AddressBook = () => {
                             </div>
                             <div className="form-group">
                                 <label>Số điện thoại:</label>
-                                <input type="text" name="phone" value={contactInfo.phone} onChange={handleContactChange} placeholder="Nhập SĐT..."/>
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    value={contactInfo.phone}
+                                    onChange={handleContactChange}
+                                    placeholder=""
+                                    maxLength={10}
+                                />
                             </div>
                         </div>
 

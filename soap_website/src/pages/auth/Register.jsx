@@ -30,12 +30,20 @@ const Register = () => {
         const cleanEmail = formData.email.trim();
         const cleanName = formData.name.trim();
 
+        // 1. Kiểm tra mật khẩu khớp
         if (formData.password !== formData.confirmPassword) {
             setError("Mật khẩu nhập lại không khớp!");
             return;
         }
 
-        // frech toàn bộ user về để kiểm tra
+        // 2.  KIỂM TRA ĐUÔI EMAIL
+        if (!cleanEmail.toLowerCase().endsWith("@gmail.com")) {
+            setError("Vui lòng sử dụng email có đuôi @gmail.com");
+            return;
+        }
+
+
+        // 3. Fetch toàn bộ user về để kiểm tra trùng lặp
         fetch(API_URL)
             .then(res => {
                 if (!res.ok) {
@@ -97,22 +105,22 @@ const Register = () => {
 
             <form onSubmit={handleRegister}>
                 <div className="form-group">
-                    <label>Họ tên:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        required
-                        placeholder="Nguyễn Văn A"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="form-group">
                     <label>Email:</label>
                     <input
                         type="email"
                         name="email"
                         required
-                        placeholder="email@example.com"
+                        placeholder="example@gmail.com"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Họ tên:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        required
+                        placeholder=""
                         onChange={handleChange}
                     />
                 </div>
@@ -122,7 +130,7 @@ const Register = () => {
                         type="password"
                         name="password"
                         required
-                        placeholder="Tối thiểu 6 ký tự"
+                        placeholder=""
                         onChange={handleChange}
                     />
                 </div>
@@ -132,7 +140,7 @@ const Register = () => {
                         type="password"
                         name="confirmPassword"
                         required
-                        placeholder="Nhập lại mật khẩu trên"
+                        placeholder=""
                         onChange={handleChange}
                     />
                 </div>

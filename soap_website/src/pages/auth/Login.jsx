@@ -20,11 +20,20 @@ const Login = () => {
             ...formData,
             [e.target.name]: e.target.value
         });
+        // Xóa lỗi khi người dùng bắt đầu nhập lại
         if (errorMessage) setErrorMessage('');
     };
 
     const handleLogin = (e) => {
         e.preventDefault();
+
+        // KIỂM TRA ĐUÔI EMAIL @GMAIL.COM ---
+        const emailInput = formData.email.trim().toLowerCase();
+        if (!emailInput.endsWith("@gmail.com")) {
+            setErrorMessage("Vui lòng sử dụng email có đuôi @gmail.com");
+            return;
+        }
+
         fetch(`${API_URL}?email=${formData.email}`)
             .then(res => res.json())
             .then(users => {
@@ -62,7 +71,8 @@ const Login = () => {
         <div className="auth-container">
             <h2>Đăng Nhập</h2>
 
-            {errorMessage && <p style={{color: 'red', marginBottom: '10px', textAlign: 'center'}}>{errorMessage}</p>}
+            {/* Hiển thị lỗi (bao gồm lỗi sai đuôi gmail) */}
+            {errorMessage && <p style={{color: 'red', marginBottom: '10px', textAlign: 'center', fontSize: '14px'}}>{errorMessage}</p>}
 
             <form onSubmit={handleLogin}>
                 <div className="form-group">
@@ -71,7 +81,7 @@ const Login = () => {
                         type="email"
                         name="email"
                         required
-                        placeholder="Ví dụ: user@gmail.com"
+                        placeholder="example@gmail.com"
                         onChange={handleChange}
                     />
                 </div>
@@ -81,7 +91,7 @@ const Login = () => {
                         type="password"
                         name="password"
                         required
-                        placeholder="Nhập mật khẩu"
+                        placeholder=""
                         onChange={handleChange}
                     />
                 </div>
