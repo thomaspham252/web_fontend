@@ -12,22 +12,32 @@ function Header() {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
 
+    // Cập nhật số lượng giỏ hàng
     const updateCartCount = () => {
         setCartCount(getCartCount());
     };
-    useEffect(() => {
+
+    // Kiểm tra session user
+    const checkUser = () => {
         const storedUser = sessionStorage.getItem("user");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
+        setUser(storedUser ? JSON.parse(storedUser) : null);
+    };
+
+    useEffect(() => {
+        // Khởi tạo dữ liệu
+        checkUser();
         updateCartCount();
+
+        // Lắng nghe sự kiện
         window.addEventListener("cartUpdated", updateCartCount);
+        window.addEventListener("userLogin", checkUser); // Sự kiện custom khi login thành công
+
         return () => {
             window.removeEventListener("cartUpdated", updateCartCount);
+            window.removeEventListener("userLogin", checkUser);
         };
     }, []);
 
-    // Xử lý tìm kiếm
     const handleSearch = () => {
         if (searchTerm.trim()) {
             navigate(`/products?search=${encodeURIComponent(searchTerm.trim())}`);
@@ -40,11 +50,10 @@ function Header() {
         }
     };
 
-
-    // LOGIC Xử lý Đăng xuất
     const handleLogout = () => {
         sessionStorage.removeItem("user");
-        window.location.href = "/login";
+        setUser(null); // Reset state
+        navigate("/login");
     };
 
     return (
@@ -68,10 +77,13 @@ function Header() {
                 </div>
 
                 <div className="acc-cart">
+                    {/* Container tài khoản: position relative để xử lý dropdown */}
                     <div className="account account-container">
                         <div className="account-label">
                             {user ? (
-                                <Link to="/user" className="acc-link">TÀI KHOẢN</Link>
+                                <span className="acc-link" style={{cursor: 'pointer', fontWeight: 'bold'}}>
+                                    TÀI KHOẢN
+                                </span>
                             ) : (
                                 <div>
                                     <Link to="/login">Đăng nhập</Link>
@@ -81,13 +93,13 @@ function Header() {
                             )}
                         </div>
 
+                        {/* Dropdown menu: Hiển thị khi hover */}
                         {user && (
                             <div className="account-dropdown">
                                 <div className="dropdown-item greeting">
-                                    <Link to="/user" style={{textDecoration: 'none', color: 'inherit'}}>
-                                        XIN CHÀO, {user.name.toUpperCase()}
-                                    </Link>
+                                    XIN CHÀO, {user.name ? user.name.toUpperCase() : "BẠN"}
                                 </div>
+                                <div className="dropdown-divider"></div>
                                 <div className="dropdown-item logout-btn" onClick={handleLogout}>
                                     ĐĂNG XUẤT
                                 </div>

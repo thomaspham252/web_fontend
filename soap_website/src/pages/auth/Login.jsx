@@ -34,6 +34,10 @@ const Login = () => {
                     const foundUser = users[0];
                     if (foundUser.password == formData.password) {
                         sessionStorage.setItem("user", JSON.stringify(foundUser));
+
+                        // Dispatch event để Header nhận biết và re-render
+                        window.dispatchEvent(new Event("userLogin"));
+
                         navigate("/user");
                     } else {
                         setErrorMessage("Mật khẩu không chính xác!");
@@ -89,7 +93,6 @@ const Login = () => {
             </div>
 
             <div className="social-login">
-
                 <button type="button" className="btn-social btn-google"><FaGoogle/> Google</button>
                 <button type="button" className="btn-social btn-facebook"><FaFacebookF/> Facebook</button>
                 <button type="button" className="btn-social btn-apple"><FaApple/> Apple</button>
@@ -101,7 +104,6 @@ const Login = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center'
             }}>
-
                 <span style={linkStyle} title="Tính năng đang phát triển">
                     Quên mật khẩu?
                 </span>
