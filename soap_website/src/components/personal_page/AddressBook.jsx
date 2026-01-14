@@ -217,12 +217,12 @@ const AddressBook = () => {
                                     name="name"
                                     value={contactInfo.name}
                                     onChange={handleContactChange}
-                                    placeholder="Ví dụ: Nguyễn Văn A"
+                                    placeholder=""
                                     disabled={editIndex === 0}
-                                    title={editIndex === 0 ? "Tên mặc định theo tài khoản, không thể sửa" : ""}
+                                    title={editIndex === 0 ? "Tên mặc định" : ""}
                                     style={editIndex === 0 ? {backgroundColor: '#f0f0f0', cursor: 'not-allowed'} : {}}
                                 />
-                                {editIndex === 0 && <small style={{color: 'red', fontSize: '12px'}}>* Tên mặc định không thể thay đổi</small>}
+                                {editIndex === 0 && <small style={{color: 'red', fontSize: '12px'}}>* Tên mặc định</small>}
                             </div>
                             <div className="form-group">
                                 <label>Số điện thoại:</label>
