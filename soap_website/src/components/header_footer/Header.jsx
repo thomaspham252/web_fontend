@@ -51,8 +51,20 @@ function Header() {
     };
 
     const handleLogout = () => {
+        // 1. Xóa thông tin user
         sessionStorage.removeItem("user");
+
+        // 2. Xóa giỏ hàng tạm (cart_guest) để reset về 0
+        localStorage.removeItem("cart_guest");
+
+        // 3. Cập nhật state UI ngay lập tức
         setUser(null);
+        setCartCount(0);
+
+        // 4. Bắn sự kiện để các component khác (nếu có) biết giỏ hàng đã thay đổi
+        window.dispatchEvent(new Event("cartUpdated"));
+
+        // 5. Chuyển hướng
         navigate("/login");
     };
 
@@ -80,7 +92,6 @@ function Header() {
                     <div className="account account-container">
                         <div className="account-label">
                             {user ? (
-
                                 <span
                                     className="acc-link"
                                     onClick={() => navigate("/user")}
@@ -97,7 +108,6 @@ function Header() {
                             )}
                         </div>
 
-                        {/* Dropdown menu */}
                         {user && (
                             <div className="account-dropdown">
                                 <div
