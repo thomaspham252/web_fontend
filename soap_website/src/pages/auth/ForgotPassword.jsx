@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../../assets/css/auth.css'; // Dùng chung CSS với Register/Login
+import '../../assets/css/auth.css';
 
 const API_URL = "https://69666b85f6de16bde44d599c.mockapi.io/users";
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
 
-    // State quản lý các bước: 1 (Check Email) -> 2 (Reset Password)
     const [step, setStep] = useState(1);
-
-    // Dữ liệu người dùng tìm thấy từ API
     const [foundUser, setFoundUser] = useState(null);
-
-    // Form data
     const [email, setEmail] = useState('');
     const [passwordData, setPasswordData] = useState({
         newPassword: '',
@@ -23,7 +18,6 @@ const ForgotPassword = () => {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
 
-    // Xử lý thay đổi input mật khẩu
     const handlePasswordChange = (e) => {
         setPasswordData({
             ...passwordData,
@@ -32,7 +26,6 @@ const ForgotPassword = () => {
         setError('');
     };
 
-    // BƯỚC 1: XÁC THỰC EMAIL
     const handleCheckEmail = (e) => {
         e.preventDefault();
         setError('');
@@ -42,7 +35,6 @@ const ForgotPassword = () => {
             .then(res => res.json())
             .then(users => {
                 if (users.length > 0) {
-                    // Tìm thấy user, lưu thông tin và chuyển sang bước 2
                     setFoundUser(users[0]);
                     setStep(2);
                     setMessage('Email hợp lệ. Vui lòng đặt lại mật khẩu mới.');
@@ -56,7 +48,6 @@ const ForgotPassword = () => {
             });
     };
 
-    // BƯỚC 2: CẬP NHẬT MẬT KHẨU MỚI
     const handleResetPassword = (e) => {
         e.preventDefault();
 
@@ -70,13 +61,11 @@ const ForgotPassword = () => {
             return;
         }
 
-        // Tạo object user mới với password đã sửa (giữ nguyên các thông tin cũ)
         const updatedUser = {
             ...foundUser,
             password: passwordData.newPassword
         };
 
-        // Gửi lệnh PUT để cập nhật
         fetch(`${API_URL}/${foundUser.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -100,12 +89,10 @@ const ForgotPassword = () => {
         <div className="auth-container">
             <h2>{step === 1 ? "Quên Mật Khẩu" : "Đặt Lại Mật Khẩu"}</h2>
 
-            {/* Hiển thị lỗi hoặc thông báo */}
             {error && <p style={{color: 'red', marginBottom: '10px', textAlign: 'center'}}>{error}</p>}
             {message && <p style={{color: 'green', marginBottom: '10px', textAlign: 'center'}}>{message}</p>}
 
             {step === 1 ? (
-                /* --- FORM BƯỚC 1: NHẬP EMAIL --- */
                 <form onSubmit={handleCheckEmail}>
                     <p style={{textAlign: 'center', marginBottom: '20px', fontSize: '14px', color: '#666'}}>
                         Nhập email đã đăng ký để tìm lại tài khoản của bạn.
@@ -123,13 +110,14 @@ const ForgotPassword = () => {
                     <button type="submit" className="btn-auth">Tiếp tục</button>
                 </form>
             ) : (
-                /* --- FORM BƯỚC 2: ĐỔI PASS --- */
                 <form onSubmit={handleResetPassword}>
                     <div className="form-group">
                         <label>Mật khẩu mới:</label>
                         <input
                             type="password"
                             name="newPassword"
+                            value={passwordData.newPassword}
+                            autoComplete="new-password"
                             required
                             placeholder="Nhập mật khẩu mới"
                             onChange={handlePasswordChange}
@@ -140,6 +128,8 @@ const ForgotPassword = () => {
                         <input
                             type="password"
                             name="confirmPassword"
+                            value={passwordData.confirmPassword}
+                            autoComplete="new-password"
                             required
                             placeholder="Xác nhận mật khẩu mới"
                             onChange={handlePasswordChange}
@@ -147,7 +137,6 @@ const ForgotPassword = () => {
                     </div>
                     <button type="submit" className="btn-auth">Đổi Mật Khẩu</button>
 
-                    {/* Nút quay lại bước nhập email nếu nhầm */}
                     <button
                         type="button"
                         onClick={() => {setStep(1); setError('');}}

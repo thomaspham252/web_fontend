@@ -27,32 +27,39 @@ const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault();
 
-        // Validate mật khẩu
+        // Chuẩn hóa input
+        const cleanEmail = formData.email.trim();
+        const cleanName = formData.name.trim();
+
+        // Validate client-side
         if (formData.password !== formData.confirmPassword) {
             setError("Mật khẩu nhập lại không khớp!");
             return;
         }
 
-        // Bước 1: Kiểm tra xem email đã tồn tại trên MockAPI chưa
-        fetch(`${API_URL}?email=${formData.email}`)
+        // Check duplicate email (GET Request)
+        fetch(`${API_URL}?email=${cleanEmail}`)
             .then(res => res.json())
             .then(existingUsers => {
+                // MockAPI filter trả về mảng, check length > 0 là tồn tại
                 if (existingUsers.length > 0) {
                     setError("Email này đã được sử dụng! Vui lòng chọn email khác.");
                 } else {
-                    // Bước 2: Nếu chưa tồn tại, tạo user mới
+                    // Payload tạo user mới
                     const newUser = {
-                        name: formData.name,
-                        email: formData.email,
+                        name: cleanName,
+                        email: cleanEmail,
                         password: formData.password,
                         phone: "",
                         address: "",
                         list_addresses: [],
                         loginType: 'email',
-                        avatar: 'default.jpg'
+                        avatar: 'default.jpg',
+                        role: 'user', // Default role
+                        createdAt: new Date().toISOString()
                     };
 
-                    // Gửi lệnh POST để lưu vào API
+                    // Create user (POST Request)
                     fetch(API_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -63,18 +70,18 @@ const Register = () => {
                                 alert("Đăng ký thành công! Vui lòng đăng nhập.");
                                 navigate("/login");
                             } else {
-                                setError("Có lỗi xảy ra khi tạo tài khoản.");
+                                setError("Lỗi Server: Không thể tạo tài khoản.");
                             }
                         })
                         .catch(err => {
-                            console.error(err);
-                            setError("Lỗi kết nối Server.");
+                            console.error("Post Error:", err);
+                            setError("Lỗi kết nối khi tạo tài khoản.");
                         });
                 }
             })
             .catch(err => {
-                console.error(err);
-                setError("Lỗi kiểm tra email.");
+                console.error("Check Email Error:", err);
+                setError("Lỗi kết nối Server khi kiểm tra email.");
             });
     };
 
