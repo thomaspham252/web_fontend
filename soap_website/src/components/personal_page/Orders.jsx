@@ -9,7 +9,19 @@ const Orders = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await fetch('http://localhost:3002/orders');
+                const storedUser = sessionStorage.getItem('user');
+
+                if (!storedUser) {
+                    console.log("Chưa đăng nhập");
+                    setIsLoading(false);
+                    return;
+                }
+
+                const currentUser = JSON.parse(storedUser);
+                const userId = currentUser.id;
+
+                const response = await fetch(`http://localhost:3002/orders?user_id=${userId}`);
+
                 if (!response.ok) {
                     throw new Error('Không thể tải danh sách đơn hàng');
                 }
@@ -33,7 +45,7 @@ const Orders = () => {
     const formatDate = (dateString) => {
         if (!dateString) return "";
         const parts = dateString.split(' ');
-        return parts.length > 1 ? parts[1] : dateString; // Lấy giờ hoặc ngày tùy format
+        return parts.length > 1 ? parts[1] : dateString;
     };
 
     const getStatusText = (status) => {
@@ -68,7 +80,6 @@ const Orders = () => {
                 {orders.length > 0 ? (
                     orders.map((order) => (
                         <tr key={order.id}>
-                            {/* Cắt ngắn ID cho gọn */}
                             <td>#{order.id.toString().substring(0, 6)}...</td>
 
                             <td>{formatDate(order.created_at)}</td>

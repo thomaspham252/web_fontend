@@ -1,194 +1,28 @@
 {
   "orders": [
     {
-      "id": "bad87eab-488c-46f6-abc3-e05374ffba14",
-      "user_id": 1,
+      "id": "4ae1c35f-b302-4b61-9b43-c7a734330562",
+      "user_id": "1",
       "items": [
         {
-          "product_id": 2,
-          "name": "Xà phòng Lavender",
-          "price": 120000,
-          "quantity": 2,
-          "img": "/assets/image/product/soap-lavender.jpg"
-        }
-      ],
-      "subtotal": 240000,
-      "shipping_fee": 30000,
-      "total": 270000,
-      "created_at": "22:19:50 10/1/2026",
-      "status": "completed",
-      "customer_info": {
-        "fullName": "Nguyễn Văn A",
-        "phone": "0867294219",
-        "gmail": "huutien2303@gmail.com",
-        "address": "NLU TPHCM",
-        "discountCode": ""
-      },
-      "payment_method": "banking"
-    },
-    {
-      "id": "f0116f7f-6370-40f9-8db6-07a69033f4bc",
-      "user_id": 1,
-      "items": [
-        {
-          "product_id": 7,
-          "name": "Xà phòng Mật Ong",
-          "price": 120000,
-          "quantity": 2,
-          "img": "/assets/image/product/soap-honey.jpg"
-        }
-      ],
-      "subtotal": 240000,
-      "shipping_fee": 30000,
-      "total": 270000,
-      "created_at": "22:29:25 10/1/2026",
-      "status": "pending",
-      "customer_info": {
-        "fullName": "Nguyễn Văn A",
-        "phone": "0867294219",
-        "gmail": "huutien2303@gmail.com",
-        "address": "Tiền Giang",
-        "discountCode": ""
-      },
-      "payment_method": "cod"
-    },
-    {
-      "id": "399cf8a6-95e8-4302-b563-68fd33d7f827",
-      "items": [
-        {
-          "product_id": 1,
-          "name": "Xà phòng Hoa Hồng",
+          "product_id": 8,
+          "name": "Xà phòng Bạc Hà",
           "price": 110000,
           "quantity": 1,
-          "img": "/assets/image/product/soap-rose.webp"
-        },
-        {
-          "product_id": 2,
-          "name": "Xà phòng Lavender",
-          "price": 120000,
-          "quantity": 1,
-          "img": "/assets/image/product/soap-lavender.jpg"
-        },
-        {
-          "product_id": 3,
-          "name": "Xà phòng Tràm Trà",
-          "price": 100000,
-          "quantity": 1,
-          "img": "/assets/image/product/soap-tramtra.webp"
-        }
-      ],
-      "subtotal": 330000,
-      "shipping_fee": 30000,
-      "total": 360000,
-      "created_at": "02:59:11 11/1/2026",
-      "status": "pending",
-      "customer_info": {
-        "fullName": "Người dùng Facebook",
-        "phone": "0862055042",
-        "gmail": "linh@1324gmail.com",
-        "address": "Đồng Tháp",
-        "discountCode": ""
-      },
-      "payment_method": "cod"
-    },
-    {
-      "id": "fbe215c0-00cf-41ca-8a1b-ec8af5dbb459",
-      "items": [
-        {
-          "product_id": 3,
-          "name": "Xà phòng Tràm Trà",
-          "price": 100000,
-          "quantity": 1,
-          "img": "/assets/image/product/soap-tramtra.webp"
-        }
-      ],
-      "subtotal": 100000,
-      "shipping_fee": 30000,
-      "total": 130000,
-      "created_at": "03:03:32 11/1/2026",
-      "status": "pending",
-      "customer_info": {
-        "fullName": "Văn Linh",
-        "phone": "0862055042",
-        "gmail": "linh@1324gmail.com",
-        "address": "Đh NL",
-        "discountCode": ""
-      },
-      "payment_method": "cod"
-    },
-    {
-      "id": "54333b91-e4b5-4180-b22c-d99978e7ecb9",
-      "items": [
-        {
-          "product_id": 1,
-          "name": "Xà phòng Hoa Hồng",
-          "price": 110000,
-          "quantity": 1,
-          "img": "/assets/image/product/soap-rose.webp"
+          "img": "/assets/image/product/soap-mint.jpg"
         }
       ],
       "subtotal": 110000,
       "shipping_fee": 30000,
       "total": 140000,
-      "created_at": "01:54:38 13/1/2026",
+      "created_at": "19:09:53 14/1/2026",
       "status": "pending",
       "customer_info": {
-        "fullName": "Người dùng Google",
-        "phone": "0862055042",
-        "gmail": "linh@1324gmail.com",
-        "address": "Đh NL",
-        "discountCode": ""
-      },
-      "payment_method": "cod"
-    },
-    {
-      "id": "875d0330-59c8-405f-9184-ea685919b280",
-      "items": [
-        {
-          "product_id": 2,
-          "name": "Xà phòng Lavender",
-          "price": 120000,
-          "quantity": 1,
-          "img": "/assets/image/product/soap-lavender.jpg"
-        }
-      ],
-      "subtotal": 120000,
-      "shipping_fee": 30000,
-      "total": 150000,
-      "created_at": "01:59:46 13/1/2026",
-      "status": "pending",
-      "customer_info": {
-        "fullName": "Người dùng Google",
-        "phone": "0862055042",
-        "gmail": "22130143@st.hcmuaf.edu.vn",
-        "address": "Đh NL",
-        "discountCode": ""
-      },
-      "payment_method": "cod"
-    },
-    {
-      "id": "ad56a98d-435b-4c60-bda4-219dbb5a6bc5",
-      "user_id": 1,
-      "items": [
-        {
-          "product_id": 2,
-          "name": "Xà phòng Lavender",
-          "price": 120000,
-          "quantity": 1,
-          "img": "/assets/image/product/soap-lavender.jpg"
-        }
-      ],
-      "subtotal": 120000,
-      "shipping_fee": 30000,
-      "total": 150000,
-      "created_at": "02:05:33 13/1/2026",
-      "status": "pending",
-      "customer_info": {
-        "fullName": "Phạm Tiền",
-        "phone": "0862055042",
-        "gmail": "22130143@st.hcmuaf.edu.vn",
-        "address": "Đh NL",
-        "discountCode": ""
+        "fullName": "Lê Văn Rô",
+        "phone": "0867294219",
+        "gmail": "22130290@st.hcmuaf.edu.vn",
+        "address": "Đại học Nông Lâm TP.HCM",
+        "note": ""
       },
       "payment_method": "cod"
     }
