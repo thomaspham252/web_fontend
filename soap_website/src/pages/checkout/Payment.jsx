@@ -63,7 +63,6 @@ const Payment = () => {
         }
 
         const newOrder = {
-            id: crypto.randomUUID(),
             user_id: currentUser ? currentUser.id : "unknown",
             items: cartItems.map(item => ({
                 product_id: item.id,
@@ -82,7 +81,7 @@ const Payment = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:3002/orders', {
+            const response = await fetch('https://69678c20bbe157c088b24c4f.mockapi.io/orders/orders', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(newOrder),
