@@ -104,9 +104,9 @@ const Login = () => {
                 justifyContent: 'space-between',
                 alignItems: 'center'
             }}>
-                <span style={linkStyle} title="Tính năng đang phát triển">
+                <Link to="/forgot-password" style={linkStyle}>
                     Quên mật khẩu?
-                </span>
+                </Link>
 
                 <Link to="/register" style={linkStyle}>
                     Đăng ký ngay
