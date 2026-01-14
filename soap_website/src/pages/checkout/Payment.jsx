@@ -81,7 +81,7 @@ const Payment = () => {
         };
 
         try {
-            const response = await fetch('https://69678c20bbe157c088b24c4f.mockapi.io/orders/orders', {
+            const response = await fetch('https://69678c20bbe157c088b24c4f.mockapi.io/server/orders', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(newOrder),
