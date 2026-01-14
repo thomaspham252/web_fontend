@@ -11,7 +11,7 @@ const OrderDetail = () => {
     useEffect(() => {
         const fetchOrderDetail = async () => {
             try {
-                const response = await fetch(`https://69678c20bbe157c088b24c4f.mockapi.io/orders/orders/${id}`);
+                const response = await fetch(`https://69678c20bbe157c088b24c4f.mockapi.io/server/orders/${id}`);
 
                 if (!response.ok) {
                     throw new Error('Không tìm thấy đơn hàng!');

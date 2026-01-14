@@ -20,7 +20,7 @@ const Orders = () => {
                 const currentUser = JSON.parse(storedUser);
                 const userId = currentUser.id;
 
-                const response = await fetch(`https://69678c20bbe157c088b24c4f.mockapi.io/orders/orders?user_id=${userId}`);
+                const response = await fetch(`https://69678c20bbe157c088b24c4f.mockapi.io/server/orders?user_id=${userId}`);
 
                 if (!response.ok) {
                     throw new Error('Không thể tải danh sách đơn hàng');
