@@ -20,7 +20,7 @@ const Orders = () => {
                 const currentUser = JSON.parse(storedUser);
                 const userId = currentUser.id;
 
-                const response = await fetch(`http://localhost:3002/orders?user_id=${userId}`);
+                const response = await fetch(`https://69678c20bbe157c088b24c4f.mockapi.io/orders/orders?user_id=${userId}`);
 
                 if (!response.ok) {
                     throw new Error('Không thể tải danh sách đơn hàng');
@@ -80,7 +80,7 @@ const Orders = () => {
                 {orders.length > 0 ? (
                     orders.map((order) => (
                         <tr key={order.id}>
-                            <td>#{order.id.toString().substring(0, 6)}...</td>
+                            <td>#{order.id.toString()}</td>
 
                             <td>{formatDate(order.created_at)}</td>
 

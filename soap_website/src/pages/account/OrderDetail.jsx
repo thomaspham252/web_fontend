@@ -3,7 +3,7 @@ import {useParams, Link} from 'react-router-dom';
 import '../../assets/css/OrderDetail.css';
 
 const OrderDetail = () => {
-    const {id} = useParams(); // Lấy ID từ URL (vd: /order/123 -> id = 123)
+    const {id} = useParams();
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ const OrderDetail = () => {
     useEffect(() => {
         const fetchOrderDetail = async () => {
             try {
-                const response = await fetch(`http://localhost:3002/orders/${id}`);
+                const response = await fetch(`https://69678c20bbe157c088b24c4f.mockapi.io/orders/orders/${id}`);
 
                 if (!response.ok) {
                     throw new Error('Không tìm thấy đơn hàng!');
@@ -50,7 +50,7 @@ const OrderDetail = () => {
 
     return (
         <div className="order-detail-container">
-            <h1 className="page-title">CHI TIẾT ĐƠN HÀNG #{id.toString().substring(0, 8)}...</h1>
+            <h1 className="page-title">CHI TIẾT ĐƠN HÀNG #{id.toString()}</h1>
             <p className="order-date">Ngày đặt: {order.created_at}</p>
 
             <div className="address-section">
