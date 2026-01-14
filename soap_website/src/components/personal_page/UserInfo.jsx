@@ -35,7 +35,7 @@ const UserInfo = ({ user }) => {
             >
                 <FaAddressBook style={{marginRight: '8px'}}/>
                 {/* Hiển thị số lượng địa chỉ đang có */}
-                SỔ ĐỊA CHỈ ({addressList.length})
+                SỔ ĐỊA CHỈ
             </button>
         </div>
     );

@@ -30,7 +30,7 @@ function Header() {
 
         // Lắng nghe sự kiện
         window.addEventListener("cartUpdated", updateCartCount);
-        window.addEventListener("userLogin", checkUser); // Sự kiện custom khi login thành công
+        window.addEventListener("userLogin", checkUser);
 
         return () => {
             window.removeEventListener("cartUpdated", updateCartCount);
@@ -52,7 +52,7 @@ function Header() {
 
     const handleLogout = () => {
         sessionStorage.removeItem("user");
-        setUser(null); // Reset state
+        setUser(null);
         navigate("/login");
     };
 
@@ -77,11 +77,15 @@ function Header() {
                 </div>
 
                 <div className="acc-cart">
-                    {/* Container tài khoản: position relative để xử lý dropdown */}
                     <div className="account account-container">
                         <div className="account-label">
                             {user ? (
-                                <span className="acc-link" style={{cursor: 'pointer', fontWeight: 'bold'}}>
+
+                                <span
+                                    className="acc-link"
+                                    onClick={() => navigate("/user")}
+                                    style={{cursor: 'pointer', fontWeight: 'bold'}}
+                                >
                                     TÀI KHOẢN
                                 </span>
                             ) : (
@@ -93,10 +97,14 @@ function Header() {
                             )}
                         </div>
 
-                        {/* Dropdown menu: Hiển thị khi hover */}
+                        {/* Dropdown menu */}
                         {user && (
                             <div className="account-dropdown">
-                                <div className="dropdown-item greeting">
+                                <div
+                                    className="dropdown-item greeting"
+                                    onClick={() => navigate("/user")}
+                                    style={{cursor: 'pointer'}}
+                                >
                                     XIN CHÀO, {user.name ? user.name.toUpperCase() : "BẠN"}
                                 </div>
                                 <div className="dropdown-divider"></div>

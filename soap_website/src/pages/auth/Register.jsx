@@ -27,25 +27,29 @@ const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault();
 
-        // Chuẩn hóa input
         const cleanEmail = formData.email.trim();
         const cleanName = formData.name.trim();
 
-        // Validate client-side
         if (formData.password !== formData.confirmPassword) {
             setError("Mật khẩu nhập lại không khớp!");
             return;
         }
 
-        // Check duplicate email (GET Request)
-        fetch(`${API_URL}?email=${cleanEmail}`)
-            .then(res => res.json())
-            .then(existingUsers => {
-                // MockAPI filter trả về mảng, check length > 0 là tồn tại
-                if (existingUsers.length > 0) {
+        // frech toàn bộ user về để kiểm tra
+        fetch(API_URL)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Không thể kết nối đến danh sách User");
+                }
+                return res.json();
+            })
+            .then(users => {
+                const isDuplicate = users.some(user => user.email === cleanEmail);
+
+                if (isDuplicate) {
                     setError("Email này đã được sử dụng! Vui lòng chọn email khác.");
                 } else {
-                    // Payload tạo user mới
+                    // Tạo user mới
                     const newUser = {
                         name: cleanName,
                         email: cleanEmail,
@@ -55,11 +59,11 @@ const Register = () => {
                         list_addresses: [],
                         loginType: 'email',
                         avatar: 'default.jpg',
-                        role: 'user', // Default role
+                        role: 'user',
                         createdAt: new Date().toISOString()
                     };
 
-                    // Create user (POST Request)
+                    // Gửi lệnh POST
                     fetch(API_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -80,8 +84,8 @@ const Register = () => {
                 }
             })
             .catch(err => {
-                console.error("Check Email Error:", err);
-                setError("Lỗi kết nối Server khi kiểm tra email.");
+                console.error("Fetch Error:", err); // Xem lỗi cụ thể ở Console (F12)
+                setError("Lỗi kết nối Server khi tải dữ liệu.");
             });
     };
 
