@@ -13,6 +13,13 @@ const ProductCard = ({ product }) => {
                 <div className="product-image-wrapper">
                     <img src={product.img} alt={product.name} />
                 </div>
+                <div className="card-category">
+                    {product.category === "tri-mun-khang-khuan" && "Trị mụn & Kháng khuẩn"}
+                    {product.category === "duong-sang-mo-tham" && "Dưỡng sáng & Mờ thâm"}
+                    {product.category === "duong-am-phuc-hoi" && "Dưỡng ẩm & Phục hồi"}
+                    {product.category === "tay-te-bao-chet" && "Tẩy tế bào chết"}
+                    {product.category === "thu-gian-spa" && "Thư giãn & Spa"}
+                </div>
                 <h4>{product.name}</h4>
             </Link>
             <p className="price">
@@ -26,7 +33,7 @@ const ProductCard = ({ product }) => {
                 )}
             </p>
             <button onClick={() => addToCart(product, defaultWeight, 1)}>
-                Mua ngay
+                Thêm giỏ hàng
             </button>
         </div>
     );

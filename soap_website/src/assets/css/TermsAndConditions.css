@@ -6,6 +6,7 @@
     color: #333;
     font-family: Arial, Helvetica, sans-serif;
 }
+
 .banner {
     width: 100%;
     margin-bottom: 30px;
@@ -19,6 +20,7 @@
     object-fit: cover;
     display: block;
 }
+
 .terms-title {
     text-align: center;
     font-size: 28px;
@@ -45,4 +47,29 @@
 .terms-container ul li {
     list-style: disc;
     margin-bottom: 6px;
+}
+
+.breadcrumb {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #666;
+    transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+    color: #c49a6c;
+}
+
+.breadcrumb span {
+    margin: 0 8px;
+}
+
+.breadcrumb .current {
+    font-weight: bold;
+    color: #333;
 }

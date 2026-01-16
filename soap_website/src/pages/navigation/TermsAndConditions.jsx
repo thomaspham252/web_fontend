@@ -1,11 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../../assets/css/TermsAndConditions.css";
 
 function TermsAndConditions() {
     return (
         <div className="terms-container">
+            <div className="breadcrumb">
+                <Link to="/home">Trang chủ</Link> <span>/</span>
+                <span className="current">Điều khoản sử dụng</span>
+            </div>
             <div className="banner">
-                <img src="/assets/image/dksd/dkmh.jpeg" alt=""/>
+                <img src="/assets/image/dksd/dkmh.jpeg" alt="" />
             </div>
 
             <h1 className=" terms-title">ĐIỀU KHOẢN SỬ DỤNG</h1>
