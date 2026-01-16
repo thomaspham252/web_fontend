@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import "./banner.css";
 import bannerImg from '../../assets/image/banner-soap3.jpg';
 const Banner = () => {
