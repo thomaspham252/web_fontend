@@ -1,6 +1,6 @@
 import React from "react";
-import ContactForm from "../components/form/ContactForm";
-import '../assets/css/ContactPage.css';
+import ContactForm from "../../components/form/ContactForm";
+import '../../assets/css/ContactPage.css';
 const ContactPage = () => {
     return (
         <div className="contact-page">

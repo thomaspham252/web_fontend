@@ -1,24 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { addToCart } from '../../utils/cartUtils';
+import { formatCurrency } from '../../utils/currencyUtils';
+import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
-    // Lấy thông tin giá của trọng lượng đầu tiên (mặc định)
     const defaultWeight = product.weight[0];
 
     return (
         <div className="product-card">
             <Link to={`/products/${product.id}`}>
-                <img src={product.img} alt={product.name} />
+                <div className="product-image-wrapper">
+                    <img src={product.img} alt={product.name} />
+                </div>
                 <h4>{product.name}</h4>
             </Link>
             <p className="price">
                 <span className="new">
-                    {defaultWeight.price.toLocaleString()}₫
+                    {formatCurrency(defaultWeight.price)}
                 </span>
                 {defaultWeight.oldPrice > 0 && (
                     <span className="old">
-                        {defaultWeight.oldPrice.toLocaleString()}₫
+                        {formatCurrency(defaultWeight.oldPrice)}
                     </span>
                 )}
             </p>

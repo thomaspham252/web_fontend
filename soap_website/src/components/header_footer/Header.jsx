@@ -12,22 +12,32 @@ function Header() {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
 
+    // Cập nhật số lượng giỏ hàng
     const updateCartCount = () => {
         setCartCount(getCartCount());
     };
-    useEffect(() => {
+
+    // Kiểm tra session user
+    const checkUser = () => {
         const storedUser = sessionStorage.getItem("user");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
+        setUser(storedUser ? JSON.parse(storedUser) : null);
+    };
+
+    useEffect(() => {
+        // Khởi tạo dữ liệu
+        checkUser();
         updateCartCount();
+
+        // Lắng nghe sự kiện
         window.addEventListener("cartUpdated", updateCartCount);
+        window.addEventListener("userLogin", checkUser);
+
         return () => {
             window.removeEventListener("cartUpdated", updateCartCount);
+            window.removeEventListener("userLogin", checkUser);
         };
     }, []);
 
-    // Xử lý tìm kiếm
     const handleSearch = () => {
         if (searchTerm.trim()) {
             navigate(`/products?search=${encodeURIComponent(searchTerm.trim())}`);
@@ -40,11 +50,22 @@ function Header() {
         }
     };
 
-
-    // LOGIC Xử lý Đăng xuất
     const handleLogout = () => {
+        // 1. Xóa thông tin user
         sessionStorage.removeItem("user");
-        window.location.href = "/login";
+
+        // 2. Xóa giỏ hàng tạm (cart_guest) để reset về 0
+        localStorage.removeItem("cart_guest");
+
+        // 3. Cập nhật state UI ngay lập tức
+        setUser(null);
+        setCartCount(0);
+
+        // 4. Bắn sự kiện để các component khác (nếu có) biết giỏ hàng đã thay đổi
+        window.dispatchEvent(new Event("cartUpdated"));
+
+        // 5. Chuyển hướng
+        navigate("/login");
     };
 
     return (
@@ -71,7 +92,13 @@ function Header() {
                     <div className="account account-container">
                         <div className="account-label">
                             {user ? (
-                                <Link to="/user" className="acc-link">TÀI KHOẢN</Link>
+                                <span
+                                    className="acc-link"
+                                    onClick={() => navigate("/user")}
+                                    style={{cursor: 'pointer', fontWeight: 'bold'}}
+                                >
+                                    TÀI KHOẢN
+                                </span>
                             ) : (
                                 <div>
                                     <Link to="/login">Đăng nhập</Link>
@@ -83,11 +110,14 @@ function Header() {
 
                         {user && (
                             <div className="account-dropdown">
-                                <div className="dropdown-item greeting">
-                                    <Link to="/user" style={{textDecoration: 'none', color: 'inherit'}}>
-                                        XIN CHÀO, {user.name.toUpperCase()}
-                                    </Link>
+                                <div
+                                    className="dropdown-item greeting"
+                                    onClick={() => navigate("/user")}
+                                    style={{cursor: 'pointer'}}
+                                >
+                                    XIN CHÀO, {user.name ? user.name.toUpperCase() : "BẠN"}
                                 </div>
+                                <div className="dropdown-divider"></div>
                                 <div className="dropdown-item logout-btn" onClick={handleLogout}>
                                     ĐĂNG XUẤT
                                 </div>

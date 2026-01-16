@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import '../assets/css/Payment.css';
-import qrCodeImg from '../assets/image/qr.jpg';
+import '../../assets/css/Payment.css';
+import qrCodeImg from '../../assets/image/qr.jpg';
 
 const Payment = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -13,7 +13,7 @@ const Payment = () => {
         phone: '',
         gmail: '',
         address: '',
-        discountCode: ''
+        note: ''
     });
 
     const [paymentMethod, setPaymentMethod] = useState('cod');
@@ -63,7 +63,6 @@ const Payment = () => {
         }
 
         const newOrder = {
-            id: crypto.randomUUID(),
             user_id: currentUser ? currentUser.id : "unknown",
             items: cartItems.map(item => ({
                 product_id: item.id,
@@ -82,23 +81,23 @@ const Payment = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:3002/orders', {
+            const response = await fetch('https://69678c20bbe157c088b24c4f.mockapi.io/server/orders', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(newOrder),
             });
 
             if (response.ok) {
-                alert("Đặt hàng thành công!");
+                alert("Đặt hàng thành công! Cảm ơn bạn đã mua sắm.");
                 localStorage.removeItem("cart_guest");
-                window.dispatchEvent(new Event("cartUpdated"))
+                window.dispatchEvent(new Event("cartUpdated"));
                 navigate('/home');
             } else {
                 alert("Lỗi server: Không lưu được đơn hàng.");
             }
         } catch (error) {
             console.error("Lỗi:", error);
-            alert("Không kết nối được server (Kiểm tra xem json-server chạy chưa?)");
+            alert("Lỗi kết nối server. Vui lòng thử lại sau.");
         }
     };
 

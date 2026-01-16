@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import productsData from "../data/products.json";
-import "../assets/css/ProductDetail.css";
-import NewProduct from "../components/product/NewProduct";
-import { addToCart } from "../utils/cartUtils";
-import { formatCurrency } from "../utils/currencyUtils";
+import productsData from "../../data/products.json";
+import "../../assets/css/ProductDetail.css";
+import NewProduct from "../../components/product/NewProduct";
+import { addToCart } from "../../utils/cartUtils";
+import { formatCurrency } from "../../utils/currencyUtils";
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -15,6 +15,19 @@ const ProductDetail = () => {
 
     const defaultImage = product ? (product.images?.length ? product.images[0] : product.img) : "";
     const [mainImage, setMainImage] = useState(defaultImage);
+
+    useEffect(() => {
+        if (product) {
+            const img = product.images?.length
+                ? product.images[0]
+                : product.img;
+
+            setMainImage(img);
+            setSelectedWeight(product.weight[0]);
+            setQuantity(1);
+            window.scrollTo(0, 0); // Cuộn lên đầu trang khi đổi sản phẩm
+        }
+    }, [id, product]);
 
     if (!product) {
         return (
@@ -30,6 +43,13 @@ const ProductDetail = () => {
 
     return (
         <div className="product-detail-page">
+            {/* Breadcrumb - Cải thiện điều hướng */}
+            <div className="breadcrumb">
+                <Link to="/home">Trang chủ</Link> <span>/</span>
+                <Link to="/products">Sản phẩm</Link> <span>/</span>
+                <span className="current">{product.name}</span>
+            </div>
+
             <div className="product-main">
                 <div className="product-image">
                     <img src={mainImage} className="main-image" alt={product.name} />
@@ -38,7 +58,7 @@ const ProductDetail = () => {
                             <img
                                 key={index}
                                 src={img}
-                                alt=""
+                                alt={`${product.name} thumbnail ${index + 1}`}
                                 className={`thumbnail ${mainImage === img ? "active" : ""}`}
                                 onClick={() => setMainImage(img)}
                             />
@@ -63,7 +83,8 @@ const ProductDetail = () => {
                     <p className="status">
                         <strong>Tình trạng:</strong> {product.status}
                     </p>
-                    <h1>Xà phòng handmade {product.name} có công dụng gì? </h1>
+                    {/* Đổi h1 thành h2 để tối ưu SEO */}
+                    <h2>Xà phòng handmade {product.name} có công dụng gì? </h2>
                     <p className="description">{product.description}</p>
                     <div className="weight-select">
                         <span className="label">Chọn khối lượng:</span>
