@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../../assets/css/Payment.css';
+import Voucher from './Voucher';
 import qrCodeImg from '../../assets/image/qr.jpg';
 
 const Payment = () => {
@@ -39,9 +40,56 @@ const Payment = () => {
         setCartItems(savedCart);
     }, [navigate]);
 
+    const [voucherCode, setVoucherCode] = useState("");
+    const [discount, setDiscount] = useState(0);
+    const [voucherMessage, setVoucherMessage] = useState("");
+    const [isLoadingVoucher, setIsLoadingVoucher] = useState(false);
+    const [appliedVoucher, setAppliedVoucher] = useState(null);
+
+    const handleApplyVoucher = async () => {
+        const inputCode = voucherCode.trim().toUpperCase();
+        if (!inputCode) return;
+
+        setIsLoadingVoucher(true);
+        setVoucherMessage("");
+
+        try {
+            const response = await fetch('https://69678c20bbe157c088b24c4f.mockapi.io/server/vouchers');
+
+            if (!response.ok) throw new Error("Lỗi API");
+
+            const data = await response.json();
+
+            const validVoucher = data.find(v => v.code === inputCode);
+
+            if (validVoucher) {
+                if (validVoucher.quantity > 0) {
+                    setDiscount(Number(validVoucher.discount));
+                    setAppliedVoucher(validVoucher);
+                    setVoucherMessage({type: 'success', text: `Áp dụng mã ${validVoucher.code} thành công!`});
+                } else {
+                    setDiscount(0);
+                    setAppliedVoucher(null);
+                    setVoucherMessage({type: 'error', text: 'Mã giảm giá đã hết lượt sử dụng!'});
+                }
+            } else {
+                setDiscount(0);
+                setAppliedVoucher(null);
+                setVoucherMessage({type: 'error', text: 'Mã giảm giá không tồn tại!'});
+            }
+
+        } catch (error) {
+            console.error(error);
+            setDiscount(0);
+            setVoucherMessage({type: 'error', text: 'Lỗi kết nối, vui lòng thử lại!'});
+        } finally {
+            setIsLoadingVoucher(false);
+        }
+    };
+
     const tempPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const shippingFee = 30000;
-    const finalPrice = tempPrice + shippingFee;
+    const finalPrice = Math.max(0, tempPrice + shippingFee - discount);
 
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat("vi-VN").format(amount) + "₫";
@@ -73,6 +121,8 @@ const Payment = () => {
             })),
             subtotal: tempPrice,
             shipping_fee: shippingFee,
+            discount: discount,
+            voucher_code: appliedVoucher ? appliedVoucher.code : null,
             total: finalPrice,
             created_at: new Date().toLocaleString("vi-VN"),
             status: "pending",
@@ -88,6 +138,19 @@ const Payment = () => {
             });
 
             if (response.ok) {
+                if (appliedVoucher) {
+                    const updatedQuantity = parseInt(appliedVoucher.quantity) - 1;
+
+                    await fetch(`https://69678c20bbe157c088b24c4f.mockapi.io/server/vouchers/${appliedVoucher.id}`, {
+                        method: 'PUT',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            ...appliedVoucher,
+                            quantity: updatedQuantity
+                        }),
+                    });
+                }
+
                 alert("Đặt hàng thành công! Cảm ơn bạn đã mua sắm.");
                 localStorage.removeItem("cart_guest");
                 window.dispatchEvent(new Event("cartUpdated"));
@@ -247,6 +310,17 @@ const Payment = () => {
                         )}
 
                     </div>
+
+                    <Voucher
+                        code={voucherCode}
+                        onCodeChange={(val) => {
+                            setVoucherCode(val);
+                            setVoucherMessage("");
+                        }}
+                        onApply={handleApplyVoucher}
+                        message={voucherMessage}
+                        isLoading={isLoadingVoucher}
+                    />
 
                     <div className="pricing-section">
                         <div className="price-row">
