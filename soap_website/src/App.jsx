@@ -22,25 +22,25 @@ function App() {
         <BrowserRouter>
             <Header />
             <Routes>
-                {/* Trang chủ */}
+
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
 
-                {/* Trang sản phẩm   */}
+
                 <Route path="/products" element={<Products />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
 
-                {/*Trang điều hướng trên menu  */}
+
                 <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<ContactPage />} />
 
-                {/*Trang đăng kí đăng nhập  */}
+
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
 
-                {/*Trang thông tin  */}
+
                 <Route path="/user" element={<User />} />
                 <Route path="/order/:id" element={<OrderDetail />} />
                 <Route path="/orders" element={<Orders />} />

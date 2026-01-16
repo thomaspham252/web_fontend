@@ -1,9 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import "../../assets/css/about.css";
 
 function About() {
     return (
         <div className="about-container">
+            <div className="breadcrumb">
+                <Link to="/home">Trang chủ</Link> <span>/</span>
+                <span className="current">Về chúng tôi</span>
+            </div>
             <div className="about-banner">
                 <img src="/assets/image/about-us/banner.webp" alt="Giới thiệu" />
             </div>

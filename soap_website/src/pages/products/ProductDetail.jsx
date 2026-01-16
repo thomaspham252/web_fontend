@@ -25,7 +25,7 @@ const ProductDetail = () => {
             setMainImage(img);
             setSelectedWeight(product.weight[0]);
             setQuantity(1);
-            window.scrollTo(0, 0); // Cuộn lên đầu trang khi đổi sản phẩm
+            window.scrollTo(0, 0);
         }
     }, [id, product]);
 
@@ -43,7 +43,7 @@ const ProductDetail = () => {
 
     return (
         <div className="product-detail-page">
-            {/* Breadcrumb - Cải thiện điều hướng */}
+
             <div className="breadcrumb">
                 <Link to="/home">Trang chủ</Link> <span>/</span>
                 <Link to="/products">Sản phẩm</Link> <span>/</span>
@@ -67,6 +67,13 @@ const ProductDetail = () => {
                 </div>
 
                 <div className="product-info">
+                    <div className="category-badge">
+                        {product.category === "tri-mun-khang-khuan" && "Trị mụn & Kháng khuẩn"}
+                        {product.category === "duong-sang-mo-tham" && "Dưỡng sáng & Mờ thâm"}
+                        {product.category === "duong-am-phuc-hoi" && "Dưỡng ẩm & Phục hồi"}
+                        {product.category === "tay-te-bao-chet" && "Tẩy tế bào chết"}
+                        {product.category === "thu-gian-spa" && "Thư giãn & Spa"}
+                    </div>
                     <h1>{product.name}</h1>
                     <p className="prices">
                         <span className="new">
@@ -83,7 +90,6 @@ const ProductDetail = () => {
                     <p className="status">
                         <strong>Tình trạng:</strong> {product.status}
                     </p>
-                    {/* Đổi h1 thành h2 để tối ưu SEO */}
                     <h2>Xà phòng handmade {product.name} có công dụng gì? </h2>
                     <p className="description">{product.description}</p>
                     <div className="weight-select">
@@ -128,35 +134,55 @@ const ProductDetail = () => {
             </div>
 
             <div className="product-detail-content">
-                <h2>Thông tin sản phẩm</h2>
-                <p><strong>Xuất xứ:</strong> {product.origin}</p>
-                <p>
-                    <strong>Khối lượng:</strong> {product.weight[0].size} –
-                    Đóng gói bằng hộp giấy cao cấp không bọc nilon.
-                </p>
-                <p>
-                    <strong>Thành phần:</strong><br />
-                    {product.ingredients}
-                </p>
-                <p>
-                    <strong>Phương pháp sản xuất:</strong><br />
-                    {product.productionMethod}
-                </p>
-                <h2>Cách sử dụng xà phòng</h2>
-                <ul>
-                    {product.usage.map((step, index) => (
-                        <li key={index}>{step}</li>
-                    ))}
-                </ul>
+                <div className="content-left">
+                    <h2>Thông tin sản phẩm</h2>
+                    <p><strong>Xuất xứ:</strong> {product.origin}</p>
+                    <p>
+                        <strong>Khối lượng:</strong> {product.weight[0].size} –
+                        Đóng gói bằng hộp giấy cao cấp không bọc nilon.
+                    </p>
+                    <p>
+                        <strong>Thành phần:</strong><br />
+                        {product.ingredients}
+                    </p>
+                    <p>
+                        <strong>Phương pháp sản xuất:</strong><br />
+                        {product.productionMethod}
+                    </p>
+                    <h2>Cách sử dụng xà phòng</h2>
+                    <ul>
+                        {product.usage.map((step, index) => (
+                            <li key={index}>{step}</li>
+                        ))}
+                    </ul>
 
-                <h2>Lưu ý khi sử dụng</h2>
-                <ul>
-                    {product.note.map((n, index) => (
-                        <li key={index}>{n}</li>
-                    ))}
-                </ul>
-
+                    <h2>Lưu ý khi sử dụng</h2>
+                    <ul>
+                        {product.note.map((n, index) => (
+                            <li key={index}>{n}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
+
+            {/* Sản phẩm liên quan */}
+            <div className="related-products">
+                <h2>Sản phẩm tương tự</h2>
+                <div className="products-grid">
+                    {productsData
+                        .filter(p => p.category === product.category && p.id !== product.id)
+                        .slice(0, 4)
+                        .map(p => (
+                            <Link key={p.id} to={`/products/${p.id}`} className="related-item">
+                                <img src={p.img} alt={p.name} />
+                                <h3>{p.name}</h3>
+                                <p>{formatCurrency(p.weight[0].price)}</p>
+                            </Link>
+                        ))
+                    }
+                </div>
+            </div>
+
             <NewProduct />
         </div>
     );

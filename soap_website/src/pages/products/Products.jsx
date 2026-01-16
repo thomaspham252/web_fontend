@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import productsData from "../../data/products.json";
 import "../../assets/css/Products.css";
 import ProductCard from "../../components/product/ProductCard";
@@ -58,15 +58,20 @@ const Products = () => {
 
     return (
         <div className="products-page">
-            {/* Sidebar */}
+            <div className="breadcrumb">
+                <Link to="/home">Trang chủ</Link> <span>/</span>
+                <span className="current">Sản phẩm</span>
+            </div>
             <aside className="sidebar">
                 <h3>Danh mục sản phẩm</h3>
                 <ul>
                     {[
                         { id: "all", label: "Tất cả" },
-                        { id: "xa-phong-thien-nhien", label: "Xà phòng thiên nhiên" },
-                        { id: "duong-am", label: "Xà phòng dưỡng ẩm" },
-                        { id: "tri-mun", label: "Xà phòng trị mụn" },
+                        { id: "tri-mun-khang-khuan", label: "Trị mụn & Kháng khuẩn" },
+                        { id: "duong-sang-mo-tham", label: "Dưỡng sáng & Mờ thâm" },
+                        { id: "duong-am-phuc-hoi", label: "Dưỡng ẩm & Phục hồi" },
+                        { id: "tay-te-bao-chet", label: "Tẩy tế bào chết" },
+                        { id: "thu-gian-spa", label: "Thư giãn & Spa" },
                     ].map((cat) => (
                         <li
                             key={cat.id}

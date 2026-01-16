@@ -37,6 +37,15 @@
     transform: scale(1.05);
 }
 
+.card-category {
+    font-size: 11px;
+    color: #2e7d32;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
 .product-card h4 {
     margin: 10px 0;
     font-size: 16px;
