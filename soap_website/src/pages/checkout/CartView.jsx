@@ -30,7 +30,6 @@ const CartView = ({
                     />
                 </div>
                 <div className="col-product">Sản Phẩm</div>
-                <div className="col-category">Danh Mục</div>
                 <div className="col-price">Đơn Giá</div>
                 <div className="col-qty">Số Lượng</div>
                 <div className="col-total">Số Tiền</div>
@@ -54,10 +53,6 @@ const CartView = ({
                             <div className="col-product">
                                 <img src={item.img} alt={item.name} className="item-img" />
                                 <span className="item-name" title={item.name}>{item.name}</span>
-                            </div>
-
-                            <div className="col-category">
-                                <span className="category-tag">{item.category}</span>
                             </div>
 
                             <div className="col-price">
