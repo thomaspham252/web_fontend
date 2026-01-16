@@ -115,9 +115,9 @@ const AddressBook = () => {
     const handleSave = () => {
         if (!user) return;
 
-        const pName = provinces.find(p => p.code == selectedProvince)?.name || "";
-        const dName = districts.find(d => d.code == selectedDistrict)?.name || "";
-        const wName = wards.find(w => w.code == selectedWard)?.name || "";
+        const pName = provinces.find(p => p.code === selectedProvince)?.name || "";
+        const dName = districts.find(d => d.code ===selectedDistrict)?.name || "";
+        const wName = wards.find(w => w.code === selectedWard)?.name || "";
 
         if (!pName || !dName || !wName || !specificAddress) {
             alert("Vui lòng chọn đầy đủ địa chỉ!");

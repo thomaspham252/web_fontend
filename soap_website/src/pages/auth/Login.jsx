@@ -41,7 +41,7 @@ const Login = () => {
                     setErrorMessage("Email này chưa được đăng ký!");
                 } else {
                     const foundUser = users[0];
-                    if (foundUser.password == formData.password) {
+                    if (foundUser.password === formData.password) {
                         sessionStorage.setItem("user", JSON.stringify(foundUser));
 
                         // Dispatch event để Header nhận biết và re-render

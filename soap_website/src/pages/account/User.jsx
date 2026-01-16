@@ -41,11 +41,11 @@ const User = () => {
         }
     }, [navigate]);
 
-    const handleLogout = () => {
-        // Xóa session và quay về đăng nhập
-        sessionStorage.removeItem("user");
-        navigate("/login");
-    };
+    // const handleLogout = () => {
+    //     // Xóa session và quay về đăng nhập
+    //     sessionStorage.removeItem("user");
+    //     navigate("/login");
+    // };
 
     if (!user) return <div style={{textAlign: "center", marginTop: "50px"}}>Đang tải thông tin...</div>;
 
