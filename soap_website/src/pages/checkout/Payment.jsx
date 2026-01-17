@@ -331,6 +331,13 @@ const Payment = () => {
                             <span>Phí vận chuyển</span>
                             <span>{shippingFee === 0 ? "—" : formatCurrency(shippingFee)}</span>
                         </div>
+
+                        {discount > 0 && (
+                            <div className="price-row" style={{ color: '#28a745', fontWeight: 'bold' }}>
+                                <span>Giảm giá</span>
+                                <span>- {formatCurrency(discount)}</span>
+                            </div>
+                        )}
                     </div>
 
                     <div className="total-section">

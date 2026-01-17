@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../assets/css/Voucher.css';
 
 const Voucher = ({
                      code,
